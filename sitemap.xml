@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://4chan123.github.io/googlebd9e457bc9668e44.html</loc>
+    
+    <lastmod>2021-04-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/</loc>
     
     <lastmod>2021-04-06</lastmod>
@@ -39,22 +46,22 @@
 
   <url>
     <loc>https://4chan123.github.io/</loc>
-    <lastmod>2021-04-07</lastmod>
+    <lastmod>2021-04-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://4chan123.github.io/tags/WEB/</loc>
-    <lastmod>2021-04-07</lastmod>
+    <loc>https://4chan123.github.io/tags/CTF/</loc>
+    <lastmod>2021-04-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://4chan123.github.io/tags/CTF/</loc>
-    <lastmod>2021-04-07</lastmod>
+    <loc>https://4chan123.github.io/tags/WEB/</loc>
+    <lastmod>2021-04-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
