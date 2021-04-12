@@ -286,7 +286,7 @@
 <p>为什么其他参数不行？</p>
 <p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/18.png" alt="18"></p>
 <p>这里是参数args的</p>
-<p>那么办法，只好分析源码,我们发现**<code>show_flag_function</code>** 是没办法得到falg，因为return flag 被注释掉了，只是将它放到flag中。想要得到flag只能用**<code>get_flag_handler()</code><strong>可以得到flag，而得到flag的条件是是</strong><code>if session['num_items'] &gt;= 5:</code>** ，于是我们进入题目界面，去买钻石💎，发现最多买3个，不能买5个以及5个以上。<strong>我们看一下买钻石的函数</strong></p>
+<p>那么没办法，只好分析源码,我们发现**<code>show_flag_function</code>** 是没办法得到falg，因为return flag 被注释掉了，只是将它放到flag中。想要得到flag只能用**<code>get_flag_handler()</code><strong>可以得到flag，而得到flag的条件是是</strong><code>if session['num_items'] &gt;= 5:</code>** ，于是我们进入题目界面，去买钻石💎，发现最多买3个，不能买5个以及5个以上。<strong>我们看一下买钻石的函数</strong></p>
 <p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/19.png" alt="19"></p>
 <p>发现存在逻辑漏洞：就是我们的钱无论够不够，它都会给我们先加上，然后扣掉</p>
 <p>我们发现第148行，无论我们的钱够不够，都先给我们加上，之后再扣掉</p>
@@ -299,7 +299,6 @@
 <p>我们把得到的session放到KALI里面的flask-session-cookie-manager-master进行解密</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 flask_session_cookie_manager3.py decode -c &#39;session&#39;</span><br></pre></td></tr></table></figure>
 <p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/24-1618229726360.png" alt="24"></p>
-<p>上面两个解密，虽然内容不同但是结果相同</p>
 <p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/25.png" alt="25"></p>
 <p><strong>func:show_flag;flag{d07646de-b436-4966-ad68-fd2fc9d9764f}</strong>                         ❣️ ❣️  ❣️  ❣️ ​</p>
 ]]></content>
