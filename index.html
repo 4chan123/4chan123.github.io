@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-12 21:08:33" itemprop="dateModified" datetime="2021-04-12T21:08:33+08:00">2021-04-12</time>
+                <time title="修改时间：2021-04-12 21:11:38" itemprop="dateModified" datetime="2021-04-12T21:11:38+08:00">2021-04-12</time>
               </span>
 
           
@@ -321,7 +321,7 @@
 <p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/4.png" alt="4"></p>
 <hr>
 <p><strong><code>request.prev_session = dict(session)</code></strong> 这把刚刚初始化的session用字典的形式传给了这个参数到了90行，我们看到了一个函数**<code>trigger_event</code>**,我们在vscode上面跟进这个函数</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/5-1618217024506.png" alt="5"></p>
+<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/5-1618233083483.png" alt="5"></p>
 <p>可以看到，实际上**<code>trigger_event</code><strong>的形参</strong><code>event</code>**  就是我们刚刚获得url?后面的字符串**<code>querystring</code>** 。并且将它加入到</p>
 <p>**<code>session['log']</code>**这个日志</p>
 <p>问题来了，下面两个if语句，是什么意思呢？</p>
