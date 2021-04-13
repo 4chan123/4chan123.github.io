@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://4chan123.github.io/2021/04/12/GWCTF-2019-pyre/</loc>
+    
+    <lastmod>2021-04-13</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://4chan123.github.io/2021/04/11/DDCTF-2019-homebrew-event-loop/</loc>
     
     <lastmod>2021-04-12</lastmod>
@@ -96,6 +103,13 @@
   
   <url>
     <loc>https://4chan123.github.io/tags/RE/</loc>
+    <lastmod>2021-04-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://4chan123.github.io/tags/%E9%80%86%E5%90%91%E5%8F%8D%E5%8A%A0%E5%AF%86/</loc>
     <lastmod>2021-04-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
