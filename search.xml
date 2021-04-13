@@ -128,7 +128,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A ^ A &#x3D;0</span><br><span class="line">A ^ 0 &#x3D;A</span><br><span class="line">所以: A ^ A ^ B &#x3D; B</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <ul>
 <li>不难得到， <strong><code>code[i] = code[i] ^ code (i+1)</code></strong> 的正向运行结果</li>
-<li>逆向的 <strong><code>code[i] = code[i] ^ code (i+1)</code></strong>  =====   <strong><code>code[i] = code[i] ^ code (i+1) ^ code (i+1) </code></strong></li>
+<li>逆向的 <strong><code>code[i] = code[i] ^ code (i+1)</code></strong>  等于  <strong><code>code[i] = code[i] ^ code (i+1) ^ code (i+1) </code></strong></li>
 <li>也就是 <strong><code>code[i] = code[i] ^ code (i+1)</code></strong>  。所以我们只要要倒序枚举，使用 <strong><code>code[i] = code[i] ^ code (i+1)</code></strong> 算出每一个 <strong><code>code[i]</code></strong> 原来的值</li>
 </ul>
 <hr>
