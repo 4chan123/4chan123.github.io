@@ -31,7 +31,7 @@
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">测试是否存在ssti注入 &#123;&#123;<span class="number">1</span>+<span class="number">1</span>&#125;&#125;  <span class="meta">#回复页面为2说明存在ssti注入</span></span><br><span class="line">查询： &#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__&#125;&#125; </span><br><span class="line">查看可用模块： &#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()&#125;&#125; </span><br><span class="line">查找危险函数： &#123;&#123;().__class__.base__.__subclasses__().index(warnings.catch_warnings)&#125;&#125;</span><br><span class="line"></span><br><span class="line">相关函数解释</span><br><span class="line">__class__ 返回类型所属的对象</span><br><span class="line"></span><br><span class="line">__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"></span><br><span class="line">__init__ 类的初始化方法</span><br><span class="line"></span><br><span class="line">__globals__ 对包含函数全局变量的字典的引用</span><br><span class="line"></span><br><span class="line">__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"></span><br><span class="line">__bases__ 返回该对象所继承的基类 __builtins__是做为默认初始模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>CTF</category>
+        <category>WEB</category>
       </categories>
       <tags>
         <tag>WEB</tag>
@@ -192,6 +192,19 @@
       <tags>
         <tag>CTF</tag>
         <tag>有关逆序的脚本构建</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SWPU2019 Web4</title>
+    <url>/2021/04/13/SWPU2019-Web4/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+        <tag>CTF</tag>
+        <tag>SQL堆叠注入</tag>
       </tags>
   </entry>
   <entry>
