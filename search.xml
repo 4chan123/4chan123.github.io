@@ -99,6 +99,19 @@
       </tags>
   </entry>
   <entry>
+    <title>SWPU2019 Web4</title>
+    <url>/2021/04/13/SWPU2019-Web4/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+        <tag>CTF</tag>
+        <tag>SQL堆叠注入</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GWCTF 2019 pyre</title>
     <url>/2021/04/12/GWCTF-2019-pyre/</url>
     <content><![CDATA[<p>文件链接：<a href="https://pan.baidu.com/s/1J5GGnntQkN8IWD0hKs-X8g">https://pan.baidu.com/s/1J5GGnntQkN8IWD0hKs-X8g</a><br>
@@ -195,19 +208,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SWPU2019 Web4</title>
-    <url>/2021/04/13/SWPU2019-Web4/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>WEB</tag>
-        <tag>CTF</tag>
-        <tag>SQL堆叠注入</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>buuctf-SimpleRev</title>
     <url>/2021/04/10/buuctf-SimpleRev/</url>
     <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw">https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw</a><br>
@@ -231,6 +231,83 @@
       <tags>
         <tag>CTF</tag>
         <tag>python构造脚本爆破</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从零开始学python</title>
+    <url>/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/</url>
+    <content><![CDATA[<blockquote>
+<p>从零考试学习python内容 99%来自于python大神 python-jack的<a href="https://zhuanlan.zhihu.com/p/113640664">知乎文章  </a> 再结合本人的实际情况进行学习，严格来说这是JACK老师的内容，只不过再此基础上，我增添了一些我在CTF解题过程中遇到的python脚本实际情况，再次感谢JACK老师</p>
+<p>学习的内容来自：<a href="https://zhuanlan.zhihu.com/p/113640664">https://zhuanlan.zhihu.com/p/113640664</a></p>
+</blockquote>
+<h2 id="从零开始学Python-第003课：Python语言元素之变量"><strong>从零开始学Python - 第003课：Python语言元素之变量</strong></h2>
+<ul>
+<li>整型（int）：Python中可以处理任意大小的整数，而且支持二进制（如<code>0b100</code>，换算成十进制是4）、八进制（如<code>0o100</code>，换算成十进制是64）、十进制（<code>100</code>）和十六进制（<code>0x100</code>，换算成十进制是256）的表示法。</li>
+</ul>
+<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/0.png" alt="0"></p>
+<ul>
+<li>浮点型（float）：浮点数也就是小数，之所以称为浮点数，是因为按照科学记数法表示时，一个浮点数的小数点位置是可变的，浮点数除了数学写法（如<code>123.456</code>）之外还支持科学计数法（如<code>1.23456e2</code>）。</li>
+<li><strong>字符串型（str）：字符串是以单引号或双引号括起来的任意文本，比如<code>'hello'</code>和<code>&quot;hello&quot;</code>。</strong></li>
+<li>布尔型（bool）：布尔值只有<code>True</code>、<code>False</code>两种值，要么是<code>True</code>，要么是<code>False</code>。</li>
+</ul>
+<hr>
+<h3 id="变量命名">变量命名</h3>
+<p>对于每个变量我们需要给它取一个名字，就如同我们每个人都有自己的名字一样。在Python中，变量命名需要遵循以下这些规则，这些规则又分为必须遵守的硬性规则和建议遵守的非硬性规则。</p>
+<h4 id="硬性规则：">硬性规则：</h4>
+<ol>
+<li>变量名由<strong>字母</strong>、数字和<strong>下划线</strong>构成，数字不能开头。需要说明的是，这里说的字母指的是Unicode字符，Unicode称为万国码，囊括了世界上大部分的文字系统，这也就意味着中文、日文、希腊字母等都可以作为变量名中的字符，但是像<code>!</code>、<code>@</code>、<code>#</code>这些特殊字符是不能出现在变量名中的，而且我们强烈建议大家<strong>尽可能使用英文字母</strong>。</li>
+<li><strong>大小写敏感</strong>，简单的说就是大写的<code>A</code>和小写的<code>a</code>是两个不同的变量。</li>
+<li>变量名<strong>不要跟Python语言的关键字</strong>（有特殊含义的单词，后面会讲到）和<strong>保留字</strong>（如函数、模块等的名字）<strong>发生重名的冲突</strong>。</li>
+</ol>
+<hr>
+<h4 id="非硬性规则：">非硬性规则：</h4>
+<ol>
+<li>变量名通常使用小写英文字母，多个单词用下划线进行连接。</li>
+<li>受保护的变量用单个下划线开头（后面会讲到）。</li>
+<li>私有的变量用两个下划线开头（后面会讲到）。</li>
+</ol>
+<hr>
+<p>在Python中可以使用<code>type</code>函数对变量的类型进行检查。程序设计中函数的概念跟数学上函数的概念是一致的，数学上的函数相信大家并不陌生，它包括了函数名、自变量和因变量。如果暂时不理解这个概念也不要紧，我们会在后续的内容中专门讲解函数的定义和使用。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">使用type()检查变量的类型</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">a = <span class="number">100</span></span><br><span class="line">b = <span class="number">12.345</span></span><br><span class="line">c = <span class="string">&#x27;hello, world&#x27;</span></span><br><span class="line">d = <span class="literal">True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(a))    <span class="comment"># &lt;class &#x27;int&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(b))    <span class="comment"># &lt;class &#x27;float&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(c))    <span class="comment"># &lt;class &#x27;str&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(d))    <span class="comment"># &lt;class &#x27;bool&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/1.png" alt="1"></p>
+<p>不同类型的变量可以相互转换，这一点可以通过Python的内置函数来实现。</p>
+<ul>
+<li>
+<p><code>int()</code>：将一个数值或字符串转换成整数，可以指定进制。</p>
+</li>
+<li>
+<p><code>float()</code>：将一个字符串转换成浮点数。</p>
+</li>
+<li>
+<p><code>str()</code>：将指定的对象转换成字符串形式，可以指定编码。</p>
+</li>
+<li>
+<pre><code class="language-python">&gt;&gt;&gt; ord('A')
+65
+&gt;&gt;&gt; chr(66)
+'B'
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- &#96;chr()&#96;：将整数转换成该编码对应的字符串（一个字符）。</span><br><span class="line"></span><br><span class="line">- &#96;ord()&#96;：将字符串（一个字符）转换成对应的编码（整数）。</span><br><span class="line"></span><br><span class="line">下面的例子为大家演示了Python中的类型转换。</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;python</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Python中的类型转换</span><br><span class="line"></span><br><span class="line">Version: 0.1</span><br><span class="line">Author: 骆昊</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">a &#x3D; 100</span><br><span class="line">b &#x3D; 12.345</span><br><span class="line">c &#x3D; &#39;hello, world&#39;</span><br><span class="line">d &#x3D; True</span><br><span class="line"># 整数转成浮点数</span><br><span class="line">print(float(a))    # 100.0</span><br><span class="line"># 浮点型转成字符串 (输出字符串时不会看到引号哟)</span><br><span class="line">print(str(b))      # 12.345</span><br><span class="line"># 字符串转成布尔型 (有内容的字符串都会变成True)</span><br><span class="line">print(bool(c))     # True</span><br><span class="line"># 布尔型转成整数 (True会转成1，False会转成0)</span><br><span class="line">print(int(d))      # 1</span><br><span class="line"># 将整数变成对应的字符 (97刚好对应字符表中的字母a)</span><br><span class="line">print(chr(97))     # a</span><br><span class="line"># 将字符转成整数 (Python中字符和字符串表示法相同)</span><br><span class="line">print(ord(&#39;a&#39;))    # 97</span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+</ul>
+<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/2.png" alt="2"></p>
+<hr>
+<h3 id="拓展"><strong>拓展</strong></h3>
+<p>如果知道字符的整数编码，还可以用十六进制这么写<code>str</code>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; &#39;\u4e2d\u6587&#39;</span><br><span class="line">&#39;中文&#39;</span><br></pre></td></tr></table></figure>
+<p>要计算<code>str</code>包含多少个字符，可以用<code>len()</code>函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; len(&#39;ABC&#39;)</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; len(&#39;中文&#39;)</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<p>在Python中，采用的格式化方式和C语言是一致的，用<code>%</code>实现，举例如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; &#39;Hello, %s&#39; % &#39;world&#39;</span><br><span class="line">&#39;Hello, world&#39;</span><br><span class="line">&gt;&gt;&gt; &#39;Hi, %s, you have $%d.&#39; % (&#39;Michael&#39;, 1000000)</span><br><span class="line">&#39;Hi, Michael, you have $1000000.&#39;</span><br></pre></td></tr></table></figure>
+<p>你可能猜到了，<code>%</code>运算符就是用来格式化字符串的。在字符串内部，<code>%s</code>表示用字符串替换，<code>%d</code>表示用整数替换，有几个<code>%?</code>占位符，后面就跟几个变量或者值，顺序要对应好。如果只有一个<code>%?</code>，括号可以省略。</p>
+<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/3.png" alt="3"></p>
+]]></content>
+      <categories>
+        <category>python学习</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
