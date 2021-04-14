@@ -6,7 +6,7 @@
   <link href="https://4chan123.github.io/atom.xml" rel="self"/>
   
   <link href="https://4chan123.github.io/"/>
-  <updated>2021-04-14T05:21:29.023Z</updated>
+  <updated>2021-04-13T11:52:03.507Z</updated>
   <id>https://4chan123.github.io/</id>
   
   <author>
@@ -15,19 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>SWPU2019 Web4</title>
-    <link href="https://4chan123.github.io/2021/04/13/SWPU2019-Web4/"/>
-    <id>https://4chan123.github.io/2021/04/13/SWPU2019-Web4/</id>
-    <published>2021-04-13T13:21:29.000Z</published>
-    <updated>2021-04-14T05:21:29.023Z</updated>
-    
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>GWCTF 2019 pyre</title>
