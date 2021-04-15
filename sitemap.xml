@@ -9,13 +9,6 @@
   </url>
   
   <url>
-    <loc>https://4chan123.github.io/2021/04/13/SWPU2019-Web4/</loc>
-    
-    <lastmod>2021-04-14</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/</loc>
     
     <lastmod>2021-04-14</lastmod>
@@ -95,7 +88,7 @@
 
   <url>
     <loc>https://4chan123.github.io/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -103,91 +96,84 @@
   
   <url>
     <loc>https://4chan123.github.io/tags/WEB/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/CTF/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/SSTI%E6%B3%A8%E5%85%A5/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/FLASK/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/RC4/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/%E9%80%86%E5%90%91%E5%8F%8D%E5%8A%A0%E5%AF%86/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/%E6%9C%89%E5%85%B3%E9%80%86%E5%BA%8F%E7%9A%84%E8%84%9A%E6%9C%AC%E6%9E%84%E5%BB%BA/</loc>
-    <lastmod>2021-04-14</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://4chan123.github.io/tags/SQL%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/python%E6%9E%84%E9%80%A0%E8%84%9A%E6%9C%AC%E7%88%86%E7%A0%B4/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/python/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/%E6%9D%82%E8%B0%88/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/tags/Flask%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -196,28 +182,28 @@
   
   <url>
     <loc>https://4chan123.github.io/categories/WEB/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/categories/RE/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/categories/python%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://4chan123.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%8A%B6%E6%80%81/</loc>
-    <lastmod>2021-04-14</lastmod>
+    <lastmod>2021-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
