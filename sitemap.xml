@@ -130,6 +130,13 @@
   </url>
   
   <url>
+    <loc>https://4chan123.github.io/tags/%E6%9C%89%E5%85%B3%E9%80%86%E5%BA%8F%E7%9A%84%E8%84%9A%E6%9C%AC%E6%9E%84%E5%BB%BA/</loc>
+    <lastmod>2021-04-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://4chan123.github.io/tags/FLASK/</loc>
     <lastmod>2021-04-16</lastmod>
     <changefreq>daily</changefreq>
@@ -145,13 +152,6 @@
   
   <url>
     <loc>https://4chan123.github.io/tags/%E9%80%86%E5%90%91%E5%8F%8D%E5%8A%A0%E5%AF%86/</loc>
-    <lastmod>2021-04-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://4chan123.github.io/tags/%E6%9C%89%E5%85%B3%E9%80%86%E5%BA%8F%E7%9A%84%E8%84%9A%E6%9C%AC%E6%9E%84%E5%BB%BA/</loc>
     <lastmod>2021-04-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
