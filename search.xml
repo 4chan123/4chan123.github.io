@@ -298,19 +298,6 @@
       </tags>
   </entry>
   <entry>
-    <title>总结一下最近学习状况</title>
-    <url>/2021/04/10/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
-    <content><![CDATA[<p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
-]]></content>
-      <categories>
-        <category>学习状态</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>从零开始学python</title>
     <url>/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/</url>
     <content><![CDATA[<blockquote>
@@ -381,7 +368,7 @@
 <p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/3.png" alt="3"></p>
 <hr>
 <h2 id="从零开始学Python-第004课：Python语言元素之运算符"><strong>从零开始学Python - 第004课：Python语言元素之运算符</strong></h2>
-<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/4-1618387971162.jpg" alt="4"></p>
+<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/4.jpg" alt="4"></p>
 <blockquote>
 <p><strong>说明：</strong> 上面这个表格实际上是按照运算符的优先级从上到下列出了各种运算符。所谓优先级就是在一个运算的表达式中，如果出现了多个运算符，应该先执行哪个运算再执行哪个运算的顺序。在实际开发中，如果搞不清楚运算符的优先级，可以使用圆括号来确保运算的执行顺序。</p>
 </blockquote>
@@ -401,6 +388,24 @@
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从零开始学python第二天</title>
+    <url>/2021/04/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>总结一下最近学习状况</title>
+    <url>/2021/04/10/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
+    <content><![CDATA[<p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
+]]></content>
+      <categories>
+        <category>学习状态</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>杂谈</tag>
       </tags>
   </entry>
   <entry>
