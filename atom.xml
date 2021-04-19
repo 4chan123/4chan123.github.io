@@ -6,7 +6,7 @@
   <link href="https://4chan123.github.io/atom.xml" rel="self"/>
   
   <link href="https://4chan123.github.io/"/>
-  <updated>2021-04-16T03:02:37.483Z</updated>
+  <updated>2021-04-19T09:05:05.065Z</updated>
   <id>https://4chan123.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="https://4chan123.github.io/2021/04/19/test/"/>
+    <id>https://4chan123.github.io/2021/04/19/test/</id>
+    <published>2021-04-19T09:04:19.000Z</published>
+    <updated>2021-04-19T09:05:05.065Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/.io//david-baylis-930-parking.jpg" alt="david-baylis-930-parking"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/.io//david-baylis-930-parking.jpg&quot; alt=&quot;david-baylis-930-parking&quot;&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>从零开始学python第二天</title>
