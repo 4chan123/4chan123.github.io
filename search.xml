@@ -40,54 +40,6 @@
       </tags>
   </entry>
   <entry>
-    <title>BJDCTF8086</title>
-    <url>/2021/04/19/BJDCTF8086/</url>
-    <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ">https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ</a><br>
-提取码：ex3u</p>
-<h2 id="0X01-使用EP查看文件是否有无加壳"><strong>0X01 使用EP查看文件是否有无加壳</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/0.png" alt="0"></p>
-<p>没有加壳，直接拖到64位IDA上面</p>
-<h2 id="0x02-查看sub-10030函数"><strong>0x02 查看sub_10030函数</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/1.png" alt="1"></p>
-<p>点击进去看看</p>
-<p><img src="/2021/04/19/BJDCTF8086/2.png" alt="2"></p>
-<p>发现是个死循环函数，重复跳转自身</p>
-<hr>
-<p><strong>0x02 使用IDA32位打开文件</strong></p>
-<ul>
-<li>Shift+F12查看直观函数</li>
-</ul>
-<p><img src="/2021/04/19/BJDCTF8086/3.png" alt="3"></p>
-<ul>
-<li>F5反编译，发现已经反编译，就无需反编译</li>
-</ul>
-<p><img src="/2021/04/19/BJDCTF8086/4.png" alt="4"></p>
-<ul>
-<li>分析头函数数据</li>
-</ul>
-<p><img src="/2021/04/19/BJDCTF8086/5.png" alt="5"></p>
-<ul>
-<li>分析sub_10030函数，重复跳转自身的死循环，节选后，按住 <strong><code>C</code></strong> 键开始强制汇编（ <strong><code>Force</code></strong> ）</li>
-</ul>
-<p><img src="/2021/04/19/BJDCTF8086/6.png" alt="6"></p>
-<hr>
-<h2 id="0x03-开始分析强制汇编的内容"><strong>0x03 开始分析强制汇编的内容</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/7.png" alt="7"></p>
-<hr>
-<h2 id="0x04-开始构建脚本与0X1F做异或"><strong>0x04 开始构建脚本与0X1F做异或</strong></h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">&quot;]U[du~|t@&#123;z@wj.&#125;.~q@gjz&#123;z@wzqW~/b&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">    flag += <span class="built_in">chr</span>(<span class="built_in">ord</span>(i)^<span class="number">0x1F</span>)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/19/BJDCTF8086/8.png" alt="8"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BJD&#123;jack_de_hu1b1an_xuede_henHa0&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>RE</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>python构造重复多次异或脚本</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CISCN2019-华东南赛区-Double-Secret</title>
     <url>/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/</url>
     <content><![CDATA[<blockquote>
@@ -144,6 +96,54 @@
         <tag>CTF</tag>
         <tag>FLASK</tag>
         <tag>RC4</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BJDCTF8086</title>
+    <url>/2021/04/19/BJDCTF8086/</url>
+    <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ">https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ</a><br>
+提取码：ex3u</p>
+<h2 id="0X01-使用EP查看文件是否有无加壳"><strong>0X01 使用EP查看文件是否有无加壳</strong></h2>
+<p><img src="/2021/04/19/BJDCTF8086/0.png" alt="0"></p>
+<p>没有加壳，直接拖到64位IDA上面</p>
+<h2 id="0x02-查看sub-10030函数"><strong>0x02 查看sub_10030函数</strong></h2>
+<p><img src="/2021/04/19/BJDCTF8086/1.png" alt="1"></p>
+<p>点击进去看看</p>
+<p><img src="/2021/04/19/BJDCTF8086/2.png" alt="2"></p>
+<p>发现是个死循环函数，重复跳转自身</p>
+<hr>
+<p><strong>0x02 使用IDA32位打开文件</strong></p>
+<ul>
+<li>Shift+F12查看直观函数</li>
+</ul>
+<p><img src="/2021/04/19/BJDCTF8086/3.png" alt="3"></p>
+<ul>
+<li>F5反编译，发现已经反编译，就无需反编译</li>
+</ul>
+<p><img src="/2021/04/19/BJDCTF8086/4.png" alt="4"></p>
+<ul>
+<li>分析头函数数据</li>
+</ul>
+<p><img src="/2021/04/19/BJDCTF8086/5.png" alt="5"></p>
+<ul>
+<li>分析sub_10030函数，重复跳转自身的死循环，节选后，按住 <strong><code>C</code></strong> 键开始强制汇编（ <strong><code>Force</code></strong> ）</li>
+</ul>
+<p><img src="/2021/04/19/BJDCTF8086/6.png" alt="6"></p>
+<hr>
+<h2 id="0x03-开始分析强制汇编的内容"><strong>0x03 开始分析强制汇编的内容</strong></h2>
+<p><img src="/2021/04/19/BJDCTF8086/7.png" alt="7"></p>
+<hr>
+<h2 id="0x04-开始构建脚本与0X1F做异或"><strong>0x04 开始构建脚本与0X1F做异或</strong></h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">&quot;]U[du~|t@&#123;z@wj.&#125;.~q@gjz&#123;z@wzqW~/b&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">    flag += <span class="built_in">chr</span>(<span class="built_in">ord</span>(i)^<span class="number">0x1F</span>)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/19/BJDCTF8086/8.png" alt="8"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BJD&#123;jack_de_hu1b1an_xuede_henHa0&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>RE</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>python构造重复多次异或脚本</tag>
       </tags>
   </entry>
   <entry>
@@ -346,12 +346,6 @@
       </tags>
   </entry>
   <entry>
-    <title>test</title>
-    <url>/2021/04/19/test/</url>
-    <content><![CDATA[<p><img src="/2021/04/19/test/1.jpg" alt="1"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>从零开始学习python第三天</title>
     <url>/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/</url>
     <content><![CDATA[<blockquote>
@@ -365,7 +359,7 @@
 <p>在Python中可以使用<code>def</code>关键字来定义函数，和变量一样每个函数也应该有一个漂亮的名字，命名规则跟变量的命名规则是一致的。在函数名后面的圆括号中可以放置传递给函数的参数，就是我们刚才说到的函数的自变量，而函数执行完成后我们会通过<code>return</code>关键字来返回函数的执行结果，就是我们刚才说的函数的因变量。一个函数要执行的代码块（要做的事情）也是通过缩进的方式来表示的，跟之前分支和循环结构的代码块是一样的。大家不要忘了<code>def</code>那一行的最后面还有一个<code>:</code>，之前提醒过大家，那是在英文输入法状态下输入的冒号。</p>
 <p>我们可以通过函数对上面的代码进行重构。**所谓重构，是在不影响代码执行结果的前提下对代码的结构进行调整。**重构之后的代码如下所示。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">输入M和N计算C(M,N)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义函数：def是定义函数的关键字、fac是函数名，num是参数（自变量）</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fac</span>(<span class="params">num</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;求阶乘&quot;&quot;&quot;</span></span><br><span class="line">    result = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, num + <span class="number">1</span>):</span><br><span class="line">        result *= n</span><br><span class="line">    <span class="comment"># 返回num的阶乘（因变量）</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">m = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;m = &#x27;</span>))</span><br><span class="line">n = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;n = &#x27;</span>))</span><br><span class="line"><span class="comment"># 当需要计算阶乘的时候不用再写重复代码而是直接调用函数fac</span></span><br><span class="line"><span class="comment"># 调用函数的语法是在函数名后面跟上圆括号并传入参数</span></span><br><span class="line"><span class="built_in">print</span>(fac(m) // fac(n) // fac(m - n))</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/equation-1618834375463.svg" alt="equation"></p>
+<p><img src="/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/5.png" alt="5"></p>
 <p><img src="/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/0.png" alt="0"></p>
 <hr>
 <h2 id="函数的参数">函数的参数</h2>
@@ -511,17 +505,10 @@
       </tags>
   </entry>
   <entry>
-    <title>总结一下最近学习状况</title>
-    <url>/2021/04/11/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
-    <content><![CDATA[<p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
+    <title>test</title>
+    <url>/2021/04/19/test/</url>
+    <content><![CDATA[<p><img src="/2021/04/19/test/1.jpg" alt="1"></p>
 ]]></content>
-      <categories>
-        <category>学习状态</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>杂谈</tag>
-      </tags>
   </entry>
   <entry>
     <title>从零开始学python第二天</title>
@@ -571,6 +558,19 @@
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>总结一下最近学习状况</title>
+    <url>/2021/04/11/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
+    <content><![CDATA[<p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
+]]></content>
+      <categories>
+        <category>学习状态</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>杂谈</tag>
       </tags>
   </entry>
   <entry>
