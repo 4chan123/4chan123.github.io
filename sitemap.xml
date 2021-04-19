@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://4chan123.github.io/2021/04/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E5%9B%9B%E5%A4%A9/</loc>
+    
+    <lastmod>2021-04-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://4chan123.github.io/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/</loc>
     
     <lastmod>2021-04-19</lastmod>
@@ -151,6 +158,13 @@
   </url>
   
   <url>
+    <loc>https://4chan123.github.io/tags/python%E6%9E%84%E9%80%A0%E9%87%8D%E5%A4%8D%E5%A4%9A%E6%AC%A1%E5%BC%82%E6%88%96%E8%84%9A%E6%9C%AC/</loc>
+    <lastmod>2021-04-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://4chan123.github.io/tags/FLASK/</loc>
     <lastmod>2021-04-19</lastmod>
     <changefreq>daily</changefreq>
@@ -159,13 +173,6 @@
   
   <url>
     <loc>https://4chan123.github.io/tags/RC4/</loc>
-    <lastmod>2021-04-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://4chan123.github.io/tags/python%E6%9E%84%E9%80%A0%E9%87%8D%E5%A4%8D%E5%A4%9A%E6%AC%A1%E5%BC%82%E6%88%96%E8%84%9A%E6%9C%AC/</loc>
     <lastmod>2021-04-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

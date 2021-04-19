@@ -6,7 +6,7 @@
   <link href="https://4chan123.github.io/atom.xml" rel="self"/>
   
   <link href="https://4chan123.github.io/"/>
-  <updated>2021-04-19T12:55:41.440Z</updated>
+  <updated>2021-04-19T14:01:45.703Z</updated>
   <id>https://4chan123.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零开始学python第四天</title>
+    <link href="https://4chan123.github.io/2021/04/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E5%9B%9B%E5%A4%A9/"/>
+    <id>https://4chan123.github.io/2021/04/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E5%9B%9B%E5%A4%A9/</id>
+    <published>2021-04-20T13:16:59.000Z</published>
+    <updated>2021-04-19T14:01:45.703Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="字符串的定义"><strong>字符串的定义</strong></h2><p>所谓<strong>字符串</strong>，就是<strong>由零个或多个字符组成的有限序列</strong>，一般记为：</p><p><img src="https://www.zhihu.com/equation?tex=s%3Da_%7B1%7Da_%7B2%7D%5Cdots+a_%7Bn%7D%280%5Cleq+n+%5Cleq+%5Cinfty%29" alt="[公式]"></p><p>在Python程序中，如果我们把单个或多个字符用 <strong><code>单引号</code></strong> 或者 <strong><code>双引号</code></strong>  包围起来，就可以表示一个字符串。字符串中的字符可以是特殊符号、英文字母、中文字符、日文的平假名或片假名、希腊字母、<a href="https://link.zhihu.com/?target=http%3A//www.ruanyifeng.com/blog/2017/04/emoji.html">Emoji字符</a>等。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">&#x27;hello, world!&#x27;</span></span><br><span class="line">s2 = <span class="string">&quot;你好，世界！&quot;</span></span><br><span class="line"><span class="built_in">print</span>(s1, s2)</span><br><span class="line"><span class="comment"># 以三个双引号或单引号开头的字符串可以折行</span></span><br><span class="line">s3 = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">hello, </span></span><br><span class="line"><span class="string">world!</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s3, end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure><blockquote><p><strong>提示</strong>：<code>print</code>函数中的<code>end=''</code>表示输出后不换行，即将默认的结束符<code>\n</code>（换行符）更换为<code>''</code>（空字符）。</p></blockquote><hr><h2 id="转义字符和原始字符串"><strong>转义字符和原始字符串</strong></h2><p>可以在字符串中使用<code>\</code>（反斜杠）来表示转义，也就是说<code>\</code>后面的字符不再是它原来的意义，例如：<code>\n</code>不是代表反斜杠和字符<code>n</code>，而是表示换行；<code>\t</code>也不是代表反斜杠和字符<code>t</code>，而是表示制表符。所以如果字符串本身又包含了<code>'</code>、<code>&quot;</code>、<code>\</code>这些特殊的字符，必须要通过<code>\</code>进行转义处理。例如需要一个带单引号或反斜杠的字符串，可以用如下所示的方法进行处理。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 头尾带单引号的hello, world!</span></span><br><span class="line">s1 = <span class="string">&#x27;\&#x27;hello, world!\&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s1)</span><br><span class="line"><span class="comment"># 头尾带反斜杠的hello, world!</span></span><br><span class="line">s2 = <span class="string">&#x27;\\hello, world!\\&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s2)</span><br></pre></td></tr></table></figure><p><img src="/2021/04/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E5%9B%9B%E5%A4%A9/0.png" alt="0"></p><p>Python中的字符串可以<code>r</code>或<code>R</code>开头，这种字符串被称为原始字符串，意思是字符串中的每个字符都是它本来的含义，没有所谓的转义字符。例如，在字符串<code>'hello\n'</code>中，<code>\n</code>表示换行；而在<code>r'hello\n'</code>中，<code>\n</code>不再表示换行，就是反斜杠和字符<code>n</code>。大家可以运行下面的代码，看看会输出什么。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串s1中\t是制表符，\n是换行符</span></span><br><span class="line">s1 = <span class="string">&#x27;\time up \now&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s1)</span><br><span class="line"><span class="comment"># 字符串s2中没有转义字符，每个字符都是原始含义</span></span><br><span class="line">s2 = <span class="string">r&#x27;\time up \now&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s2)</span><br></pre></td></tr></table></figure><p><img src="/2021/04/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E5%9B%9B%E5%A4%A9/1.png" alt="1"></p><p>Python中还允许在<code>\</code>后面还可以跟一个八进制或者十六进制数来表示字符，例如<code>\141</code>和<code>\x61</code>都代表小写字母<code>a</code>，前者是八进制的表示法，后者是十六进制的表示法。另外一种表示字符的方式是在<code>\u</code>后面跟Unicode字符编码，例如<code>\u9a86\u660a</code>代表的是中文“骆昊”。运行下面的代码，看看输出了什么。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">&#x27;\141\142\143\x61\x62\x63&#x27;</span></span><br><span class="line">s2 = <span class="string">&#x27;\u9a86\u660a&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s1, s2)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;字符串的定义&quot;&gt;&lt;strong&gt;字符串的定义&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;所谓&lt;strong&gt;字符串&lt;/strong&gt;，就是&lt;strong&gt;由零个或多个字符组成的有限序列&lt;/strong&gt;，一般记为：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://www</summary>
+      
+    
+    
+    
+    <category term="python学习" scheme="https://4chan123.github.io/categories/python%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="python" scheme="https://4chan123.github.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>从零开始学习python第三天</title>
