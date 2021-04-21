@@ -88,6 +88,34 @@
       </tags>
   </entry>
   <entry>
+    <title>BJDCTFdiff2</title>
+    <url>/2021/04/20/BJDCTFdiff2/</url>
+    <content><![CDATA[<h2 id="0x01-用EP打开，查看加壳没"><strong>0x01 用EP打开，查看加壳没</strong></h2>
+<p><img src="/2021/04/20/BJDCTFdiff2/0.png" alt="0"></p>
+<p>没有加壳</p>
+<hr>
+<h2 id="0x02-用IDA32位打开，F5反编译"><strong>0x02 用IDA32位打开，F5反编译</strong></h2>
+<p><img src="/2021/04/20/BJDCTFdiff2/3.png" alt="3"></p>
+<p>漏洞的地方只可能是  <strong><code>compare</code></strong></p>
+<hr>
+<h2 id="0x03-分析代码">0x03 分析代码</h2>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> v0; <span class="comment">// al@2</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [sp+0h] [bp-8h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+4h] [bp-4h]@1</span></span><br><span class="line"></span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; buf2[i] + buf1[i] &amp;&amp; i &lt; <span class="number">0x400</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v0 = buf1[i];</span><br><span class="line">    <span class="keyword">if</span> ( v0 != buf2[i] )</span><br><span class="line">      <span class="keyword">return</span> v3 + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v0 == <span class="number">10</span> )</span><br><span class="line">      ++v3;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>char型变量占1个字节，相当于unsigned byte，表示范围是0x0-0xff，两个char相加的范围就是0x0 - 0x1fe ，由于char型只能存储1个字节的数据，两个char相加产生的进位就会被忽略。<strong><code>char + char = 溢出</code></strong>  举个栗子，0x7d+0x83=0x100-&gt;0x0。</p>
+<p>所以如果buf2[i]+buf1[i]=0x100就会 <strong>终止</strong> for循环</p>
+<p>每次返回一个进行爆破即可</p>
+<h2 id="0x04-构造python脚本"><strong>0x04 构造python脚本</strong></h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> *</span><br><span class="line">fix = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0x100</span>):</span><br><span class="line">		payload = fix+<span class="built_in">chr</span>(i)</span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/tmp/ktql&#x27;</span>,<span class="string">&#x27;w+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">			f.write(payload)</span><br><span class="line">		p = Popen([<span class="string">&#x27;/root/diff&#x27;</span>,<span class="string">&#x27;/tmp/ktql&#x27;</span>,<span class="string">&#x27;/root/flag&#x27;</span>],stdout=PIPE)</span><br><span class="line">		res = p.stdout.read()</span><br><span class="line">		<span class="keyword">if</span> res != <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">			fix+=<span class="built_in">chr</span>(<span class="number">0x100</span>-i)</span><br><span class="line">			<span class="built_in">print</span>(fix)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>RE</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>溢出漏洞</tag>
+        <tag>python构建针对溢出漏洞的脚本</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CISCN2019-华东南赛区-Double-Secret</title>
     <url>/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/</url>
     <content><![CDATA[<blockquote>
