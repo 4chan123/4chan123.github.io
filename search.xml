@@ -279,8 +279,8 @@
 <hr>
 <h2 id="0x02-使用IDA32位打开文件-📉"><strong>0x02 使用IDA32位打开文件</strong>  📉</h2>
 <p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/1.png" alt="1"></p>
-<p><strong><code>Shift</code></strong> + <strong><code>F12</code></strong> 查找关键函数</p>
-<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/20201212145342946.png" alt="20201212145342946"></p>
+<p><strong><code>Shift</code></strong> + <strong><code>F12</code></strong> 查找关键函数,然后F5反编译</p>
+<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/8.png" alt="8"></p>
 <p>第十九行可知v0和byte_4212c0进行异或，得到byte_41EA08输出正确</p>
 <p>直接进入byte_41EA08函数查看内容</p>
 <p>得到异或内容</p>
