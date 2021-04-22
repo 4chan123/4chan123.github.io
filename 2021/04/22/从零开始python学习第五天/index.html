@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"4chan123.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="从零考试学习python内容 99%来自于python大神 python-jack的知乎文章 再结合本人的实际情况进行学习，严格来说这是JACK老师的内容，只不过再此基础上，我增添了一些我在CTF解题过程中遇到的python脚本实际情况，再次感谢JACK老师 学习的内容来自于:https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;126324262  第010课：函数和字符串的应用 前面两节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始python学习第五天">
+<meta property="og:url" content="https://4chan123.github.io/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/index.html">
+<meta property="og:site_name" content="4chan">
+<meta property="og:description" content="从零考试学习python内容 99%来自于python大神 python-jack的知乎文章 再结合本人的实际情况进行学习，严格来说这是JACK老师的内容，只不过再此基础上，我增添了一些我在CTF解题过程中遇到的python脚本实际情况，再次感谢JACK老师 学习的内容来自于:https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;126324262  第010课：函数和字符串的应用 前面两节">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/0.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/1.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/2.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/4.png">
+<meta property="article:published_time" content="2021-04-22T11:05:21.000Z">
+<meta property="article:modified_time" content="2021-04-22T12:18:53.197Z">
+<meta property="article:author" content="4Chan">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://4chan123.github.io/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/0.png">
+
+<link rel="canonical" href="https://4chan123.github.io/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>从零开始python学习第五天 | 4chan</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="4chan" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">4chan</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Re</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="4Chan">
+      <meta itemprop="description" content="For U">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="4chan">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从零开始python学习第五天
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-22 19:05:21 / 修改时间：20:18:53" itemprop="dateCreated datePublished" datetime="2021-04-22T19:05:21+08:00">2021-04-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">python学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>从零考试学习python内容 99%来自于python大神 python-jack的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113640664">知乎文章 </a>再结合本人的实际情况进行学习，严格来说这是JACK老师的内容，只不过再此基础上，我增添了一些我在CTF解题过程中遇到的python脚本实际情况，再次感谢JACK老师</p>
+<p>学习的内容来自于:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/126324262">https://zhuanlan.zhihu.com/p/126324262</a></p>
+</blockquote>
+<h1><strong>第010课：函数和字符串的应用</strong></h1>
+<p>前面两节课，我们介绍了函数和字符串。在讲解今天的内容之前，先来回答一个可能会让大家感到费解的问题：为什么字符串类型（<code>str</code>）可以通过调用方法的方式进行操作，而之前我们用到的数值类型（如<code>int</code>、<code>float</code>）却没有可以调用的方法。在Python中，数值类型是标量类型，也就是说这种类型的变量没有可以访问的内部结构；而字符串类型是一种结构化的、非标量类型，所以才会有一系列的方法可供调用。如果对这一点感到困惑，那就继续学习吧，等学习完面向对象编程的知识后，你就能找到这些问题的答案了。</p>
+<p><strong>一些案例</strong> ​</p>
+<h2 id="例子1：设计一个生成指定长度验证码的函数。-🅰️">**例子1：设计一个生成指定长度验证码的函数。 🅰️ **</h2>
+<blockquote>
+<p><strong>说明</strong>：验证码由数字和英文大小写字母构成。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">ALL_CHARS = <span class="string">&#x27;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_code</span>(<span class="params">code_len=<span class="number">4</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;生成指定长度的验证码</span></span><br><span class="line"><span class="string">    :param code_len: 验证码的长度(默认4个字符)</span></span><br><span class="line"><span class="string">    :return: 由大小写英文字母和数字构成的随机验证码字符串</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    code = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(code_len):</span><br><span class="line">        <span class="comment"># 产生0到字符串长度减1范围的随机数作为索引</span></span><br><span class="line">        index = random.randrange(<span class="number">0</span>, <span class="built_in">len</span>(ALL_CHARS))</span><br><span class="line">        <span class="comment"># 利用索引运算从字符串中取出字符并进行拼接</span></span><br><span class="line">        code += ALL_CHARS[index]</span><br><span class="line">    <span class="keyword">return</span> code</span><br></pre></td></tr></table></figure>
+<p>我们用下面的代码生成10组随机验证码来测试上面的函数( <strong>没有下面的代码就无法运行</strong> )。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(generate_code())</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/0.png" alt="0"></p>
+<p>上面的函数其实还有一种更为简单的写法，直接利用<code>random</code>模块的随机抽样函数从字符串中取出指定数量的字符，然后利用字符串的<code>join</code>方法将选中的那些字符拼接起来。此外，可以利用Python标准库中的<code>string</code> 模块来获得数字和英文字母的字面常量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">ALL_CHARS = string.digits + string.ascii_letters</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_code</span>(<span class="params">code_len=<span class="number">4</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;生成指定长度的验证码</span></span><br><span class="line"><span class="string">    :param code_len: 验证码的长度(默认4个字符)</span></span><br><span class="line"><span class="string">    :return: 由大小写英文字母和数字构成的随机验证码字符串</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(random.choices(ALL_CHARS, k=code_len))</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(generate_code())</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/1.png" alt="1"></p>
+<blockquote>
+<p><strong>说明</strong>：<code>random</code>模块的<code>sample</code>和<code>choices</code>函数都可以实现随机抽样，<code>sample</code>实现无放回抽样，这意味着抽样取出的字符是不重复的；<code>choices</code>实现有放回抽样，这意味着可能会重复选中某些字符。这两个函数的第一个参数代表抽样的总体，而参数<code>k</code>代表抽样的数量。</p>
+</blockquote>
+<h2 id="例子2：设计一个函数返回给定文件名的后缀名。-🅱️"><strong>例子2：设计一个函数返回给定文件名的后缀名。</strong> 🅱️</h2>
+<blockquote>
+<p><strong>说明</strong>：文件名通常是一个字符串，而文件的后缀名指的是文件名中最后一个<code>.</code>后面的部分，也称为文件的扩展名，它是某些操作系统用来标记文件类型的一种机制，例如在Windows系统上，后缀名<code>exe</code>表示这是一个可执行程序，而后缀名<code>txt</code>表示这是一个纯文本文件。需要注意的是，在Linux和macOS系统上，文件名可以以<code>.</code>开头，表示这是一个隐藏文件，像<code>.gitignore</code>这样的文件名，<code>.</code>后面并不是后缀名，这个文件没有后缀名或者说后缀名为<code>''</code>。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_suffix</span>(<span class="params">filename</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;获取文件名的后缀名</span></span><br><span class="line"><span class="string">    :param filename: 文件名</span></span><br><span class="line"><span class="string">    :return: 文件的后缀名</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 从字符串中逆向查找.出现的位置</span></span><br><span class="line">    pos = filename.rfind(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">    <span class="comment"># 通过切片操作从文件名中取出后缀名</span></span><br><span class="line">    <span class="keyword">return</span> filename[pos + <span class="number">1</span>:] <span class="keyword">if</span> pos &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>可以用下面的代码对上面的函数做一个简单的测验。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(get_suffix(<span class="string">&#x27;readme.txt&#x27;</span>))       <span class="comment"># txt</span></span><br><span class="line"><span class="built_in">print</span>(get_suffix(<span class="string">&#x27;readme.txt.md&#x27;</span>))    <span class="comment"># md</span></span><br><span class="line"><span class="built_in">print</span>(get_suffix(<span class="string">&#x27;.readme&#x27;</span>))          <span class="comment">#</span></span><br><span class="line"><span class="built_in">print</span>(get_suffix(<span class="string">&#x27;readme.&#x27;</span>))          <span class="comment">#</span></span><br><span class="line"><span class="built_in">print</span>(get_suffix(<span class="string">&#x27;readme&#x27;</span>))           <span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/2.png" alt="2"></p>
+<p>上面的<code>get_suffix</code>函数还有一个更为便捷的实现方式，就是直接使用<code>os.path</code>模块的<code>splitext</code>函数，这个函数会将文件名拆分成带路径的文件名和扩展名两个部分，然后返回一个二元组（下节课会讲到元组），二元组中的第二个元素就是文件的后缀名（包含<code>.</code>），如果要去掉后缀名中的<code>.</code>，可以做一个字符串的切片操作，代码如下所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> os.path <span class="keyword">import</span> splitext</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_suffix</span>(<span class="params">filename</span>):</span></span><br><span class="line">    <span class="keyword">return</span> splitext(filename)[<span class="number">1</span>][<span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
+<h2 id="例子3：在终端中显示跑马灯（滚动）文字。-🐱">例子3：在终端中显示跑马灯（滚动）文字。 🐱</h2>
+<blockquote>
+<p><strong>说明</strong>：实现跑马灯文字的原理非常简单，把当前字符串的第一个字符放到要输出的内容的最后面，把从第二个字符开始后面的内容放到要输出的内容的最前面，通过循环重复这个操作，就可以看到滚动起来的文字。两次循环之间的间隔可以通过<code>time</code>模块的<code>sleep</code>函数来实现，而清除屏幕上之前的输出可以使用<code>os</code>模块的<code>system</code>函数调用系统清屏命令来实现。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">content = <span class="string">&#x27;北 京 欢 迎 你 为 你 开 天 辟 地           &#x27;</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># Windows清除屏幕上的输出</span></span><br><span class="line">    <span class="comment"># os.system(&#x27;cls&#x27;)  </span></span><br><span class="line">    <span class="comment"># macOS清除屏幕上的输出</span></span><br><span class="line">    os.system(<span class="string">&#x27;clear&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(content)</span><br><span class="line">    <span class="comment"># 休眠0.2秒（200毫秒）</span></span><br><span class="line">    time.sleep(<span class="number">0.2</span>)</span><br><span class="line">    content = content[<span class="number">1</span>:] + content[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/4.png" alt="4"></p>
+<blockquote>
+<p><strong>提示</strong>：我们之前建议大家暂时用VS Code来编写Python代码，如果你已经提前开始使用PyCharm了，需要提醒大家，PyCharm的运行窗口无法用上面的方式做清屏处理。建议在“命令行提示符”或“终端”（PyCharm中的“Terminal”相当于就是Windows系统的“命令行提示符”或macOS系统的“终端”）中运行该程序。</p>
+</blockquote>
+<h2 id="简单的总结-🏤"><strong>简单的总结</strong> 🏤</h2>
+<p>在写代码尤其是开发商业项目的时候，一定要有意识的<strong>将相对独立且重复出现的功能封装成函数</strong>，这样不管是自己还是团队的其他成员都可以通过调用函数的方式来使用这些功能。字符串是非常重要的数据类型，<strong>字符串的常用运算和方法需要掌握</strong>，因为一般的商业项目中，处理字符串比处理数值的操作要更多。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/" rel="prev" title="MRCTF异或">
+      <i class="fa fa-chevron-left"></i> MRCTF异或
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">第010课：函数和字符串的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%901%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%94%9F%E6%88%90%E6%8C%87%E5%AE%9A%E9%95%BF%E5%BA%A6%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E5%87%BD%E6%95%B0%E3%80%82-%F0%9F%85%B0%EF%B8%8F"><span class="nav-number">1.1.</span> <span class="nav-text">**例子1：设计一个生成指定长度验证码的函数。 🅰️ **</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%902%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E7%BB%99%E5%AE%9A%E6%96%87%E4%BB%B6%E5%90%8D%E7%9A%84%E5%90%8E%E7%BC%80%E5%90%8D%E3%80%82-%F0%9F%85%B1%EF%B8%8F"><span class="nav-number">1.2.</span> <span class="nav-text">例子2：设计一个函数返回给定文件名的后缀名。 🅱️</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%903%EF%BC%9A%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%98%BE%E7%A4%BA%E8%B7%91%E9%A9%AC%E7%81%AF%EF%BC%88%E6%BB%9A%E5%8A%A8%EF%BC%89%E6%96%87%E5%AD%97%E3%80%82-%F0%9F%90%B1"><span class="nav-number">1.3.</span> <span class="nav-text">例子3：在终端中显示跑马灯（滚动）文字。 🐱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E6%80%BB%E7%BB%93-%F0%9F%8F%A4"><span class="nav-number">1.4.</span> <span class="nav-text">简单的总结 🏤</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="4Chan"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">4Chan</p>
+  <div class="site-description" itemprop="description">For U</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/4chan123" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;4chan123" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wenchuangan4@gmail.com" title="E-Mail → mailto:wenchuangan4@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCt9o_6y6BGqttzkObURXkOg" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCt9o_6y6BGqttzkObURXkOg" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">4Chan</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'hYy4YDKL98WMGGXEp5uoMBnn-gzGzoHsz',
+      appKey     : 'HalG51A7jL8JS7ll0WzWvYY0',
+      placeholder: "go for U",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
