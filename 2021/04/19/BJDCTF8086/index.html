@@ -29,22 +29,22 @@
 <meta property="og:site_name" content="4chan">
 <meta property="og:description" content="链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;12-rOdMS1Lyz0Fc-tGxu5hQ 提取码：ex3u 0X01 使用EP查看文件是否有无加壳  没有加壳，直接拖到64位IDA上面 0x02 查看sub_10030函数  点击进去看看  发现是个死循环函数，重复跳转自身  0x02 使用IDA32位打开文件  Shift+F12查看直观函数    F5反编译，发现已经反编译，就无需">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/0.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/1.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/2.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/3.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/4.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/5.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/6.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/7.png">
-<meta property="og:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/8.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//0.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//1.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//2.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//3.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//4.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//5.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//6.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//7.png">
+<meta property="og:image" content="https://4chan123.github.io/.io//8.png">
 <meta property="article:published_time" content="2021-04-19T10:31:15.000Z">
 <meta property="article:modified_time" content="2021-04-19T11:57:18.421Z">
 <meta property="article:author" content="4Chan">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="python构造重复多次异或脚本">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://4chan123.github.io/2021/04/19/BJDCTF8086/0.png">
+<meta name="twitter:image" content="https://4chan123.github.io/.io//0.png">
 
 <link rel="canonical" href="https://4chan123.github.io/2021/04/19/BJDCTF8086/">
 
@@ -290,38 +290,38 @@
         <p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ">https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ</a><br>
 提取码：ex3u</p>
 <h2 id="0X01-使用EP查看文件是否有无加壳"><strong>0X01 使用EP查看文件是否有无加壳</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/0.png" alt="0"></p>
+<p><img src="/.io//0.png" alt="0"></p>
 <p>没有加壳，直接拖到64位IDA上面</p>
 <h2 id="0x02-查看sub-10030函数"><strong>0x02 查看sub_10030函数</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/1.png" alt="1"></p>
+<p><img src="/.io//1.png" alt="1"></p>
 <p>点击进去看看</p>
-<p><img src="/2021/04/19/BJDCTF8086/2.png" alt="2"></p>
+<p><img src="/.io//2.png" alt="2"></p>
 <p>发现是个死循环函数，重复跳转自身</p>
 <hr>
 <p><strong>0x02 使用IDA32位打开文件</strong></p>
 <ul>
 <li>Shift+F12查看直观函数</li>
 </ul>
-<p><img src="/2021/04/19/BJDCTF8086/3.png" alt="3"></p>
+<p><img src="/.io//3.png" alt="3"></p>
 <ul>
 <li>F5反编译，发现已经反编译，就无需反编译</li>
 </ul>
-<p><img src="/2021/04/19/BJDCTF8086/4.png" alt="4"></p>
+<p><img src="/.io//4.png" alt="4"></p>
 <ul>
 <li>分析头函数数据</li>
 </ul>
-<p><img src="/2021/04/19/BJDCTF8086/5.png" alt="5"></p>
+<p><img src="/.io//5.png" alt="5"></p>
 <ul>
 <li>分析sub_10030函数，重复跳转自身的死循环，节选后，按住 <strong><code>C</code></strong> 键开始强制汇编（ <strong><code>Force</code></strong> ）</li>
 </ul>
-<p><img src="/2021/04/19/BJDCTF8086/6.png" alt="6"></p>
+<p><img src="/.io//6.png" alt="6"></p>
 <hr>
 <h2 id="0x03-开始分析强制汇编的内容"><strong>0x03 开始分析强制汇编的内容</strong></h2>
-<p><img src="/2021/04/19/BJDCTF8086/7.png" alt="7"></p>
+<p><img src="/.io//7.png" alt="7"></p>
 <hr>
 <h2 id="0x04-开始构建脚本与0X1F做异或"><strong>0x04 开始构建脚本与0X1F做异或</strong></h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;]U[du~|t@&#123;z@wj.&#125;.~q@gjz&#123;z@wzqW~/b&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">    flag += <span class="built_in">chr</span>(<span class="built_in">ord</span>(i)^<span class="number">0x1F</span>)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/19/BJDCTF8086/8.png" alt="8"></p>
+<p><img src="/.io//8.png" alt="8"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BJD&#123;jack_de_hu1b1an_xuede_henHa0&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -443,7 +443,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
