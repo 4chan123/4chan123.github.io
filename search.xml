@@ -40,34 +40,6 @@
       </tags>
   </entry>
   <entry>
-    <title>BJDCTFdiff2</title>
-    <url>/2021/04/20/BJDCTFdiff2/</url>
-    <content><![CDATA[<h2 id="0x01-用EP打开，查看加壳没"><strong>0x01 用EP打开，查看加壳没</strong></h2>
-<p><img src="/2021/04/20/BJDCTFdiff2/0.png" alt="0"></p>
-<p>没有加壳</p>
-<hr>
-<h2 id="0x02-用IDA32位打开，F5反编译"><strong>0x02 用IDA32位打开，F5反编译</strong></h2>
-<p><img src="/2021/04/20/BJDCTFdiff2/3.png" alt="3"></p>
-<p>漏洞的地方只可能是  <strong><code>compare</code></strong></p>
-<hr>
-<h2 id="0x03-分析代码">0x03 分析代码</h2>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> v0; <span class="comment">// al@2</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [sp+0h] [bp-8h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+4h] [bp-4h]@1</span></span><br><span class="line"></span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; buf2[i] + buf1[i] &amp;&amp; i &lt; <span class="number">0x400</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v0 = buf1[i];</span><br><span class="line">    <span class="keyword">if</span> ( v0 != buf2[i] )</span><br><span class="line">      <span class="keyword">return</span> v3 + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v0 == <span class="number">10</span> )</span><br><span class="line">      ++v3;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>char型变量占1个字节，相当于unsigned byte，表示范围是0x0-0xff，两个char相加的范围就是0x0 - 0x1fe ，由于char型只能存储1个字节的数据，两个char相加产生的进位就会被忽略。<strong><code>char + char = 溢出</code></strong>  举个栗子，0x7d+0x83=0x100-&gt;0x0。</p>
-<p>所以如果buf2[i]+buf1[i]=0x100就会 <strong>终止</strong> for循环</p>
-<p>每次返回一个进行爆破即可</p>
-<h2 id="0x04-构造python脚本"><strong>0x04 构造python脚本</strong></h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> *</span><br><span class="line">fix = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0x100</span>):</span><br><span class="line">		payload = fix+<span class="built_in">chr</span>(i)</span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/tmp/ktql&#x27;</span>,<span class="string">&#x27;w+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">			f.write(payload)</span><br><span class="line">		p = Popen([<span class="string">&#x27;/root/diff&#x27;</span>,<span class="string">&#x27;/tmp/ktql&#x27;</span>,<span class="string">&#x27;/root/flag&#x27;</span>],stdout=PIPE)</span><br><span class="line">		res = p.stdout.read()</span><br><span class="line">		<span class="keyword">if</span> res != <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">			fix+=<span class="built_in">chr</span>(<span class="number">0x100</span>-i)</span><br><span class="line">			<span class="built_in">print</span>(fix)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>RE</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>溢出漏洞</tag>
-        <tag>python构建针对溢出漏洞的脚本</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>BJDCTF8086</title>
     <url>/2021/04/19/BJDCTF8086/</url>
     <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ">https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ</a><br>
@@ -113,6 +85,34 @@
       <tags>
         <tag>CTF</tag>
         <tag>python构造重复多次异或脚本</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BJDCTFdiff2</title>
+    <url>/2021/04/20/BJDCTFdiff2/</url>
+    <content><![CDATA[<h2 id="0x01-用EP打开，查看加壳没"><strong>0x01 用EP打开，查看加壳没</strong></h2>
+<p><img src="/2021/04/20/BJDCTFdiff2/0.png" alt="0"></p>
+<p>没有加壳</p>
+<hr>
+<h2 id="0x02-用IDA32位打开，F5反编译"><strong>0x02 用IDA32位打开，F5反编译</strong></h2>
+<p><img src="/2021/04/20/BJDCTFdiff2/3.png" alt="3"></p>
+<p>漏洞的地方只可能是  <strong><code>compare</code></strong></p>
+<hr>
+<h2 id="0x03-分析代码">0x03 分析代码</h2>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> v0; <span class="comment">// al@2</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [sp+0h] [bp-8h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+4h] [bp-4h]@1</span></span><br><span class="line"></span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; buf2[i] + buf1[i] &amp;&amp; i &lt; <span class="number">0x400</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v0 = buf1[i];</span><br><span class="line">    <span class="keyword">if</span> ( v0 != buf2[i] )</span><br><span class="line">      <span class="keyword">return</span> v3 + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v0 == <span class="number">10</span> )</span><br><span class="line">      ++v3;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>char型变量占1个字节，相当于unsigned byte，表示范围是0x0-0xff，两个char相加的范围就是0x0 - 0x1fe ，由于char型只能存储1个字节的数据，两个char相加产生的进位就会被忽略。<strong><code>char + char = 溢出</code></strong>  举个栗子，0x7d+0x83=0x100-&gt;0x0。</p>
+<p>所以如果buf2[i]+buf1[i]=0x100就会 <strong>终止</strong> for循环</p>
+<p>每次返回一个进行爆破即可</p>
+<h2 id="0x04-构造python脚本"><strong>0x04 构造python脚本</strong></h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> *</span><br><span class="line">fix = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0x100</span>):</span><br><span class="line">		payload = fix+<span class="built_in">chr</span>(i)</span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/tmp/ktql&#x27;</span>,<span class="string">&#x27;w+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">			f.write(payload)</span><br><span class="line">		p = Popen([<span class="string">&#x27;/root/diff&#x27;</span>,<span class="string">&#x27;/tmp/ktql&#x27;</span>,<span class="string">&#x27;/root/flag&#x27;</span>],stdout=PIPE)</span><br><span class="line">		res = p.stdout.read()</span><br><span class="line">		<span class="keyword">if</span> res != <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">			fix+=<span class="built_in">chr</span>(<span class="number">0x100</span>-i)</span><br><span class="line">			<span class="built_in">print</span>(fix)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>RE</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>溢出漏洞</tag>
+        <tag>python构建针对溢出漏洞的脚本</tag>
       </tags>
   </entry>
   <entry>
@@ -172,55 +172,6 @@
         <tag>CTF</tag>
         <tag>FLASK</tag>
         <tag>RC4</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GWCTF2019re3</title>
-    <url>/2021/04/26/GWCTF2019re3/</url>
-    <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/1lZr8Cqf8FOuwOU-x2J3yVQ">https://pan.baidu.com/s/1lZr8Cqf8FOuwOU-x2J3yVQ</a><br>
-提取码：myh6</p>
-<h2 id="知识点总结：-​-🚦">知识点总结： ​ 🚦</h2>
-<p><a href="https://blog.csdn.net/zhangmiaoping23/article/details/8949290">AES逆向加密</a></p>
-<p>ECB模式 平均分组 每组互不干扰</p>
-<p>CBC模式 平均分组 改明文和前一个密文异或之后再进行加密 所以需要一个初始化数组对第一组异或</p>
-<p>一般来说AES加密前会调用一个函数对密匙进行拓展 然后才会处理明</p>
-<h2 id="0X01-查看有无加壳-🍖"><strong>0X01 查看有无加壳</strong>  🍖</h2>
-<p><img src="/2021/04/26/GWCTF2019re3/0.png" alt="0"></p>
-<p>没有加壳，64位文件</p>
-<h2 id="0x02-使用IDA64打开文件-🔑"><strong>0x02 使用IDA64打开文件</strong> 🔑</h2>
-<ul>
-<li>找到main函数, <strong>F5</strong> 反编译，进行代码分析</li>
-</ul>
-<p><img src="/2021/04/26/GWCTF2019re3/1.png" alt="1"></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> __fastcall __noreturn <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+8h] [bp-48h]@4</span></span><br><span class="line">  <span class="keyword">char</span> s; <span class="comment">// [sp+20h] [bp-30h]@1</span></span><br><span class="line">  __int64 v5; <span class="comment">// [sp+48h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v5 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%39s&quot;</span>, &amp;s, a3);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="built_in">strlen</span>(&amp;s) != <span class="number">32</span> ) <span class="comment">//输入的长度为32</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Wrong!&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  mprotect((<span class="keyword">void</span> *)<span class="number">0x400000</span>, <span class="number">0xF000</span>uLL, <span class="number">7</span>);  <span class="comment">//修改文件为可读可执行</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">223</span>; ++i )  <span class="comment">//SMC自修改代码，异或0x99</span></span><br><span class="line">    *((_BYTE *)sub_402219 + i) ^= <span class="number">0x99</span>u;</span><br><span class="line">  sub_40207B(&amp;unk_603170, <span class="number">61440LL</span>);</span><br><span class="line">  sub_402219();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>sub_4022190函数有异或，我们查看</li>
-</ul>
-<p><img src="/2021/04/26/GWCTF2019re3/3.png" alt="3"></p>
-<ul>
-<li>选中后我们按  <strong><code>C</code></strong> 强制（ <strong><code>Force</code></strong> ）分析代码</li>
-</ul>
-<p><img src="/2021/04/26/GWCTF2019re3/4.png" alt="4"></p>
-<p>使用Findecrypt插件查看一下加密算法发现很多加密</p>
-<ul>
-<li>我们查看sub_40207B()函数</li>
-</ul>
-<p><img src="/2021/04/26/GWCTF2019re3/5.png" alt="5"></p>
-<p>MD5加密，第10行和14行的MD5加密有用<br>
-内容大体将base64密码表进行两次sub_401CF9加密然后赋值给参数a1<br>
-这里没有用到用户输入，可以动调一下获得加密后的a1<br>
-IDA先在sub_40207B()函数执行后一条下断点</p>
-<h2 id="0x03-写个脚本做循环对比就行了-​-🎅">**0x03  写个脚本做循环对比就行了 ** ​ 🎅</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;so.in&#x27;</span>)</span><br><span class="line">a = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">    s = f.readline()</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">        a += <span class="built_in">chr</span>(<span class="built_in">int</span>(s[j*<span class="number">3</span>:j*<span class="number">3</span>+<span class="number">2</span>],<span class="number">16</span>))</span><br><span class="line">b = <span class="string">&#x27;&#x27;</span></span><br><span class="line">s = f.readline()</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">    b += <span class="built_in">chr</span>(<span class="built_in">int</span>(s[j*<span class="number">3</span>:j*<span class="number">3</span>+<span class="number">2</span>],<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span> a,b</span><br><span class="line">_aes = AES.new(b,mode = AES.MODE_ECB)</span><br><span class="line"><span class="built_in">print</span> _aes.decrypt(a)</span><br></pre></td></tr></table></figure>
-<p>so.in内容</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BC 0A AD C0 14 7C 5E CC E0 B1 40 BC 9C 51 D5 2B</span><br><span class="line">46 B2 B9 43 4D E5 32 4B AD 7F B4 B3 9C DB 4B 5B</span><br><span class="line">CB 8D 49 35 21 B4 7A 4C C1 AE 7E 62 22 92 66 CE</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>RE</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>逆向反加密</tag>
       </tags>
   </entry>
   <entry>
@@ -320,6 +271,84 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </tags>
   </entry>
   <entry>
+    <title>GWCTF2019re3</title>
+    <url>/2021/04/26/GWCTF2019re3/</url>
+    <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/1lZr8Cqf8FOuwOU-x2J3yVQ">https://pan.baidu.com/s/1lZr8Cqf8FOuwOU-x2J3yVQ</a><br>
+提取码：myh6</p>
+<h2 id="知识点总结：-​-🚦">知识点总结： ​ 🚦</h2>
+<p><a href="https://blog.csdn.net/zhangmiaoping23/article/details/8949290">AES逆向加密</a></p>
+<p>ECB模式 平均分组 每组互不干扰</p>
+<p>CBC模式 平均分组 改明文和前一个密文异或之后再进行加密 所以需要一个初始化数组对第一组异或</p>
+<p>一般来说AES加密前会调用一个函数对密匙进行拓展 然后才会处理明</p>
+<h2 id="0X01-查看有无加壳-🍖"><strong>0X01 查看有无加壳</strong>  🍖</h2>
+<p><img src="/2021/04/26/GWCTF2019re3/0.png" alt="0"></p>
+<p>没有加壳，64位文件</p>
+<h2 id="0x02-使用IDA64打开文件-🔑"><strong>0x02 使用IDA64打开文件</strong> 🔑</h2>
+<ul>
+<li>找到main函数, <strong>F5</strong> 反编译，进行代码分析</li>
+</ul>
+<p><img src="/2021/04/26/GWCTF2019re3/1.png" alt="1"></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> __fastcall __noreturn <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+8h] [bp-48h]@4</span></span><br><span class="line">  <span class="keyword">char</span> s; <span class="comment">// [sp+20h] [bp-30h]@1</span></span><br><span class="line">  __int64 v5; <span class="comment">// [sp+48h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v5 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%39s&quot;</span>, &amp;s, a3);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="built_in">strlen</span>(&amp;s) != <span class="number">32</span> ) <span class="comment">//输入的长度为32</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Wrong!&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  mprotect((<span class="keyword">void</span> *)<span class="number">0x400000</span>, <span class="number">0xF000</span>uLL, <span class="number">7</span>);  <span class="comment">//修改文件为可读可执行</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">223</span>; ++i )  <span class="comment">//SMC自修改代码，异或0x99</span></span><br><span class="line">    *((_BYTE *)sub_402219 + i) ^= <span class="number">0x99</span>u;</span><br><span class="line">  sub_40207B(&amp;unk_603170, <span class="number">61440LL</span>);</span><br><span class="line">  sub_402219();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>sub_4022190函数有异或，我们查看</li>
+</ul>
+<p><img src="/2021/04/26/GWCTF2019re3/3.png" alt="3"></p>
+<ul>
+<li>选中后我们按  <strong><code>C</code></strong> 强制（ <strong><code>Force</code></strong> ）分析代码</li>
+</ul>
+<p><img src="/2021/04/26/GWCTF2019re3/4.png" alt="4"></p>
+<p>使用Findecrypt插件查看一下加密算法发现很多加密</p>
+<ul>
+<li>我们查看sub_40207B()函数</li>
+</ul>
+<p><img src="/2021/04/26/GWCTF2019re3/5.png" alt="5"></p>
+<p>MD5加密，第10行和14行的MD5加密有用<br>
+内容大体将base64密码表进行两次sub_401CF9加密然后赋值给参数a1<br>
+这里没有用到用户输入，可以动调一下获得加密后的a1<br>
+IDA先在sub_40207B()函数执行后一条下断点</p>
+<h2 id="0x03-写个脚本做循环对比就行了-​-🎅">**0x03  写个脚本做循环对比就行了 ** ​ 🎅</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;so.in&#x27;</span>)</span><br><span class="line">a = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">    s = f.readline()</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">        a += <span class="built_in">chr</span>(<span class="built_in">int</span>(s[j*<span class="number">3</span>:j*<span class="number">3</span>+<span class="number">2</span>],<span class="number">16</span>))</span><br><span class="line">b = <span class="string">&#x27;&#x27;</span></span><br><span class="line">s = f.readline()</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">    b += <span class="built_in">chr</span>(<span class="built_in">int</span>(s[j*<span class="number">3</span>:j*<span class="number">3</span>+<span class="number">2</span>],<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span> a,b</span><br><span class="line">_aes = AES.new(b,mode = AES.MODE_ECB)</span><br><span class="line"><span class="built_in">print</span> _aes.decrypt(a)</span><br></pre></td></tr></table></figure>
+<p>so.in内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BC 0A AD C0 14 7C 5E CC E0 B1 40 BC 9C 51 D5 2B</span><br><span class="line">46 B2 B9 43 4D E5 32 4B AD 7F B4 B3 9C DB 4B 5B</span><br><span class="line">CB 8D 49 35 21 B4 7A 4C C1 AE 7E 62 22 92 66 CE</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>RE</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>逆向反加密</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MRCTF异或</title>
+    <url>/2021/04/22/MRCTF%E5%BC%82%E6%88%96/</url>
+    <content><![CDATA[<h2 id="0x01-使用EP查看文件是否加壳-🔑"><strong>0x01 使用EP查看文件是否加壳</strong>  🔑</h2>
+<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/2.png" alt="2"></p>
+<p>没有加壳，32位文件</p>
+<hr>
+<h2 id="0x02-使用IDA32位打开文件-📉"><strong>0x02 使用IDA32位打开文件</strong>  📉</h2>
+<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/1.png" alt="1"></p>
+<p><strong><code>Shift</code></strong> + <strong><code>F12</code></strong> 查找关键函数,然后F5反编译</p>
+<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/8.png" alt="8"></p>
+<p>第十九行可知v0和byte_4212c0进行异或，得到byte_41EA08输出正确</p>
+<p>直接进入byte_41EA08函数查看内容</p>
+<p>得到异或内容</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&quot;MSAWB~FXZ:J:`tQJ\&quot;N@ bpdd&#125;8g&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="0x03-开始构建异或脚本-​-🔨">0x03 开始构建异或脚本 ​ 🔨</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">&quot;MSAWB~FXZ:J:`tQJ\&quot;N@ bpdd&#125;8g&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">    flag += <span class="built_in">chr</span>(i ^<span class="built_in">ord</span>(a[i]))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/3.png" alt="3"></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">MRCTF&#123;@_R3@<span class="number">1l</span>y_E2_R3verse!&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>RE</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>最简单的异或pthon脚本</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SWPU2019 Web4</title>
     <url>/2021/04/15/SWPU2019-Web4/</url>
     <content><![CDATA[<p>无论URL还是界面都很有SQL的feeling,，点击注册，发现无法提供注册，使用密码本爆破也失败（应该有过滤）</p>
@@ -397,6 +426,32 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </tags>
   </entry>
   <entry>
+    <title>buuctf-SimpleRev</title>
+    <url>/2021/04/11/buuctf-SimpleRev/</url>
+    <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw">https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw</a><br>
+提取码：icjp</p>
+<h2 id="0x01-使用EFPE查看文件"><strong>0x01 使用EFPE查看文件</strong></h2>
+<p><img src="/2021/04/11/buuctf-SimpleRev/1.png" alt="1"></p>
+<p>没有加壳，64位文件</p>
+<h2 id="0x02-使用IDA打开文件，查看main函数，F5反编译"><strong>0x02 使用IDA打开文件，查看main函数，F5反编译</strong></h2>
+<p><img src="/2021/04/11/buuctf-SimpleRev/3.png" alt="3"></p>
+<h2 id="0x03-查看-Decry-函数"><strong>0x03 查看</strong> <em>Decry()函数</em></h2>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">Decry</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> *v0; <span class="comment">// rax@1</span></span><br><span class="line">  <span class="keyword">char</span> v2; <span class="comment">// [sp+Fh] [bp-51h]@19</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+10h] [bp-50h]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v4; <span class="comment">// [sp+14h] [bp-4Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+18h] [bp-48h]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v6; <span class="comment">// [sp+1Ch] [bp-44h]@1</span></span><br><span class="line">  <span class="keyword">char</span> src[<span class="number">8</span>]; <span class="comment">// [sp+20h] [bp-40h]@1</span></span><br><span class="line">  __int64 v8; <span class="comment">// [sp+28h] [bp-38h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// [sp+30h] [bp-30h]@1</span></span><br><span class="line">  __int64 v10; <span class="comment">// [sp+40h] [bp-20h]@1</span></span><br><span class="line">  __int64 v11; <span class="comment">// [sp+48h] [bp-18h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v12; <span class="comment">// [sp+50h] [bp-10h]@1</span></span><br><span class="line">  __int64 v13; <span class="comment">// [sp+58h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v13 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  *(_QWORD *)src = <span class="number">357761762382LL</span>;  <span class="comment">//选中之后H键转换16进制为0x534C43444ELL，数据在内存中是小端顺序，高位在高地址处，低位在低地址处，故实际的字符顺序应为&#x27;0x4e44434c53&#x27;经过16字符转换为ASCII码转换后字符为&#x27;NDCLS&#x27;</span></span><br><span class="line">　　　　　　　　　　　　　　　　　　　　　　</span><br><span class="line">  v8 = <span class="number">0LL</span>;</span><br><span class="line">  v9 = <span class="number">0</span>;</span><br><span class="line">  v10 = <span class="number">512969957736LL</span>; <span class="comment">//同上，转换后查询Ascii码为&quot;wodah&quot;</span></span><br><span class="line">  v11 = <span class="number">0LL</span>;</span><br><span class="line">  v12 = <span class="number">0</span>;</span><br><span class="line">  LODWORD(v0) = join(key3, &amp;v10); <span class="comment">//在main页面v3=&#x27;kills&#x27;,v10=’wodah‘,这个函数就是把v3和v10两个字符串相拼接&#x27;killshadow&#x27;</span></span><br><span class="line">  text = v0;</span><br><span class="line">  <span class="built_in">strcpy</span>(key, key1);  <span class="comment">//strcpy函数就是让key1的值（&#x27;ADSFK&#x27;）赋予key</span></span><br><span class="line">  <span class="built_in">strcat</span>(key, src);  <span class="comment">//strcat函数就是让src的值拼接到key后面也就是&#x27;ADSFKNDCLS&#x27;</span></span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  v4 = <span class="number">0</span>;</span><br><span class="line">  getchar(); <span class="comment">//清空缓冲区</span></span><br><span class="line">  v6 = <span class="built_in">strlen</span>(key); <span class="comment">//v6的长度等于key,v6=10</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v6; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( key[v4 % v6] &gt; <span class="number">64</span> &amp;&amp; key[v4 % v6] &lt;= <span class="number">90</span> ) <span class="comment">//将大写字母转换为小写字母</span></span><br><span class="line">      key[i] = key[v4 % v6] + <span class="number">32</span>;                  <span class="comment">//’adsfkndcls‘</span></span><br><span class="line">    ++v4;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Please input your flag:&quot;</span>, src);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = getchar();</span><br><span class="line">    <span class="keyword">if</span> ( v2 == <span class="number">10</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v2 == <span class="number">32</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      ++v3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v2 &lt;= <span class="number">96</span> || v2 &gt; <span class="number">122</span> )     <span class="comment">//如果输入的v2不是小写字母</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v2 &gt; <span class="number">64</span> &amp;&amp; v2 &lt;= <span class="number">90</span> )   <span class="comment">//如果v2为大写字母</span></span><br><span class="line">          str2[v3] = (v2 - <span class="number">39</span> - key[v4++ % v6] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>;  <span class="comment">//对srt[v3]进行处理（v3为0每次加1）//// str1[v3] = (v2-key[v4]+58)%26 + 97//变换后str2[v3]存放小写字母</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        str2[v3] = (v2 - <span class="number">39</span> - key[v4++ % v6] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>; <span class="comment">//同样处理</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ( !(v4 % v6) )</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="number">32</span>);</span><br><span class="line">      ++v3;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strcmp</span>(text, str2) )         <span class="comment">//如果text和存储的str2相同，就成功·</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Congratulation!\n&quot;</span>);       <span class="comment">//text = &quot;&quot;killshadow&quot;</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Try again!\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v13;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析代码以及相应的值，我们已经可以知道text以及key的值，剩下就是str2，str2就是我们想要的flag</p>
+<p>得到flag的条件关键在于式子<strong>str2[v3] = (v2 - 39 - key[v4++ % v6] + 97) % 26 + 97</strong></p>
+<h2 id="0x04-构造playload爆破"><strong>0x04 构造playload爆破</strong></h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">text = <span class="string">&#x27;killswodah&#x27;</span></span><br><span class="line">key = <span class="string">&#x27;adsfkslcdn&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(key)):</span><br><span class="line">     <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">65</span>,<span class="number">122</span>):</span><br><span class="line">         <span class="keyword">if</span> <span class="built_in">ord</span>(text[i]) == (j - <span class="number">39</span> - <span class="built_in">ord</span>(key[i % <span class="number">10</span>]) + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>:</span><br><span class="line">             flag += <span class="built_in">chr</span>(j)</span><br><span class="line">             <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>flag{KLDQCOZFDU}</p>
+]]></content>
+      <categories>
+        <category>RE</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>python构造脚本爆破</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>从零开始学习python第三天</title>
     <url>/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/</url>
     <content><![CDATA[<blockquote>
@@ -463,64 +518,9 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </tags>
   </entry>
   <entry>
-    <title>MRCTF异或</title>
-    <url>/2021/04/22/MRCTF%E5%BC%82%E6%88%96/</url>
-    <content><![CDATA[<h2 id="0x01-使用EP查看文件是否加壳-🔑"><strong>0x01 使用EP查看文件是否加壳</strong>  🔑</h2>
-<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/2.png" alt="2"></p>
-<p>没有加壳，32位文件</p>
-<hr>
-<h2 id="0x02-使用IDA32位打开文件-📉"><strong>0x02 使用IDA32位打开文件</strong>  📉</h2>
-<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/1.png" alt="1"></p>
-<p><strong><code>Shift</code></strong> + <strong><code>F12</code></strong> 查找关键函数,然后F5反编译</p>
-<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/8.png" alt="8"></p>
-<p>第十九行可知v0和byte_4212c0进行异或，得到byte_41EA08输出正确</p>
-<p>直接进入byte_41EA08函数查看内容</p>
-<p>得到异或内容</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&quot;MSAWB~FXZ:J:`tQJ\&quot;N@ bpdd&#125;8g&quot;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="0x03-开始构建异或脚本-​-🔨">0x03 开始构建异或脚本 ​ 🔨</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">&quot;MSAWB~FXZ:J:`tQJ\&quot;N@ bpdd&#125;8g&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">    flag += <span class="built_in">chr</span>(i ^<span class="built_in">ord</span>(a[i]))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/04/22/MRCTF%E5%BC%82%E6%88%96/3.png" alt="3"></p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">MRCTF&#123;@_R3@<span class="number">1l</span>y_E2_R3verse!&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>RE</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>最简单的异或pthon脚本</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>buuctf-SimpleRev</title>
-    <url>/2021/04/11/buuctf-SimpleRev/</url>
-    <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw">https://pan.baidu.com/s/15ojPMVsasx3EZ9s5wVQqEw</a><br>
-提取码：icjp</p>
-<h2 id="0x01-使用EFPE查看文件"><strong>0x01 使用EFPE查看文件</strong></h2>
-<p><img src="/2021/04/11/buuctf-SimpleRev/1.png" alt="1"></p>
-<p>没有加壳，64位文件</p>
-<h2 id="0x02-使用IDA打开文件，查看main函数，F5反编译"><strong>0x02 使用IDA打开文件，查看main函数，F5反编译</strong></h2>
-<p><img src="/2021/04/11/buuctf-SimpleRev/3.png" alt="3"></p>
-<h2 id="0x03-查看-Decry-函数"><strong>0x03 查看</strong> <em>Decry()函数</em></h2>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">Decry</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> *v0; <span class="comment">// rax@1</span></span><br><span class="line">  <span class="keyword">char</span> v2; <span class="comment">// [sp+Fh] [bp-51h]@19</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+10h] [bp-50h]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v4; <span class="comment">// [sp+14h] [bp-4Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+18h] [bp-48h]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v6; <span class="comment">// [sp+1Ch] [bp-44h]@1</span></span><br><span class="line">  <span class="keyword">char</span> src[<span class="number">8</span>]; <span class="comment">// [sp+20h] [bp-40h]@1</span></span><br><span class="line">  __int64 v8; <span class="comment">// [sp+28h] [bp-38h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// [sp+30h] [bp-30h]@1</span></span><br><span class="line">  __int64 v10; <span class="comment">// [sp+40h] [bp-20h]@1</span></span><br><span class="line">  __int64 v11; <span class="comment">// [sp+48h] [bp-18h]@1</span></span><br><span class="line">  <span class="keyword">int</span> v12; <span class="comment">// [sp+50h] [bp-10h]@1</span></span><br><span class="line">  __int64 v13; <span class="comment">// [sp+58h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v13 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  *(_QWORD *)src = <span class="number">357761762382LL</span>;  <span class="comment">//选中之后H键转换16进制为0x534C43444ELL，数据在内存中是小端顺序，高位在高地址处，低位在低地址处，故实际的字符顺序应为&#x27;0x4e44434c53&#x27;经过16字符转换为ASCII码转换后字符为&#x27;NDCLS&#x27;</span></span><br><span class="line">　　　　　　　　　　　　　　　　　　　　　　</span><br><span class="line">  v8 = <span class="number">0LL</span>;</span><br><span class="line">  v9 = <span class="number">0</span>;</span><br><span class="line">  v10 = <span class="number">512969957736LL</span>; <span class="comment">//同上，转换后查询Ascii码为&quot;wodah&quot;</span></span><br><span class="line">  v11 = <span class="number">0LL</span>;</span><br><span class="line">  v12 = <span class="number">0</span>;</span><br><span class="line">  LODWORD(v0) = join(key3, &amp;v10); <span class="comment">//在main页面v3=&#x27;kills&#x27;,v10=’wodah‘,这个函数就是把v3和v10两个字符串相拼接&#x27;killshadow&#x27;</span></span><br><span class="line">  text = v0;</span><br><span class="line">  <span class="built_in">strcpy</span>(key, key1);  <span class="comment">//strcpy函数就是让key1的值（&#x27;ADSFK&#x27;）赋予key</span></span><br><span class="line">  <span class="built_in">strcat</span>(key, src);  <span class="comment">//strcat函数就是让src的值拼接到key后面也就是&#x27;ADSFKNDCLS&#x27;</span></span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  v4 = <span class="number">0</span>;</span><br><span class="line">  getchar(); <span class="comment">//清空缓冲区</span></span><br><span class="line">  v6 = <span class="built_in">strlen</span>(key); <span class="comment">//v6的长度等于key,v6=10</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v6; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( key[v4 % v6] &gt; <span class="number">64</span> &amp;&amp; key[v4 % v6] &lt;= <span class="number">90</span> ) <span class="comment">//将大写字母转换为小写字母</span></span><br><span class="line">      key[i] = key[v4 % v6] + <span class="number">32</span>;                  <span class="comment">//’adsfkndcls‘</span></span><br><span class="line">    ++v4;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Please input your flag:&quot;</span>, src);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = getchar();</span><br><span class="line">    <span class="keyword">if</span> ( v2 == <span class="number">10</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v2 == <span class="number">32</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      ++v3;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v2 &lt;= <span class="number">96</span> || v2 &gt; <span class="number">122</span> )     <span class="comment">//如果输入的v2不是小写字母</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v2 &gt; <span class="number">64</span> &amp;&amp; v2 &lt;= <span class="number">90</span> )   <span class="comment">//如果v2为大写字母</span></span><br><span class="line">          str2[v3] = (v2 - <span class="number">39</span> - key[v4++ % v6] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>;  <span class="comment">//对srt[v3]进行处理（v3为0每次加1）//// str1[v3] = (v2-key[v4]+58)%26 + 97//变换后str2[v3]存放小写字母</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        str2[v3] = (v2 - <span class="number">39</span> - key[v4++ % v6] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>; <span class="comment">//同样处理</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ( !(v4 % v6) )</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="number">32</span>);</span><br><span class="line">      ++v3;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strcmp</span>(text, str2) )         <span class="comment">//如果text和存储的str2相同，就成功·</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Congratulation!\n&quot;</span>);       <span class="comment">//text = &quot;&quot;killshadow&quot;</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Try again!\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v13;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>分析代码以及相应的值，我们已经可以知道text以及key的值，剩下就是str2，str2就是我们想要的flag</p>
-<p>得到flag的条件关键在于式子<strong>str2[v3] = (v2 - 39 - key[v4++ % v6] + 97) % 26 + 97</strong></p>
-<h2 id="0x04-构造playload爆破"><strong>0x04 构造playload爆破</strong></h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">text = <span class="string">&#x27;killswodah&#x27;</span></span><br><span class="line">key = <span class="string">&#x27;adsfkslcdn&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(key)):</span><br><span class="line">     <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">65</span>,<span class="number">122</span>):</span><br><span class="line">         <span class="keyword">if</span> <span class="built_in">ord</span>(text[i]) == (j - <span class="number">39</span> - <span class="built_in">ord</span>(key[i % <span class="number">10</span>]) + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>:</span><br><span class="line">             flag += <span class="built_in">chr</span>(j)</span><br><span class="line">             <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
-<p>flag{KLDQCOZFDU}</p>
-]]></content>
-      <categories>
-        <category>RE</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>python构造脚本爆破</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>test</title>
     <url>/2021/04/29/test/</url>
-    <content><![CDATA[<p><img src="/2021/04/29/test/david-baylis-930-parking.jpg" alt="david-baylis-930-parking"></p>
+    <content><![CDATA[<p><img src="/2021/04/29/test/1.jpg" alt="1"></p>
 ]]></content>
   </entry>
   <entry>
@@ -720,19 +720,6 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </tags>
   </entry>
   <entry>
-    <title>总结一下最近学习状况</title>
-    <url>/2021/04/11/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
-    <content><![CDATA[<p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
-]]></content>
-      <categories>
-        <category>学习状态</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>从零开始学python第四天</title>
     <url>/2021/04/20/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E5%9B%9B%E5%A4%A9/</url>
     <content><![CDATA[<blockquote>
@@ -784,6 +771,19 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>总结一下最近学习状况</title>
+    <url>/2021/04/11/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
+    <content><![CDATA[<p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
+]]></content>
+      <categories>
+        <category>学习状态</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>杂谈</tag>
       </tags>
   </entry>
   <entry>

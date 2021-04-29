@@ -186,6 +186,13 @@
   </url>
   
   <url>
+    <loc>https://4chan123.github.io/tags/python%E6%9E%84%E9%80%A0%E9%87%8D%E5%A4%8D%E5%A4%9A%E6%AC%A1%E5%BC%82%E6%88%96%E8%84%9A%E6%9C%AC/</loc>
+    <lastmod>2021-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://4chan123.github.io/tags/%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
@@ -194,13 +201,6 @@
   
   <url>
     <loc>https://4chan123.github.io/tags/python%E6%9E%84%E5%BB%BA%E9%92%88%E5%AF%B9%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E7%9A%84%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2021-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://4chan123.github.io/tags/python%E6%9E%84%E9%80%A0%E9%87%8D%E5%A4%8D%E5%A4%9A%E6%AC%A1%E5%BC%82%E6%88%96%E8%84%9A%E6%9C%AC/</loc>
     <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -229,6 +229,13 @@
   
   <url>
     <loc>https://4chan123.github.io/tags/%E6%9C%89%E5%85%B3%E9%80%86%E5%BA%8F%E7%9A%84%E8%84%9A%E6%9C%AC%E6%9E%84%E5%BB%BA/</loc>
+    <lastmod>2021-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://4chan123.github.io/tags/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E6%88%96pthon%E8%84%9A%E6%9C%AC/</loc>
     <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -277,21 +284,14 @@
   </url>
   
   <url>
-    <loc>https://4chan123.github.io/tags/python/</loc>
-    <lastmod>2021-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://4chan123.github.io/tags/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E6%88%96pthon%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2021-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://4chan123.github.io/tags/python%E6%9E%84%E9%80%A0%E8%84%9A%E6%9C%AC%E7%88%86%E7%A0%B4/</loc>
+    <lastmod>2021-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://4chan123.github.io/tags/python/</loc>
     <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
