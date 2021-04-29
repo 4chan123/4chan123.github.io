@@ -509,9 +509,9 @@
     <category term="WEB" scheme="https://4chan123.github.io/categories/WEB/"/>
     
     
-    <category term="WEB" scheme="https://4chan123.github.io/tags/WEB/"/>
-    
     <category term="CTF" scheme="https://4chan123.github.io/tags/CTF/"/>
+    
+    <category term="WEB" scheme="https://4chan123.github.io/tags/WEB/"/>
     
     <category term="SSTI注入" scheme="https://4chan123.github.io/tags/SSTI%E6%B3%A8%E5%85%A5/"/>
     
