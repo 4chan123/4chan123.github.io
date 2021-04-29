@@ -235,6 +235,13 @@
   </url>
   
   <url>
+    <loc>https://4chan123.github.io/tags/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E6%88%96pthon%E8%84%9A%E6%9C%AC/</loc>
+    <lastmod>2021-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://4chan123.github.io/tags/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5/</loc>
     <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
@@ -278,13 +285,6 @@
   
   <url>
     <loc>https://4chan123.github.io/tags/python%E6%9E%84%E9%80%A0%E8%84%9A%E6%9C%AC%E7%88%86%E7%A0%B4/</loc>
-    <lastmod>2021-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://4chan123.github.io/tags/%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E6%88%96pthon%E8%84%9A%E6%9C%AC/</loc>
     <lastmod>2021-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

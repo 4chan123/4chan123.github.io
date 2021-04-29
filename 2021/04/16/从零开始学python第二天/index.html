@@ -29,15 +29,15 @@
 <meta property="og:site_name" content="4chan">
 <meta property="og:description" content="从零考试学习python内容 99%来自于python大神 python-jack的知乎文章   再结合本人的实际情况进行学习，严格来说这是JACK老师的内容，只不过再此基础上，我增添了一些我在CTF解题过程中遇到的python脚本实际情况，再次感谢JACK老师 学习的内容来自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;121188620   for-in循环 如果明确的知道循环">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://4chan123.github.io/.io//0.png">
-<meta property="og:image" content="https://4chan123.github.io/.io//1.png">
-<meta property="og:image" content="https://4chan123.github.io/.io//3.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/0.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/1.png">
+<meta property="og:image" content="https://4chan123.github.io/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/3.png">
 <meta property="article:published_time" content="2021-04-15T17:54:43.000Z">
 <meta property="article:modified_time" content="2021-04-16T12:26:17.973Z">
 <meta property="article:author" content="4Chan">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://4chan123.github.io/.io//0.png">
+<meta name="twitter:image" content="https://4chan123.github.io/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/0.png">
 
 <link rel="canonical" href="https://4chan123.github.io/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/">
 
@@ -288,7 +288,7 @@
 <h2 id="for-in循环">for-in循环</h2>
 <p>如果明确的知道循环执行的次数，我们推荐使用<code>for-in</code>循环，例如计算1到100的和。 被<code>for-in</code>循环控制的语句块也是通过缩进的方式来确定的，这一点跟分支结构完全相同，大家看看下面的代码就明白了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">用for循环实现1~100求和</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">total = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">101</span>):</span><br><span class="line">    total += x</span><br><span class="line"><span class="built_in">print</span>(total)</span><br></pre></td></tr></table></figure>
-<p><img src="/.io//0.png" alt="0"></p>
+<p><img src="/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/0.png" alt="0"></p>
 <p>需要说明的是上面代码中的<code>range(1, 101)</code>可以用来构造一个从1到100的范围，当我们把这样一个范围放到<code>for-in</code>循环中，就可以通过前面的循环变量<code>x</code>依次取出从1到100的整数。当然，<code>range</code>的用法非常灵活，下面给出了一个例子：</p>
 <ul>
 <li><code>range(101)</code>：可以用来产生0到100范围的整数，需要注意的是取不到101。</li>
@@ -297,13 +297,13 @@
 <li><code>range(100, 0, -2)</code>：可以用来产生100到1的偶数，其中-2是步长，即每次数字递减的值。</li>
 </ul>
 <p>知道了这一点，我们可以用下面的代码来实现1~100之间的偶数求和。</p>
-<p><img src="/.io//1.png" alt="1"></p>
+<p><img src="/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/1.png" alt="1"></p>
 <hr>
 <h2 id="while循环">while循环</h2>
 <p>如果要构造不知道具体循环次数的循环结构，我们推荐使用<code>while</code>循环。<code>while</code>循环通过一个能够产生或转换出<code>bool</code>值的表达式来控制循环，表达式的值为<code>True</code>则继续循环；表达式的值为<code>False</code>则结束循环。</p>
 <p>下面我们通过一个“猜数字”的小游戏来看看如何使用<code>while</code>循环。猜数字游戏的规则是：计算机出一个1到100之间的随机数，玩家输入自己猜的数字，计算机给出对应的提示信息（大一点、小一点或猜对了），如果玩家猜中了数字，计算机提示用户一共猜了多少次，游戏结束，否则游戏继续。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">猜数字游戏</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="comment"># 产生一个1-100范围的随机数</span></span><br><span class="line">answer = random.randint(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line">counter = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    counter += <span class="number">1</span></span><br><span class="line">    number = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入: &#x27;</span>))</span><br><span class="line">    <span class="keyword">if</span> number &lt; answer:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;大一点&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> number &gt; answer:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;小一点&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;恭喜你猜对了!&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment"># 当退出while循环的时候显示用户一共猜了多少次</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;你总共猜了<span class="subst">&#123;counter&#125;</span>次&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="/.io//3.png" alt="3"></p>
+<p><img src="/2021/04/16/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6python%E7%AC%AC%E4%BA%8C%E5%A4%A9/3.png" alt="3"></p>
 <hr>
 <h2 id="break和continue">break和continue</h2>
 <p>上面的代码中使用<code>while True</code>构造了一个条件恒成立的循环，也就意味着如果不做特殊处理，循环是不会结束的，这也就是常说的“死循环”。为了在用户猜中数字时能够退出循环结构，我们使用了<code>break</code>关键字，它的作用是提前结束循环。需要注意的是，<code>break</code>只能终止它所在的那个循环，这一点在使用嵌套循环结构时需要引起注意，下面的例子我们会讲到什么是嵌套的循环结构。除了<code>break</code>之外，还有另一个关键字是<code>continue</code>，它可以用来放弃本次循环后续的代码直接让循环进入下一轮。</p>
